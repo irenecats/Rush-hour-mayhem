@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <Clock.h>
+#include <Sprite.h>
 #include <iostream>
 int main()
 {
@@ -7,6 +8,9 @@ int main()
     sf::RenderWindow app(sf::VideoMode(800, 600), "SFML window");
 
     Clock reloj;
+    Sprite sprite;
+    sprite.escalar(0.5, 1);
+    sprite.setPosition(3, 4);
 
 
 	// Start the game loop
@@ -21,7 +25,7 @@ int main()
                 app.close();
         }
 
-        std::cout << reloj.getElapsedTime() << std::endl;
+        std::cout << sprite.getGlobalBounds()[0] << std::endl;
         // Clear screen
         app.clear();
 
