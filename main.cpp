@@ -1,10 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include <Clock.h>
+#include <Window.h>
 #include <iostream>
 int main()
 {
     // Create the main window
-    sf::RenderWindow app(sf::VideoMode(800, 600), "SFML window");
+    Window app(800, 600, "SFML window");
 
     Clock reloj;
 
