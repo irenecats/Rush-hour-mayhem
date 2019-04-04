@@ -5,7 +5,7 @@ Clock::Clock() {
 }
 
 int Clock::getElapsedTime() {
-    reloj.getElapsedTime().asMilliseconds();
+    return reloj.getElapsedTime().asMilliseconds();
 }
 
 int Clock::restart() {
