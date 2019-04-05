@@ -7,6 +7,7 @@
 class Window
 {
     public:
+        Window();
         Window(unsigned int ancho, unsigned int alto, const std::string titulo);
         virtual ~Window();
 
