@@ -1,36 +1,36 @@
 #include "Juego.h"
-#include "Clock.h"
-#include <iostream>
 
-Juego* Juego::instancia = 0;
+Juego* Juego::instancia = nullptr;
 
 Juego::Juego()
 {
-
+    stateManager.iniciar();
 }
 
 Juego::~Juego()
 {
-    //dtor
+
 }
 
 Juego* Juego::Instance() {
-    if (instancia == 0) {
+    if (!instancia) {
         instancia = new Juego;
     }
     return instancia;
 }
 
 void Juego::buclePrincipal() {
-    while (this->window.isOpen()) {
+    while (this->window.isOpen())
+    {
         checkInput();
-        if (clock.getElapsedTime() > updateTickTime) {
+
+        if(clock.getElapsedTime() > updateTickTime)
+        {
+            stateManager.update();
             clock.restart();
-            //estado.Update();
         }
-        //estado.Render(updateTickTime);
-        window.clear();
-        window.display(); // Quitar estas dos líneas cuando tengamos el render
+
+        stateManager.render(window, updateTickTime);
     }
 }
 
@@ -44,14 +44,21 @@ void Juego::checkInput() {
                 break;
             case sf::Event::KeyPressed:
                 if (event.key.code == sf::Keyboard::Escape)
-                    std::cout << "Escape (habrá que cambiar el estado a pausa)" << std::endl;
+                    stateManager.pausar();
+
                 else if (event.key.code == sf::Keyboard::P)
                     std::cout << "Power-up" << std::endl;
+
+                else if (event.key.code == sf::Keyboard::Return) // esto es temporal, es solo para pasar al estado "enJuego"
+                    stateManager.jugar();
+
                 break;
             default:
                 break;
         }
     }
+
+    stateManager.input();
 }
 
 void Juego::iniciarJuego() {

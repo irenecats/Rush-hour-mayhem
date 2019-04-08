@@ -11,7 +11,11 @@ int main()
     sprite.escalar(0.5, 1);
     sprite.setPosition(3, 4);
 
-    Juego::Instance()->iniciarJuego();
+    Juego* juego = Juego::Instance();
+
+    juego->iniciarJuego();
+
+    delete juego;
     //std::cout << sprite.getGlobalBounds()[0] << std::endl;
 
     return EXIT_SUCCESS;

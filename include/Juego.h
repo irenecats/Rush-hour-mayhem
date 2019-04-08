@@ -1,9 +1,12 @@
 #ifndef JUEGO_H
 #define JUEGO_H
+
 #include "Clock.h"
 #include "Window.h"
-//#include "State.h"
 
+#include "StateManager.h"
+
+#include <iostream>
 
 class Juego
 {
@@ -25,7 +28,8 @@ class Juego
 
         void buclePrincipal();
         void checkInput();
-        //State estado;
+
+        StateManager stateManager;
 };
 
 #endif // JUEGO_H
