@@ -16,7 +16,7 @@ void StateManager::input(int teclaPulsada)
 {
     if(!estadoActual)
     {
-        std::cout << "Error en StateManager. El estado actual es nulo al intentar acceder a input()" << std::endl;
+        std::cout << "StateManager::input(): Error en StateManager. El estado actual es nulo al intentar acceder a input()" << std::endl;
         exit(EXIT_FAILURE);
     }
     else
@@ -43,7 +43,7 @@ void StateManager::iniciar()
     if(!estadoActual)
     {
         estadoActual = StateInicio::instance();
-        std::cout << "Estado actual es ahora: inicio" << std::endl;
+        std::cout << "StateManager::iniciar(): Estado actual es ahora: inicio" << std::endl;
     }
     else
     {
@@ -54,12 +54,12 @@ void StateManager::iniciar()
                 break;
 
             case ID_State::enJuego :
-                std::cout << "Error en StateManager. El estado actual es enJuego al intentar acceder a iniciar()" << std::endl;
+                std::cout << "StateManager::iniciar(): Error en StateManager. El estado actual es enJuego al intentar acceder a iniciar()" << std::endl;
                 exit(EXIT_FAILURE);
                 break;
 
             case ID_State::enPausa :
-                std::cout << "Error en StateManager. El estado actual es enPausa al intentar acceder a iniciar()" << std::endl;
+                std::cout << "StateManager::iniciar(): Error en StateManager. El estado actual es enPausa al intentar acceder a iniciar()" << std::endl;
                 exit(EXIT_FAILURE);
                 break;
         }
@@ -70,7 +70,7 @@ void StateManager::jugar()
 {
     if(!estadoActual)
     {
-        std::cout << "Error en StateManager. El estado actual es nulo al intentar acceder a jugar()" << std::endl;
+        std::cout << "StateManager::jugar(): Error en StateManager. El estado actual es nulo al intentar acceder a jugar()" << std::endl;
         exit(EXIT_FAILURE);
     }
     else
@@ -78,17 +78,17 @@ void StateManager::jugar()
         switch(estadoActual->getID())
         {
             case ID_State::inicio :
-                //estadoActual = StateEnJuego::instance();
-                //std::cout << "Estado actual es ahora: enJuego" << std::endl;
+                estadoActual = StateEnJuego::instance(); // cambiamos el estado de inicio a enJuego
+                std::cout << "StateManager::jugar(): Estado actual es ahora: enJuego" << std::endl;
                 break;
 
             case ID_State::enJuego :
-                //no debe pasar nada
+                // no debe pasar nada
                 break;
 
             case ID_State::enPausa :
-                //estadoActual = StateEnJuego::instance();
-                //std::cout << "Estado actual es ahora: enJuego" << std::endl;
+                estadoActual = StateEnJuego::instance(); // si ya estoy en pausa, entiendo que quiero reanudar el juego
+                std::cout << "StateManager::jugar(): Estado actual es ahora: enJuego" << std::endl;
                 break;
         }
     }
@@ -98,7 +98,7 @@ void StateManager::pausar()
 {
     if(!estadoActual)
     {
-        std::cout << "Error en StateManager. El estado actual es nulo al intentar acceder a pausar()" << std::endl;
+        std::cout << "StateManager::pausar(): Error en StateManager. El estado actual es nulo al intentar acceder a pausar()" << std::endl;
         exit(EXIT_FAILURE);
     }
     else
@@ -106,18 +106,17 @@ void StateManager::pausar()
         switch(estadoActual->getID())
         {
             case ID_State::inicio :
-                std::cout << "Error en StateManager. El estado actual es inicio al intentar acceder a pausar()" << std::endl;
+                std::cout << "StateManager::pausar(): Error en StateManager. El estado actual es inicio al intentar acceder a pausar()" << std::endl;
                 exit(EXIT_FAILURE);
                 break;
 
             case ID_State::enJuego :
-                //estadoActual = StateEnPausa::instance(); // si estoy en juego, pongo el juego en pausa
-                //std::cout << "Estado actual es ahora: enPausa" << std::endl;
+                estadoActual = StateEnPausa::instance(); // si estoy en juego, pongo el juego en pausa
+                std::cout << "StateManager::pausar(): Estado actual es ahora: enPausa" << std::endl;
                 break;
 
             case ID_State::enPausa :
-                //estadoActual = StateEnJuego::instance(); // si ya estoy en pausa, entiendo que quiero reanudar el juego
-                //std::cout << "Estado actual es ahora: enJuego" << std::endl;
+                //no debe pasar nada
                 break;
         }
     }
@@ -127,7 +126,7 @@ void StateManager::update()
 {
     if(!estadoActual)
     {
-        std::cout << "Error en StateManager. El estado actual es nulo al intentar acceder a update()" << std::endl;
+        std::cout << "StateManager::update(): Error en StateManager. El estado actual es nulo al intentar acceder a update()" << std::endl;
         exit(EXIT_FAILURE);
     }
     else
@@ -140,7 +139,7 @@ void StateManager::render(Window& window, const float updateTickTime)
 {
     if(!estadoActual)
     {
-        std::cout << "Error en StateManager. El estado actual es nulo al intentar acceder a render()" << std::endl;
+        std::cout << "StateManager::render(): Error en StateManager. El estado actual es nulo al intentar acceder a render()" << std::endl;
         exit(EXIT_FAILURE);
     }
     else

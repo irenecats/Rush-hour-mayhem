@@ -4,6 +4,8 @@
 #include "State.h"
 
 #include "StateInicio.h"
+#include "StateEnJuego.h"
+#include "StateEnPausa.h"
 
 #include <iostream>
 

@@ -46,6 +46,8 @@
 		<Unit filename="include/Juego.h" />
 		<Unit filename="include/Sprite.h" />
 		<Unit filename="include/State.h" />
+		<Unit filename="include/StateEnJuego.h" />
+		<Unit filename="include/StateEnPausa.h" />
 		<Unit filename="include/StateInicio.h" />
 		<Unit filename="include/StateManager.h" />
 		<Unit filename="include/Window.h" />
@@ -54,6 +56,8 @@
 		<Unit filename="src/Juego.cpp" />
 		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/State.cpp" />
+		<Unit filename="src/StateEnJuego.cpp" />
+		<Unit filename="src/StateEnPausa.cpp" />
 		<Unit filename="src/StateInicio.cpp" />
 		<Unit filename="src/StateManager.cpp" />
 		<Unit filename="src/Window.cpp" />
