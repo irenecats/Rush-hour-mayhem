@@ -9,7 +9,7 @@ class StateInicio : public State
 
         static StateInicio* instance();
 
-        void input();
+        ID_State input(int);
         void update();
         void render(Window&, const float);
 

@@ -29,7 +29,7 @@ class StateManager
         void jugar();
         void pausar();
 
-        void input();
+        void input(int);
         void update();
         void render(Window&, const float);
 

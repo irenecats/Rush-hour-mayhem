@@ -1,7 +1,4 @@
 #include "Window.h"
-#define WINDOW_H
-#include <string>
-#include <SFML/Graphics.hpp>
 
 Window::Window() : window(sf::VideoMode(800, 600), "SFML window"){
 }
@@ -20,6 +17,45 @@ bool Window::isOpen() {
 bool Window::pollEvent(sf::Event &event) {
     return window.pollEvent(event);
 }
+
+/* Hecho por Mateo */
+/* Si se quiere usar la entrada de texto de otra forma, comenta esta funcion */
+
+int Window::event()
+{
+    int tecla = sf::Keyboard::Unknown;
+
+    sf::Event event;
+
+    while(window.pollEvent(event))
+    {
+        switch(event.type)
+        {
+            case sf::Event::Closed :
+                window.close();
+                break;
+
+            case sf::Event::KeyPressed :
+                tecla = event.key.code; // esto NO es ASCII, sino que es un valor que SFML le da a las teclas que considera utiles
+                break;
+
+            default :
+                // manejar otros eventos
+                break;
+        }
+    }
+
+    return tecla; // si no se presiona ninguna tecla, devuelve sf::Keyboard::Unknown, que es igual a -1
+}
+
+/*
+    (Mateo)
+    Se podria implementar el raton, devolviendo
+    una struct que habria que definir, y pasarla
+    desde Juego->StateManager->State->StateX, con
+    lo necesario para controlar el funcionamiento
+    del raton (posicion del cursor, click, etc).
+*/
 
 void Window::close() { window.close(); }
 

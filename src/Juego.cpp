@@ -35,34 +35,62 @@ void Juego::buclePrincipal() {
 }
 
 void Juego::checkInput() {
-    sf::Event event;
 
-    while (window.pollEvent(event)) {
-        switch (event.type) {
-            case sf::Event::Closed:
-                window.close();
-                break;
-            case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape)
-                    stateManager.pausar();
+    /*
+        (Comentado por Mateo)
 
-                else if (event.key.code == sf::Keyboard::P)
-                    std::cout << "Power-up" << std::endl;
+        ///////////////////////////////////////////////////////////////////////
 
-                else if (event.key.code == sf::Keyboard::Return) // esto es temporal, es solo para pasar al estado "enJuego"
-                    stateManager.jugar();
+        sf::Event event;
 
-                break;
-            default:
-                break;
+        while (window.pollEvent(event)) {
+            switch (event.type) {
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    if (event.key.code == sf::Keyboard::Escape)
+                        stateManager.pausar();
+
+                    else if (event.key.code == sf::Keyboard::P)
+                        std::cout << "Power-up" << std::endl;
+
+                    else if (event.key.code == sf::Keyboard::Return) // esto es temporal, es solo para pasar al estado "enJuego"
+                        stateManager.jugar();
+
+                    break;
+                default:
+                    break;
+            }
         }
-    }
 
-    stateManager.input();
+        /////////////////////////////////////////////////////////////////////////
+
+        Mi  propuesta es que los eventos se detecten en window.event(),
+        y que si se pulsa una tecla, devuelva un entero. Este entero es la tecla
+        pulsada, que se maneja en stateManager.input()
+    */
+
+    stateManager.input(window.event());
 }
 
 void Juego::iniciarJuego() {
     buclePrincipal();
+}
+
+void Juego::state_iniciar()
+{
+    stateManager.iniciar();
+}
+
+void Juego::state_jugar()
+{
+    stateManager.jugar();
+}
+
+void Juego::state_pausar()
+{
+    stateManager.pausar();
 }
 
 /*

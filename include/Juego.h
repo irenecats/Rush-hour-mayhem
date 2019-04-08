@@ -14,6 +14,28 @@ class Juego
         static Juego* Instance();
         void iniciarJuego();
         virtual ~Juego();
+
+        /*
+            (Mateo)
+            StateManager contiene los estados
+            asi que para que los estados se comuniquen
+            con StateManager, es necesario que las
+            ordenes pasen por la clase Juego.
+
+            Si del estado inicio quiero pasar a jugar,
+            como Juego es Singleton, le puedo decir desde
+            un estado especifico al propio Juego, que le diga
+            a StateManager que cambie de estado.
+        */
+
+        void state_iniciar();
+        void state_jugar();
+        void state_pausar();
+
+        /*
+            Fin Mateo
+        */
+
     protected:
         Juego();
         Juego(const Juego&);

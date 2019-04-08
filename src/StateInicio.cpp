@@ -10,9 +10,27 @@ StateInicio* StateInicio::instance()
     return instancia;
 }
 
-void StateInicio::input()
+ID_State StateInicio::input(int teclaPulsada)
 {
-    // input de la ventana
+    /*
+        teclaPulsada es el input de la ventana
+        en principio, en el estado de inicio,
+        este sera el unico tipo de input.
+
+        Se podria implementar el raton, pasando
+        por parametro una struct que habria que
+        definir, desde Juego->StateManager->
+        ->State->StateInicio, lo necesario para
+        controlar el funcionamiento del raton
+        (posicion del cursor, click, etc).
+    */
+
+    ID_State next_state = id;
+
+    if(teclaPulsada == sf::Keyboard::Return)
+        next_state = ID_State::enJuego;
+
+    return next_state;
 }
 
 void StateInicio::update()
@@ -22,8 +40,8 @@ void StateInicio::update()
 
 void StateInicio::render(Window &window, const float updateTickTime)
 {
-    // render del estado inicio
     window.clear();
+    // render del menu de inicio
     window.display();
 }
 

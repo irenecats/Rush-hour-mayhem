@@ -3,7 +3,7 @@
 
 #include "Window.h"
 
-typedef enum ID_State { inicio, enJuego, enPausa };
+enum ID_State { inicio, enJuego, enPausa };
 
 class State
 {
@@ -14,7 +14,7 @@ class State
 
         ID_State getID();
 
-        virtual void input()   = 0;
+        virtual ID_State input(int)   = 0;
         virtual void update()  = 0;
         virtual void render(Window&, const float)  = 0;
 
