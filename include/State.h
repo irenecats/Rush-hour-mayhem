@@ -3,7 +3,7 @@
 
 #include "Window.h"
 
-enum ID_State { inicio, enJuego, enPausa };
+enum ID_State { inicio, enJuego, enPausa, enPuntuacion, enTienda };
 
 class State
 {
