@@ -9,9 +9,9 @@
 #define kVel 2
 #define PI 3.141592
 #define rad PI/180
-#define kMaxSpeed 4
+#define kMaxSpeed 6
 #define kRot 0.5
-#define kFr 0.01
+#define kFr 0.1
 
 class Jugador
 {
@@ -19,15 +19,26 @@ class Jugador
         Jugador();
         virtual ~Jugador();
         Jugador(const Jugador& other);
+
         static Jugador* instancia();
+
         void update(int time);
         void render(float ptick);
-        Sprite jugador;
-    protected:
+
+        Sprite getJugador();
+
+        void setPowerUp(int pw);
+        void activarPowerUp();
+
     private:
         static Jugador* claseJugador;
+
         float vel=0;
+
         int powerUp;
+        bool powerUpActivado = false;
+
+        Sprite jugador;
         Interpolacion lastState;
         Interpolacion newState;
 
