@@ -36,11 +36,15 @@ ID_State StateInicio::input(int teclaPulsada)
 void StateInicio::update()
 {
     // update del estado inicio
+    Jugador::instancia()->update(1);
 }
 
 void StateInicio::render(Window &window, const float updateTickTime)
 {
+
+Jugador::instancia();
     window.clear();
+    window.draw(Jugador::instancia()->jugador.getSprite());
     // render del menu de inicio
     window.display();
 }

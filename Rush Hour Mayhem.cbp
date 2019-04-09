@@ -43,7 +43,9 @@
 		</Compiler>
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Clock.h" />
+		<Unit filename="include/Interpolacion.h" />
 		<Unit filename="include/Juego.h" />
+		<Unit filename="include/Jugador.h" />
 		<Unit filename="include/Sprite.h" />
 		<Unit filename="include/State.h" />
 		<Unit filename="include/StateEnJuego.h" />
@@ -52,10 +54,13 @@
 		<Unit filename="include/StateEnTienda.h" />
 		<Unit filename="include/StateInicio.h" />
 		<Unit filename="include/StateManager.h" />
+		<Unit filename="include/TexturaContainer.h" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Clock.cpp" />
+		<Unit filename="src/Interpolacion.cpp" />
 		<Unit filename="src/Juego.cpp" />
+		<Unit filename="src/Jugador.cpp" />
 		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/State.cpp" />
 		<Unit filename="src/StateEnJuego.cpp" />
@@ -64,6 +69,7 @@
 		<Unit filename="src/StateEnTienda.cpp" />
 		<Unit filename="src/StateInicio.cpp" />
 		<Unit filename="src/StateManager.cpp" />
+		<Unit filename="src/TexturaContainer.cpp" />
 		<Unit filename="src/Window.cpp" />
 		<Extensions>
 			<code_completion />
