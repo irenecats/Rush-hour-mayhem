@@ -43,6 +43,7 @@
 		</Compiler>
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Clock.h" />
+		<Unit filename="include/Interpolacion.h" />
 		<Unit filename="include/Juego.h" />
 		<Unit filename="include/Jugador.h" />
 		<Unit filename="include/Sprite.h" />
@@ -57,6 +58,7 @@
 		<Unit filename="include/Window.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Clock.cpp" />
+		<Unit filename="src/Interpolacion.cpp" />
 		<Unit filename="src/Juego.cpp" />
 		<Unit filename="src/Jugador.cpp" />
 		<Unit filename="src/Sprite.cpp" />

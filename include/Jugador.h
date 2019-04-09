@@ -4,6 +4,7 @@
 #include <iostream>
 #include "Sprite.h"
 #include "TexturaContainer.h"
+#include "Interpolacion.h"
 
 #define kVel 2
 #define PI 3.141592
@@ -27,6 +28,8 @@ class Jugador
         static Jugador* claseJugador;
         float vel=0;
         int powerUp;
+        Interpolacion lastState;
+        Interpolacion newState;
 
 };
 

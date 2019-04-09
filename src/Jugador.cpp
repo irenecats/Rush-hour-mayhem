@@ -22,11 +22,11 @@ Jugador::Jugador(){
     jugador.setScale(0.25f, 0.25f);
     jugador.setOrigin(35, 35);
 
-    //lastState.setX(jugador.getPosition()[0]);
-    //lastState.setY(jugador.getPosition()[1]);
+    lastState.Setx(jugador.getPosition()[0]);
+    lastState.Sety(jugador.getPosition()[1]);
 
-    //newState.setX(jugador.getPosition()[0]);
-    //newState.setY(jugador.getPosition()[1]);
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
 
     powerUp = 0;
 }
@@ -45,6 +45,9 @@ void Jugador::update(int time){
 
 bool left=false, right=false, delante = false, atras = false, space = false, clocktwo=false, tope=false;
 float dirx, diry, mv, kr;
+
+    lastState.Setx(newState.Getx());
+    lastState.Sety(newState.Gety());
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) delante = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
@@ -122,6 +125,9 @@ float dirx, diry, mv, kr;
 
         std::cout << "A mover " << dirx*mv << " " << diry*mv << " " << mv << std::endl;
         jugador.mover(dirx*mv, diry*mv);
+
+        newState.Setx(jugador.getPosition()[0]);
+        newState.Sety(jugador.getPosition()[1]);
 
 }
 

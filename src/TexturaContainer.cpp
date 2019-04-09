@@ -16,7 +16,14 @@ TexturaContainer::TexturaContainer()
 
 TexturaContainer::~TexturaContainer()
 {
-    //dtor
+    if(!vectorTexturas.empty()){
+        for (sf::Texture* text:vectorTexturas){
+            if(text) delete text;
+            text = nullptr;
+        }
+
+        vectorTexturas.clear();
+    }
 }
 
 void TexturaContainer::crearTextura(std::string &url){
