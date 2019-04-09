@@ -6,8 +6,6 @@
 #include "StateInicio.h"
 #include "StateEnJuego.h"
 #include "StateEnPausa.h"
-#include "StateEnPuntuacion.h"
-#include "StateEnTienda.h"
 
 #include <iostream>
 
@@ -32,8 +30,6 @@ class StateManager
         void iniciar();
         void jugar();
         void pausar();
-        void puntuar();
-        void comprar();
 
         void input(int);
         void update();

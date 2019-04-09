@@ -2,6 +2,7 @@
 #define STATEINICIO_H
 
 #include "State.h"
+#include "Jugador.h"
 
 class StateInicio : public State
 {

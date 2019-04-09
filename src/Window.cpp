@@ -64,6 +64,11 @@ void Window::clear(const sf::Color &color) {
 }
 
 void Window::display() { window.display(); }
+
+void Window::draw(sf::Sprite sprite) {
+    window.draw(sprite);
+}
+
 /*
 app.pollEvent(event)
 app.close()

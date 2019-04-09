@@ -16,8 +16,6 @@ ID_State StateEnJuego::input(int teclaPulsada)
 
     if(teclaPulsada == sf::Keyboard::Escape)
         next_state = ID_State::enPausa;
-    else if(teclaPulsada == sf::Keyboard::G)
-        next_state = ID_State::enPuntuacion;
 
     return next_state;
 }

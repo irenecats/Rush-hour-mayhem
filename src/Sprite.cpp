@@ -1,10 +1,15 @@
 #include "Sprite.h"
 
-Sprite::Sprite()
+Sprite::Sprite(){}
+
+Sprite::Sprite(sf::Texture* textura)
 {
-    sf::Texture text;
-    text.loadFromFile("cb.bmp");
-    s.setTexture(text);
+    s.setTexture(*textura);
+}
+
+Sprite::Sprite(sf::Texture* textura, sf::IntRect ir){
+    s.setTexture(*textura);
+    setRectTextura(ir);
 }
 
 Sprite::~Sprite()
@@ -72,7 +77,17 @@ void Sprite::rotar(float angulo) {
     s.rotate(angulo);
 }
 
+sf::Sprite Sprite::getSprite() {
+    return s;
+}
 
+void Sprite::setRectTextura(sf::IntRect rect) {
+    s.setTextureRect(rect);
+}
+
+void Sprite::setTextura(sf::Texture* textura) {
+    s.setTexture(*textura);
+}
 /*
 void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform();
