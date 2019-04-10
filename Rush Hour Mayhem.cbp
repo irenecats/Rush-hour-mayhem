@@ -46,6 +46,7 @@
 		<Unit filename="include/Interpolacion.h" />
 		<Unit filename="include/Juego.h" />
 		<Unit filename="include/Jugador.h" />
+		<Unit filename="include/Node.h" />
 		<Unit filename="include/Sprite.h" />
 		<Unit filename="include/State.h" />
 		<Unit filename="include/StateEnJuego.h" />
@@ -61,6 +62,7 @@
 		<Unit filename="src/Interpolacion.cpp" />
 		<Unit filename="src/Juego.cpp" />
 		<Unit filename="src/Jugador.cpp" />
+		<Unit filename="src/Node.cpp" />
 		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/State.cpp" />
 		<Unit filename="src/StateEnJuego.cpp" />
