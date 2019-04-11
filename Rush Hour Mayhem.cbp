@@ -41,6 +41,21 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="FV City Map/65Qs1x2.png" />
+		<Unit filename="FV City Map/Cortados/Blanco-Negro.png" />
+		<Unit filename="FV City Map/Cortados/DS-Johto.png" />
+		<Unit filename="FV City Map/Cortados/Johto.png" />
+		<Unit filename="FV City Map/RY87rhA.png" />
+		<Unit filename="FV City Map/UlQ0kh8.png" />
+		<Unit filename="FV City Map/asiaq.png" />
+		<Unit filename="FV City Map/build_atlas.png" />
+		<Unit filename="FV City Map/dawgru8-0743330e-2988-4c4d-b56e-1859106fc63d.png" />
+		<Unit filename="FV City Map/gta1.png" />
+		<Unit filename="FV City Map/lol.png" />
+		<Unit filename="FV City Map/newchinatown.tmx" />
+		<Unit filename="FV City Map/obj_misk_atlas.png" />
+		<Unit filename="FV City Map/wNJdXYq.png" />
+		<Unit filename="FV City Map/xcolision.png" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Clock.h" />
 		<Unit filename="include/Interpolacion.h" />
@@ -58,6 +73,7 @@
 		<Unit filename="include/StateManager.h" />
 		<Unit filename="include/TexturaContainer.h" />
 		<Unit filename="include/Window.h" />
+		<Unit filename="include/tinyxml2.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Clock.cpp" />
 		<Unit filename="src/Interpolacion.cpp" />
@@ -75,6 +91,7 @@
 		<Unit filename="src/StateManager.cpp" />
 		<Unit filename="src/TexturaContainer.cpp" />
 		<Unit filename="src/Window.cpp" />
+		<Unit filename="src/tinyxml2.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
