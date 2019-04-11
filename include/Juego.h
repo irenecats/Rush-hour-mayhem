@@ -3,7 +3,6 @@
 
 #include "Clock.h"
 #include "Window.h"
-
 #include "StateManager.h"
 
 #include <iostream>
@@ -31,7 +30,7 @@ class Juego
         void state_iniciar();
         void state_jugar();
         void state_pausar();
-
+        sf::Vector2u getSizeWindow();
         /*
             Fin Mateo
         */
@@ -40,6 +39,7 @@ class Juego
         Juego();
         Juego(const Juego&);
         Juego &operator= (const Juego &);
+
     private:
         static Juego* instancia;
         const float updateTickTime = 1000/15;

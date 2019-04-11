@@ -14,7 +14,7 @@ Juego::~Juego()
 
 Juego* Juego::Instance() {
     if (!instancia) {
-        instancia = new Juego;
+        instancia = new Juego();
     }
     return instancia;
 }
@@ -91,6 +91,11 @@ void Juego::state_jugar()
 void Juego::state_pausar()
 {
     stateManager.pausar();
+}
+
+sf::Vector2u Juego::getSizeWindow()
+{
+    return window.getSize();
 }
 
 /*

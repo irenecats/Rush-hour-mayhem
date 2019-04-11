@@ -2,6 +2,7 @@
 
 Window::Window() : window(sf::VideoMode(800, 600), "SFML window"){
 }
+
 Window::Window(unsigned int ancho, unsigned int alto, const std::string titulo) : window(sf::VideoMode(ancho, alto), titulo) {
 
 }
@@ -67,6 +68,18 @@ void Window::display() { window.display(); }
 
 void Window::draw(sf::Sprite sprite) {
     window.draw(sprite);
+}
+
+sf::Vector2u Window::getSize() {
+    return window.getSize();
+}
+
+void Window::draw(sf::RectangleShape shape){
+    window.draw(shape);
+}
+
+void Window::draw(sf::Text text){
+    window.draw(text);
 }
 
 /*

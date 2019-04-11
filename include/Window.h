@@ -24,6 +24,9 @@ class Window
         void clear(const sf::Color &color = sf::Color(0, 0, 0, 255));
         void display();
         void draw(sf::Sprite sprite);
+        void draw(sf::RectangleShape shape);
+        void draw(sf::Text text);
+        sf::Vector2u getSize();
 
     protected:
 
