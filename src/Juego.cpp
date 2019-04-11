@@ -26,7 +26,7 @@ void Juego::buclePrincipal() {
 
         if(clock.getElapsedTime() > updateTickTime)
         {
-            stateManager.update();
+            stateManager.update(); //Pasar el tiempo por aqui?
             clock.restart();
         }
 
@@ -61,7 +61,7 @@ void Juego::checkInput() {
                     break;
                 default:
                     break;
-            }
+            }///////////////////////////////////////////////////////////////////////
         }
 
         /////////////////////////////////////////////////////////////////////////
@@ -97,11 +97,3 @@ sf::Vector2u Juego::getSizeWindow()
 {
     return window.getSize();
 }
-
-/*
-    public:
-        void iniciarJuego();
-    private:
-        Clock clock;
-        void buclePrincipal();
-        void checkInput();*/
