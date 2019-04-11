@@ -82,6 +82,10 @@ void Window::draw(sf::Text text){
     window.draw(text);
 }
 
+void Window::setView(sf::View view){
+    window.setView(view);
+}
+
 /*
 app.pollEvent(event)
 app.close()

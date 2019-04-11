@@ -27,7 +27,7 @@ class Window
         void draw(sf::RectangleShape shape);
         void draw(sf::Text text);
         sf::Vector2u getSize();
-
+        void setView(sf::View view);
     protected:
 
     private:

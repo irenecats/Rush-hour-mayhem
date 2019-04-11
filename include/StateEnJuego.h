@@ -2,7 +2,10 @@
 #define STATEENJUEGO_H
 
 #include "State.h"
-
+#include <iostream>
+#include <FactoryRuta.h>
+#include <Ruta.h>
+#include <Clock.h>
 class StateEnJuego : public State
 {
     public:
@@ -18,7 +21,9 @@ class StateEnJuego : public State
     private:
 
         static StateEnJuego* instancia;
-
+        FactoryRuta          factoriaRuta;
+        Ruta*                ruta;
+        Clock                reloj;
         StateEnJuego();
 };
 
