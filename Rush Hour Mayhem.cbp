@@ -58,7 +58,10 @@
 		<Unit filename="FV City Map/wNJdXYq.png" />
 		<Unit filename="FV City Map/xcolision.png" />
 		<Unit filename="cb.bmp" />
+		<Unit filename="include/Bala.h" />
 		<Unit filename="include/Clock.h" />
+		<Unit filename="include/Collision.h" />
+		<Unit filename="include/FactoryPowerUp.h" />
 		<Unit filename="include/FactoryRuta.h" />
 		<Unit filename="include/IA.h" />
 		<Unit filename="include/IACircular.h" />
@@ -68,6 +71,7 @@
 		<Unit filename="include/Mapa.h" />
 		<Unit filename="include/NPC.h" />
 		<Unit filename="include/Node.h" />
+		<Unit filename="include/PowerUp.h" />
 		<Unit filename="include/Ruta.h" />
 		<Unit filename="include/Sprite.h" />
 		<Unit filename="include/State.h" />
@@ -77,12 +81,16 @@
 		<Unit filename="include/StateEnTienda.h" />
 		<Unit filename="include/StateInicio.h" />
 		<Unit filename="include/StateManager.h" />
+		<Unit filename="include/Textura.h" />
 		<Unit filename="include/TexturaContainer.h" />
 		<Unit filename="include/Window.h" />
 		<Unit filename="include/tinyxml2.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="resources/audi.png" />
+		<Unit filename="src/Bala.cpp" />
 		<Unit filename="src/Clock.cpp" />
+		<Unit filename="src/Collision.cpp" />
+		<Unit filename="src/FactoryPowerUp.cpp" />
 		<Unit filename="src/FactoryRuta.cpp" />
 		<Unit filename="src/IA.cpp" />
 		<Unit filename="src/IACircular.cpp" />
@@ -92,6 +100,7 @@
 		<Unit filename="src/Mapa.cpp" />
 		<Unit filename="src/NPC.cpp" />
 		<Unit filename="src/Node.cpp" />
+		<Unit filename="src/PowerUp.cpp" />
 		<Unit filename="src/Ruta.cpp" />
 		<Unit filename="src/Sprite.cpp" />
 		<Unit filename="src/State.cpp" />
@@ -101,6 +110,7 @@
 		<Unit filename="src/StateEnTienda.cpp" />
 		<Unit filename="src/StateInicio.cpp" />
 		<Unit filename="src/StateManager.cpp" />
+		<Unit filename="src/Textura.cpp" />
 		<Unit filename="src/TexturaContainer.cpp" />
 		<Unit filename="src/Window.cpp" />
 		<Unit filename="src/tinyxml2.cpp" />

@@ -1,4 +1,5 @@
 #include "StateEnJuego.h"
+#include "Mapa.h"
 
 StateEnJuego* StateEnJuego::instancia = nullptr;
 
@@ -51,8 +52,12 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
 {
     window.clear();
     // render del menu de enJuego
-
+    Mapa::Instance()->renderMapaAbajo(window);
     ruta->Render(window);
+    //Coche
+    Mapa::Instance()->renderMapaArriba(window);
+    //Brujula
+    //GUI
     window.display();
 }
 

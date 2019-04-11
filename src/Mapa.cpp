@@ -339,7 +339,7 @@ Mapa::Mapa(){
     }
 
     }
-
+Mapa* Mapa::instancia=nullptr;
 Mapa* Mapa::Instance(){
     if(!instancia){
         instancia=new Mapa;

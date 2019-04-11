@@ -10,7 +10,7 @@
 #include "Window.h"
 
 class Mapa{
-    Mapa* instancia=nullptr;
+    static Mapa* instancia;
     //Grafo de nodos y mapa por capas
     std::vector<Node*> nodos;
     Sprite**** dibujar;
@@ -21,7 +21,7 @@ class Mapa{
 
     public:
     Mapa();
-    Mapa* Instance();
+    static Mapa* Instance();
     std::vector<Node*> getGrafo();
     Sprite**** getMapa();
     void destructorMapa();
