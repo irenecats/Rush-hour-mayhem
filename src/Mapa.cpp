@@ -3,6 +3,8 @@
 #include "tinyxml2.h"
 #include <stdio.h>
 #include "Mapa.h"
+#include "Jugador.h"
+#include "Sprite.h"
 
 using namespace tinyxml2;
 using namespace std;
@@ -367,3 +369,34 @@ void Mapa::destructorGrafo(){
   }
   nodos.clear();
 }
+void Mapa::renderMapaAbajo(Window &window){
+    int tilex=Jugador::instancia()->getJugador().getPosition()[0]/32;
+    int tiley=Jugador::instancia()->getJugador().getPosition()[1]/32;
+    for(int z=0;z<numlayer-2;z++){
+        for(int y=0;y<_height;y++){
+            for(int x=0; x<_width;x++){
+            //Distancia discreta en geometria del taxista (distancia Manhattan)
+            if(abs(tilex-x)+abs(tiley-y)<20){
+            if(dibujar[z][y][x]!=NULL){
+                 window.draw(dibujar[z][y][x]->getSprite());
+                }
+            }
+                }
+           }
+    }
+}
+void Mapa::renderMapaArriba(Window &window){
+    int tilex=Jugador::instancia()->getJugador().getPosition()[0]/32;
+    int tiley=Jugador::instancia()->getJugador().getPosition()[1]/32;
+        for(int y=0;y<_height;y++){
+            for(int x=0; x<_width;x++){
+            //Distancia discreta en geometria del taxista (distancia Manhattan)
+            if(abs(tilex-x)+abs(tiley-y)<20){
+            if(dibujar[numlayer-2][y][x]!=NULL){
+                 window.draw(dibujar[numlayer-2][y][x]->getSprite());
+                }
+            }
+                }
+           }
+}
+

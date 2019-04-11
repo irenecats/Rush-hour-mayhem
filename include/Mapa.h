@@ -7,6 +7,7 @@
 #include "Node.h"
 #include "TexturaContainer.h"
 #include "Sprite.h"
+#include "Window.h"
 
 class Mapa{
     Mapa* instancia=nullptr;
@@ -25,5 +26,7 @@ class Mapa{
     Sprite**** getMapa();
     void destructorMapa();
     void destructorGrafo();
+    void renderMapaAbajo(Window &window);
+    void renderMapaArriba(Window &window);
 };
 #endif
