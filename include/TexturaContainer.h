@@ -19,8 +19,8 @@ class TexturaContainer
     private:
         static TexturaContainer* claseTextura;
 
-       std::vector <sf::Texture*> vectorTexturas;
-       std::vector <sf::Texture*> vectorTexturasMapa;
+        std::vector <sf::Texture*> vectorTexturas;
+        std::vector <sf::Texture*> vectorTexturasMapa;
 };
 
 #endif // TEXTURACONTAINER_H

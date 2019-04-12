@@ -18,7 +18,8 @@ NPC::NPC(Node &nodoInicial) : nodoDestino(nodoInicial)
     posSiguiente.Setx(nodoDestino.getCoorX());
     posSiguiente.Sety(nodoDestino.getCoorY());
 
-//    anguloNuevo = anguloCalle((sf::Vector2i) lineaInicio[0].position, (sf::Vector2i) lineaInicio[1].position);
+    //anguloNuevo = anguloCalle((sf::Vector2i) lineaInicio[0].position, (sf::Vector2i) lineaInicio[1].position);
+
 }
 
 NPC::~NPC()

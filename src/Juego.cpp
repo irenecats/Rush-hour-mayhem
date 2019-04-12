@@ -31,7 +31,7 @@ void Juego::buclePrincipal() {
         }
 
         float percentTick = std::min(1.0f, clock.getElapsedTime()/updateTickTime);
-        std::cout << clock.getElapsedTime()/updateTickTime << std::endl;
+        //std::cout << clock.getElapsedTime()/updateTickTime << std::endl;
         stateManager.render(window, percentTick);
 
     }

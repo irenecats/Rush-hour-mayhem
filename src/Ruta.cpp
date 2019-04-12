@@ -1,42 +1,39 @@
 #include "Ruta.h"
 
-Ruta::Ruta()
-{
-    //ctor
-}
+Ruta::Ruta() {}
 
 Ruta::~Ruta()
 {
-    //
     delete destino;
     delete origen;
 }
 
-Ruta::Ruta(sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char* titulo,std::string name, std::string urlCliente)
+Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char* titulo,std::string name, sf::IntRect areaRecorte)
 {
-    //ctor
+
+    //Inicializamos valores generales de ruta
+    idRuta = id;
+    nombreCliente = name;
     sf::Vector2f tam(10.0,10.0);
-    //inicializamos valores generales de ruta
     activa      = false;
     origen      = new sf::RectangleShape(tam);
     destino     = new sf::RectangleShape(tam);
     dineroMax   = dinero;
 
 
-    //cargamos la textura en el texture manager y lo metemos
-    std::string urlIntro="resources/box.png";
-    int numtext1 = TexturaContainer::instancia()->crearTextura(urlCliente);
-
+    ///Hay que cambiar esto para que solo cree la textura al cargar la primera ruta
+    ///Hacer un método en ContainerTextura para que devuelva las texturas por el nombre y aquí meterle un if(idRuta == 1) etc
+    std::string urlIntro = "resources/personajesDialogo.png";
     tex = TexturaContainer::instancia()->crearTextura(urlIntro);
 
+    cliente.setTextura(TexturaContainer::instancia()->getTextura(tex));
+    cliente.setRectTextura(areaRecorte);
 
-    //cliente.setTextura(TexturaContainer::instancia()->getTextura(numtext1));
-    //me tendrán que devolver algo y yo me lo guardo
-    //hay que cambia
-    cliente.setTextura(TexturaContainer::instancia()->getTextura(0));
     cajaDialogo.setTextura(TexturaContainer::instancia()->getTextura(tex));
+    cajaDialogo.setRectTextura(sf::IntRect(0,128,800,250));
+    cajaDialogo.setOrigin(cajaDialogo.getGlobalBounds()[0]/2,cajaDialogo.getGlobalBounds()[1]/2);
 
-    //ponemos el origen el en centro y posicionamos el inicio y el fin de la ruta
+    //Ponemos el origen el en centro y posicionamos el inicio y el fin de la ruta
     origen->setOrigin(origen->getSize().x/2,origen->getSize().y/2);
     origen->setPosition(inicio);
     origen->setFillColor(sf::Color::Red);
@@ -45,32 +42,31 @@ Ruta::Ruta(sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char*
     destino->setPosition(fin);
     destino->setFillColor(sf::Color::Blue);
 
-    //leemos el fichero y guardamos
+    //Leemos el fichero y guardamos
     leefichero(titulo);
 
-    //cargamos y seteamos lo necesario para mostrar los dialogos
-
+    //Cargamos y seteamos lo necesario para mostrar los dialogos
     if (!fuente.loadFromFile("resources/Ticketing.ttf"))
     {
         std::cerr << "Error al cargar la fuente\n" << std::endl;
         exit(0);
     }
+
     dialogo.setFont(fuente);
     dialogo.setColor(sf::Color::White);
 
     nombre.setColor(sf::Color::White);
     nombre.setFont(fuente);
-    nombre.setString(name);
-
-    cajaDialogo.setOrigin(cajaDialogo.getGlobalBounds()[0],cajaDialogo.getGlobalBounds()[1]/2);
+    nombre.setString(nombreCliente);
 
     DiagActual  = 0;
     letra       = 0;
     numfrase    = 0;
 }
+
+
 /*
-    Lee el fichero asignado y guarda los dialgos en las variables de clase "dialogointro" y
-    "dialogochoque".
+    Lee el fichero asignado y guarda los dialgos en las variables de clase "dialogointro" y "dialogochoque".
     El salto de linea se indica con ";" y los dos tipos de dialogo se separaran con "&".
 */
 void Ruta::leefichero(char* titulo)
@@ -109,9 +105,9 @@ void Ruta::leefichero(char* titulo)
         {
             //Todas las siguientes lineas se almacenan en quejas
             //Le quitamos el separador2 "&" a la primera queja
-            cambio=true;
+            cambio = true;
             std::string trozoLinea;
-            linea=linea.substr(1,linea.size());
+            linea = linea.substr(1,linea.size());
         }
 
         //Añadimos la línea a nuestro vector de frases
@@ -129,7 +125,6 @@ void Ruta::leefichero(char* titulo)
 
     dialogointro  = frases;
     dialogochoque = quejas;
-    //delete titulo;
 }
 
 void Ruta::haLlegado()
@@ -142,11 +137,10 @@ void Ruta::haLlegado()
 
 void Ruta::cambiaEstiloDialogo()
 {
-
     switch(DiagActual)
     {
     case 1:
-        //preparo el dialogo
+        //Preparo el dialogo
         nombre.setCharacterSize(30);
         nombre.setPosition(80, 450);
 
@@ -154,21 +148,23 @@ void Ruta::cambiaEstiloDialogo()
         dialogo.setPosition(90, 500);
 
         cajaDialogo.setScale(0.9f, 0.6f);
-        cajaDialogo.setPosition(760, 500);
+        cajaDialogo.setPosition(800/2, 500);
 
+        cliente.setPosition(cajaDialogo.getPosition()[0] - cajaDialogo.getGlobalBounds()[0]/2 +5,
+                            cajaDialogo.getPosition()[1] - cajaDialogo.getGlobalBounds()[1]/2 - cliente.getGlobalBounds()[1]);
 
         break;
     case 2:
-        //  TODO determinar estilo, por ahora solo cambiaremos el color
-
-        nombre.setCharacterSize(20);
-        nombre.setPosition(180, 460);
-
-        dialogo.setCharacterSize(30);
-        dialogo.setPosition(190, 500);
+        ///TODO determinar estilo, por ahora solo cambiaremos el color
 
         cajaDialogo.setScale(0.5f, 0.5f);
-        cajaDialogo.setPosition(550, 500);
+        cajaDialogo.setPosition(800/2, 500);
+
+        nombre.setCharacterSize(20);
+        nombre.setPosition(220, 460);
+
+        dialogo.setCharacterSize(30);
+        dialogo.setPosition(220, 500);
         break;
     default:
         break;
@@ -188,6 +184,15 @@ void Ruta::Update(Clock& tiempo)
             //Mostramos por pantalla un substring de la frase. Con cada iteración aumenta el substring, consiguiendo el efecto de aparición
             //de las letras poco a poco.
             dialogo.setString(dialogointro[numfrase].substr(0, letra));
+
+            if(dialogointro[numfrase].at(0) == '(') {
+                cliente.setTextura(nullptr);
+                nombre.setString("");
+            } else {
+                cliente.setTextura(TexturaContainer::instancia()->getTextura(tex));
+                nombre.setString(nombreCliente);
+            }
+
 
         }
         else if (letra >= dialogochoque[numfrase].length())
@@ -227,6 +232,9 @@ void Ruta::RenderDialogos(Window& window)
             window.draw(cajaDialogo.getSprite());
             window.draw(dialogo);
             window.draw(nombre);
+
+            if(DiagActual == 1)
+                window.draw(cliente.getSprite());
         }
 }
 
@@ -254,7 +262,7 @@ void Ruta::setDiagActual(int tipo)
 {
     printf("Tipo : %i",tipo);
     DiagActual = tipo;
-    if(tipo==2){
+    if(tipo == 2){
         numfrase = rand() % dialogochoque.size();
         dialogo.setString(dialogochoque[numfrase]);
     }
@@ -270,7 +278,6 @@ void Ruta::pasarDialogo()
     }
     else
     {
-        //numfrase=0;
         setDiagActual(0);
     }
     printf("Numeo de frase: %i \n",numfrase);

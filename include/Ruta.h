@@ -15,7 +15,7 @@ class Ruta
 {
     public:
         Ruta();
-        Ruta(sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char* titulo,std::string name, std::string urlCliente);
+        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char* titulo, std::string name, sf::IntRect areaRecorte);
         virtual         ~Ruta();
         int             getDiag();
         bool            getActiva();
@@ -28,12 +28,15 @@ class Ruta
         std::vector <std::string>        getFrasesIni();
         void            haLlegado();
         void            pasarDialogo();
+
         void RenderPuntos(Window& window);
         void RenderDialogos(Window& window);
         void Update(Clock& tiempo);
 
     protected:
     private:
+        int idRuta;
+        std::string nombreCliente;
         sf::RectangleShape*  origen;
         sf::RectangleShape*  destino;
         int                  dineroMax;
