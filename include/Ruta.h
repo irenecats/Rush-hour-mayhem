@@ -25,10 +25,11 @@ class Ruta
         sf::Text        getDialogo();
         int             getDiagActual();
         void            setDiagActual(int tipo);
-         std::vector <std::string>        getFrasesIni();
+        std::vector <std::string>        getFrasesIni();
         void            haLlegado();
         void            pasarDialogo();
-        void Render(Window& window);
+        void RenderPuntos(Window& window);
+        void RenderDialogos(Window& window);
         void Update(Clock& tiempo);
 
     protected:

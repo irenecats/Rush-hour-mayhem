@@ -2,6 +2,8 @@
 #define STATE_H
 
 #include "Window.h"
+#include "Camara.h"
+#include "Jugador.h"
 
 enum ID_State { inicio, enJuego, enPausa, enPuntuacion, enTienda };
 

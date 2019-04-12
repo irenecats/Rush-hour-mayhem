@@ -208,7 +208,7 @@ void Ruta::Update(Clock& tiempo)
     }
 }
 
-void Ruta::Render(Window& window)
+void Ruta::RenderPuntos(Window& window)
 {
     if(!activa)
     {
@@ -216,14 +216,18 @@ void Ruta::Render(Window& window)
     }
     else
     {
+        window.draw(*destino);
+    }
+}
+
+void Ruta::RenderDialogos(Window& window)
+{
         if(DiagActual!=0)
         {
             window.draw(cajaDialogo.getSprite());
             window.draw(dialogo);
             window.draw(nombre);
         }
-        window.draw(*destino);
-    }
 }
 
 sf::RectangleShape* Ruta::getOrigen()

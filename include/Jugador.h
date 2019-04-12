@@ -5,6 +5,8 @@
 #include "Sprite.h"
 #include "TexturaContainer.h"
 #include "Interpolacion.h"
+#include "Window.h"
+#include "Bala.h"
 
 #define kVel 2
 #define PI 3.141592
@@ -22,13 +24,16 @@ class Jugador
 
         static Jugador* instancia();
 
-        void update(int time);
-        void render(float ptick);
+        void update();
+        void render(Window&, float ptick);
 
         Sprite getJugador();
 
         void setPowerUp(int pw);
         void activarPowerUp();
+
+        bool disparando();
+        Bala* getBala();
 
     private:
         static Jugador* claseJugador;
@@ -41,6 +46,8 @@ class Jugador
         Sprite jugador;
         Interpolacion lastState;
         Interpolacion newState;
+
+        Bala* bala = nullptr;
 
 };
 

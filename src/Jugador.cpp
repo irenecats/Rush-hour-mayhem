@@ -29,7 +29,7 @@ Jugador::Jugador(){
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
 
-    powerUp = 0;
+    powerUp = 3;
 }
 
 Jugador::~Jugador()
@@ -43,7 +43,7 @@ Jugador::Jugador(const Jugador& other)
 }
 
 //Update con interpolacion que gestiona el movimiento del coche
-void Jugador::update(int time){
+void Jugador::update(){
 
 bool left=false, right=false, delante = false, atras = false, space = false, clocktwo=false, tope=false;
 float dirx, diry, mv, kr;
@@ -122,16 +122,26 @@ float dirx, diry, mv, kr;
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
-        jugador.mover(dirx*mv*time, diry*mv*time);
+        jugador.mover(dirx*mv, diry*mv);
 
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);
 
+        if(space && powerUp==3 && bala==nullptr){
+            bala = new Bala(jugador.getPosition()[0], jugador.getPosition()[1], jugador.getRotation(), dirx, diry);
+        }
+
+        if(bala!=nullptr && bala->getaborrar()){
+            delete bala;
+            bala = nullptr;
+        }
+
 }
 
 //Render con interpolacion
-void Jugador::render(float ptick){
+void Jugador::render(Window& window, float ptick){
     jugador.setPosition(lastState.Getx()*(1-ptick) + newState.Getx()*(ptick), lastState.Gety()*(1-ptick) + newState.Gety()*(ptick));
+    window.draw(jugador.getSprite());
 }
 
 //Devuelve el Sprite del jugador
@@ -147,4 +157,13 @@ void Jugador::setPowerUp(int pw){
 //Activamos el powerUp
 void Jugador::activarPowerUp(){
     powerUpActivado = true;
+}
+
+bool Jugador::disparando(){
+    if(bala == nullptr) return false;
+    else return true;
+}
+
+Bala* Jugador::getBala(){
+    return bala;
 }

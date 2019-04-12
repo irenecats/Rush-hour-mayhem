@@ -46,16 +46,25 @@ void StateEnJuego::update()
     // delete ruta; rura = nullptr;
     // update del estado enJuego
     ruta->Update(reloj);
+    Jugador::instancia()->update();
+    if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update();
 }
 
 void StateEnJuego::render(Window &window, const float updateTickTime)
 {
     window.clear();
-    // render del menu de enJuego
+
+    Camara::instancia()->centrarVista();
+    window.setView(Camara::instancia()->getCarView());
+
     Mapa::Instance()->renderMapaAbajo(window);
-    ruta->Render(window);
-    //Coche
+    ruta->RenderPuntos(window);
+    Jugador::instancia()->render(window, 1);
+    if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->render(window, 1);
     Mapa::Instance()->renderMapaArriba(window);
+
+    window.setView(Camara::instancia()->getFullView());
+    ruta->RenderDialogos(window);
     //Brujula
     //GUI
     window.display();
