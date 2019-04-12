@@ -26,7 +26,7 @@ void StateEnPuntuacion::update()
      if(c <= col) {
         ncoli->setString(std::to_string(c));
         ncoli->setOrigin(ncoli->getGlobalBounds().width/2, ncoli->getGlobalBounds().height/2);
-        ncoli->setPosition(200, 200);
+        ncoli->setPosition(800/3, 200);
 
         c++; //Incrementamos el valor para la siguiente iteración
     }
@@ -34,31 +34,29 @@ void StateEnPuntuacion::update()
     if(t <= tiemp) {
         ntiemp->setString(std::to_string(t));
         ntiemp->setOrigin(ntiemp->getGlobalBounds().width/2, ntiemp->getGlobalBounds().height/2);
-        ntiemp->setPosition(440, 200);
+        ntiemp->setPosition(800-800/3, 200);
 
         t++;
     }
 
-
     //Cuando ya han terminado de aparecer los resultados anteriores, se muestra la barra de porcentaje
     //Se crea lo "verde" hasta que su ancho es igual que el de la barra blanca multiplicada por el porcentaje
     if(t > tiemp && c > col && relleno->getSize().x <= rect->getSize().x * porcentaje / 100) {
-        relleno->setSize(sf::Vector2f(relleno->getSize().x + 1, 40));
+        relleno->setSize(sf::Vector2f(relleno->getSize().x + 1, 30));
     }
 
-
     //Cuando ha terminado lo anterior, pasamos a mostrar el dinero total obtenido en la misión
-    if(t > tiemp && c > col && relleno->getSize().x > rect->getSize().x * porcentaje / 100 && d <= dinero) {
+    if(t > tiemp && c > col && relleno->getSize().x > (rect->getSize().x * porcentaje/100) && d <= dinero) {
         ndinero->setString(std::to_string(d));
 
         //Todo el rato se actualiza el origen pq si el número pasa de 1 a 2, 3... las cifras se descentran
         ndinero->setOrigin(ndinero->getGlobalBounds().width/2, ndinero->getGlobalBounds().height/2);
-        ndinero->setPosition(500, 395);
+        ndinero->setPosition(575, 495);
 
         //También sacamos el "label" asociado a la cantidad del dinero
-        dineroObtenido->setString("Dinero obtenido");
+        dineroObtenido->setString("Dinero obtenido: ");
         dineroObtenido->setOrigin(dineroObtenido->getGlobalBounds().width/2, dineroObtenido->getGlobalBounds().height/2);
-        dineroObtenido->setPosition(230, 400);
+        dineroObtenido->setPosition(330, 500);
 
         d++;
     }
@@ -86,17 +84,16 @@ StateEnPuntuacion::StateEnPuntuacion()
     id = ID_State::enPuntuacion;
 
     fuente = new sf::Font();
-    if (!fuente->loadFromFile("resources/JosefinSans-Regular.ttf")) {
+    if (!fuente->loadFromFile("resources/Ticketing.ttf")) {
         std::cerr << "Error al cargar la fuente\n" << std::endl;
         exit(0);
     }
 
     calcularPuntuacion(col, tiemp, tiempoPerf, dineroPerf);
 
-    crearText(resultados, "~ RESULTADOS ~", 50, 320, 50);
-    crearText(colisiones, "N colisiones", 30, 200, 150);
-    crearText(tiempo, "Tiempo", 30, 440, 150);
-
+    crearText(resultados, "RESULTADOS DE LA MISION", 50, 800/2, 50);
+    crearText(colisiones, "Colisiones", 30, 800/3, 150);
+    crearText(tiempo, "Tiempo", 30, 800-800/3, 150);
 
     //Valores básicos, en el update se cambiarán
     crearText(ncoli, " ", 75, 0, 0);
@@ -104,30 +101,26 @@ StateEnPuntuacion::StateEnPuntuacion()
     crearText(ndinero, " ", 75, 0, 0);
     crearText(dineroObtenido, " ", 50, 0, 0);
 
-
     //Para la barra de porcentaje
-    rect = new sf::RectangleShape();
-    rect->setSize(sf::Vector2f(310, 40));
-    rect->setPosition(175, 300);
+    rect = new sf::RectangleShape(sf::Vector2f(310,40));
+    rect->setOrigin(rect->getGlobalBounds().width/2, rect->getGlobalBounds().height/2);
+    rect->setPosition(800/2, 350);
     rect->setOutlineColor(sf::Color::White);
 
-    relleno = new sf::RectangleShape();
-    relleno->setSize(sf::Vector2f(0, 40));
-    relleno->setPosition(rect->getPosition());
+    relleno = new sf::RectangleShape(sf::Vector2f(0, 30));
+    relleno->setOrigin(relleno->getGlobalBounds().width/2, relleno->getGlobalBounds().height/2);
+    relleno->setPosition(rect->getPosition().x - rect->getGlobalBounds().width/2 + 5, rect->getPosition().y);
     relleno->setFillColor(sf::Color::Green);
 }
 
 
 void StateEnPuntuacion::calcularPuntuacion (int colisiones, float tiempo, float tiempoPerfecto, float dineroPerfecto) {
-
-
     //Se empieza teniendo todo el dinero, y de ahí se le va quitando.
     dinero = dineroPerfecto;
 
     //Las colisiones no quitan tanto pq va a haber MUCHAS
     for(int i = 0; i < colisiones; i++)
         dinero *= 0.99;
-
 
     //Por si lo hiciera más rápido (no va a pasar pero porsi)
     if (tiempo < tiempoPerfecto)
@@ -138,6 +131,9 @@ void StateEnPuntuacion::calcularPuntuacion (int colisiones, float tiempo, float 
     dinero *= tiempoPerfecto/tiempo;
 
     porcentaje = dinero / dineroPerfecto * 100.f;
+
+    //Actualizamos las variables de dinero del jugador
+    Jugador::instancia()->setDinero(dinero);
 }
 
 

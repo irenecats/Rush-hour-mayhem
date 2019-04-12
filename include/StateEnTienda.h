@@ -27,6 +27,7 @@ class StateEnTienda : public State
     private:
 
         static StateEnTienda* instancia;
+        StateEnTienda();
 
         FactoryPowerUp* fpu;
 
@@ -35,32 +36,28 @@ class StateEnTienda : public State
 
         sf::Font* fuente;
         sf::Text* titulo;
-        Sprite* cajaDialogo; //esto cambiar mas adelante
-        sf::RectangleShape* recSeleccion;
+        sf::Text* dineroJugador;
+        sf::Text* ayudaPlayer;
 
         std::vector<PowerUp*> powerUps;
+        sf::RectangleShape* recSeleccion;
 
         std::vector<sf::Text*> precios;
         sf::Text* precio1;
         sf::Text* precio2;
         sf::Text* precio3;
 
-        sf::Text* dineroJugador;
-        sf::Text* nom;
-        sf::Text* descrip;
-
-        //Son de ejemplo
         std::vector<std::string> nombres;
         std::vector<std::string> descripciones;
 
-        void configurarPowerUps(sf::RectangleShape*& r, sf::Color color, float n1, float n2);
+        sf::Text* nom;
+        sf::Text* descrip;
+        Sprite* cajaDialogo;
+
+        void configurarPowerUps(PowerUp*& pu, float n1, float n2);
         void configurarPrecios(sf::Text*& precio, int num, int numPowerUp);
         void configurarInfo(sf::Text*& tex, int tamanyo, float x, float y);
-
         int numRandom(std::string tipoPowerUp);
-
-
-        StateEnTienda();
 };
 
 #endif // STATEENTIENDA_H

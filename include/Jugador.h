@@ -39,8 +39,15 @@ class Jugador
         void updateBrujula(float targetX, float targetY);
         void renderBrujula(Window&, float ptick);
 
+        void setDinero(int money);
+        int getDinero();
+        int getDineroTotal();
+
     private:
         static Jugador* claseJugador;
+
+        int dinero;
+        int dineroTotal;
 
         float vel=0;
 

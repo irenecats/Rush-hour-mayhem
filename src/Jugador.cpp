@@ -212,3 +212,20 @@ void Jugador::updateBrujula(float targetX, float targetY){
     }
 
 }
+
+
+void Jugador::setDinero(int money) {
+    dinero = money;
+
+    //Solo cuando se gana dinero se actualiza esta variable
+    if(money > 0)
+        dineroTotal += money;
+}
+
+int Jugador::getDinero() {
+    return dinero;
+}
+
+int Jugador::getDineroTotal() {
+    return dineroTotal;
+}

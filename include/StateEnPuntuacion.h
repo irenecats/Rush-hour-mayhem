@@ -32,7 +32,7 @@ class StateEnPuntuacion : public State
         int col = 15;
         int tiemp = 80;
         int tiempoPerf = 60;
-        int dineroPerf = 150;
+        int dineroPerf = 350;
 
         sf::Font* fuente;
         sf::Text* resultados;
