@@ -13,7 +13,7 @@ StateEnJuego* StateEnJuego::instance()
 
 ID_State StateEnJuego::input(int teclaPulsada)
 {
-    ID_State next_state = id;
+    next_state = id;
 
     if(teclaPulsada == sf::Keyboard::Escape)
     {

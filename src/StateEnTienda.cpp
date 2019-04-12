@@ -12,7 +12,7 @@ StateEnTienda* StateEnTienda::instance()
 
 ID_State StateEnTienda::input(int teclaPulsada)
 {
-    ID_State next_state = id;
+    next_state = id;
 
     if(teclaPulsada == sf::Keyboard::Return) {
 
@@ -40,11 +40,11 @@ void StateEnTienda::update()
     if(seleccionado == -1)
         seleccionado = powerUps.size()-1;
 
-    if(seleccionado > (powerUps.size()-1))
+    if(seleccionado > (int) (powerUps.size()-1))
         seleccionado = 0;
 
 
-    for(int i=0; i<powerUps.size(); i++)
+    for(int i=0; i < (int) powerUps.size(); i++)
         powerUps[i]->setFillColor(sf::Color::White);
 
     powerUps[seleccionado]->setFillColor(sf::Color::Yellow);

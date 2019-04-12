@@ -21,27 +21,32 @@ void StateManager::input(int teclaPulsada)
     }
     else
     {
-        switch(estadoActual->input(teclaPulsada))
+        ID_State next_state = estadoActual->input(teclaPulsada);
+
+        if(estadoActual->getID() != next_state)
         {
-            case ID_State::inicio :
-                iniciar();
-                break;
+            switch(next_state)
+            {
+                case ID_State::inicio :
+                    iniciar();
+                    break;
 
-            case ID_State::enJuego :
-                jugar();
-                break;
+                case ID_State::enJuego :
+                    jugar();
+                    break;
 
-            case ID_State::enPausa :
-                pausar();
-                break;
+                case ID_State::enPausa :
+                    pausar();
+                    break;
 
-            case ID_State::enPuntuacion :
-                puntuar();
-                break;
+                case ID_State::enPuntuacion :
+                    puntuar();
+                    break;
 
-            case ID_State::enTienda :
-                comprar();
-                break;
+                case ID_State::enTienda :
+                    comprar();
+                    break;
+            }
         }
     }
 }

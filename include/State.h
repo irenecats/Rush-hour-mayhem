@@ -23,6 +23,7 @@ class State
     protected :
 
         ID_State id;
+        ID_State next_state;
 
 };
 

@@ -14,7 +14,7 @@ StateEnPausa* StateEnPausa::instance()
 
 ID_State StateEnPausa::input(int teclaPulsada)
 {
-    ID_State next_state = id;
+    next_state = id;
 
     if(teclaPulsada == sf::Keyboard::Escape)
         next_state = ID_State::enJuego;

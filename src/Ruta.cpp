@@ -8,7 +8,7 @@ Ruta::~Ruta()
     delete origen;
 }
 
-Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char* titulo,std::string name, sf::IntRect areaRecorte)
+Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo,std::string name, sf::IntRect areaRecorte)
 {
 
     //Inicializamos valores generales de ruta
@@ -69,7 +69,7 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     Lee el fichero asignado y guarda los dialgos en las variables de clase "dialogointro" y "dialogochoque".
     El salto de linea se indica con ";" y los dos tipos de dialogo se separaran con "&".
 */
-void Ruta::leefichero(char* titulo)
+void Ruta::leefichero(const char* titulo)
 {
 
     std::vector <std::string> frases;
@@ -173,10 +173,10 @@ void Ruta::cambiaEstiloDialogo()
 
 void Ruta::Update(Clock& tiempo)
 {
-    if(activa && DiagActual==1 && numfrase < dialogointro.size() )
+    if(activa && DiagActual==1 && numfrase < (int) dialogointro.size() )
     {
         //printf("%f",tiempo.getElapsedTime());
-        if (tiempo.getElapsedTime()> 50 && letra < dialogointro[numfrase].length())
+        if (tiempo.getElapsedTime()> 50 && letra < (int) dialogointro[numfrase].length())
         {
             //frases[numfrase].length()
             tiempo.restart();
@@ -195,7 +195,7 @@ void Ruta::Update(Clock& tiempo)
 
 
         }
-        else if (letra >= dialogochoque[numfrase].length())
+        else if (letra >= (int) dialogochoque[numfrase].length())
         {
             dialogo.setString(dialogointro[numfrase]);
         }
@@ -272,7 +272,7 @@ void Ruta::setDiagActual(int tipo)
 void Ruta::pasarDialogo()
 {
 
-    if(numfrase < dialogointro.size()-1 && DiagActual==1)
+    if(numfrase < (int) dialogointro.size()-1 && DiagActual==1)
     {
         numfrase++;
     }

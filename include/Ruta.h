@@ -15,7 +15,7 @@ class Ruta
 {
     public:
         Ruta();
-        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, char* titulo, std::string name, sf::IntRect areaRecorte);
+        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo, std::string name, sf::IntRect areaRecorte);
         virtual         ~Ruta();
         int             getDiag();
         bool            getActiva();
@@ -48,14 +48,14 @@ class Ruta
         //Dialogo
         sf::Text            nombre;
         sf::Text            dialogo;
-        Sprite          cajaDialogo;
+        Sprite              cajaDialogo;
         sf::Font            fuente;
         int                 DiagActual;
         int                 letra;
         int                 numfrase;
         int                 tex;
 
-        void leefichero(char* titulo);
+        void leefichero(const char* titulo);
         void cambiaEstiloDialogo();
 };
 

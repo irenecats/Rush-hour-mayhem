@@ -18,7 +18,7 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
     sf::Vector2f inicio(0.0,0.0);
     sf::Vector2f fin(0.0,0.0);
     int dinero = 0;
-    char* fichero = "";
+    const char* fichero;
     std::string personaje = "";
     sf::IntRect areaRecorte;
 

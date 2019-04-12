@@ -25,7 +25,7 @@ ID_State StateInicio::input(int teclaPulsada)
         (posicion del cursor, click, etc).
     */
 
-    ID_State next_state = id;
+    next_state = id;
 
     if(teclaPulsada == sf::Keyboard::Return)
         next_state = ID_State::enJuego;

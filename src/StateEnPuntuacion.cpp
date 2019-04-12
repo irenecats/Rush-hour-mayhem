@@ -12,7 +12,7 @@ StateEnPuntuacion* StateEnPuntuacion::instance()
 
 ID_State StateEnPuntuacion::input(int teclaPulsada)
 {
-    ID_State next_state = id;
+    next_state = id;
 
     if(teclaPulsada == sf::Keyboard::T)
         next_state = ID_State::enTienda;
