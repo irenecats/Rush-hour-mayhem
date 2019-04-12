@@ -28,8 +28,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
         case 1:
             inicio.x=10.0;
             inicio.y=10.0;
-            fin.x =20.0;
-            fin.y=20.0;
+            fin.x =40.0;
+            fin.y=40.0;
             dinero = 300;
             titulo = "resources/pepi.txt";
             name   = "Pepi";

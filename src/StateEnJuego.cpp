@@ -48,6 +48,8 @@ void StateEnJuego::update()
     ruta->Update(reloj);
     Jugador::instancia()->update();
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update();
+    Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
+                                        ruta->getDestino()->getPosition().y);
 }
 
 void StateEnJuego::render(Window &window, const float updateTickTime)
@@ -62,6 +64,7 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
     Jugador::instancia()->render(window, 1);
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->render(window, 1);
     Mapa::Instance()->renderMapaArriba(window);
+    Jugador::instancia()->renderBrujula(window, 1);
 
     window.setView(Camara::instancia()->getFullView());
     ruta->RenderDialogos(window);

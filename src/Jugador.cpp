@@ -29,6 +29,16 @@ Jugador::Jugador(){
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
 
+
+    url = "resources/arrow.png";
+    int pos = TexturaContainer::instancia()->crearTextura(url);
+    brujula.setTextura(TexturaContainer::instancia()->getTextura(pos));
+
+    brujula.setOrigin(brujula.getGlobalBounds()[0]/2,brujula.getGlobalBounds()[1]/2);
+    brujula.setScale(0.03f, 0.03f);
+    brujula.setPosition(jugador.getPosition()[0], jugador.getPosition()[1]); //Al principio se coloca donde el personaje
+
+
     powerUp = 3;
 }
 
@@ -144,9 +154,17 @@ void Jugador::render(Window& window, float ptick){
     window.draw(jugador.getSprite());
 }
 
+void Jugador::renderBrujula(Window& window, float ptick){
+    window.draw(brujula.getSprite());
+}
+
 //Devuelve el Sprite del jugador
 Sprite Jugador::getJugador(){
     return jugador;
+}
+
+Sprite Jugador::getBrujula(){
+    return brujula;
 }
 
 //Asignamos el powerUp que tendra el jugador esta ronda
@@ -166,4 +184,33 @@ bool Jugador::disparando(){
 
 Bala* Jugador::getBala(){
     return bala;
+}
+
+void Jugador::updateBrujula(float targetX, float targetY){
+    float angulo = atan ((targetX - jugador.getPosition()[0]) /
+                         (targetY - jugador.getPosition()[1])) * 180.0 / PI;
+
+    //Ángulo desde el punto del personaje (el tercer ángulo es 90º pq es un triángulo rectángulo)
+    float angulo2 = atan ((jugador.getPosition()[1] - targetY) /
+                          (jugador.getPosition()[0] - targetX)) * 180.0 / PI;
+
+
+
+    //Cálculos para que la flecha se coloque en un radio de 75 píxeles del personaje, en línea con el target
+    if(jugador.getPosition()[0] < targetX)
+        brujula.setPosition(jugador.getPosition()[0] + 75*cos(angulo2 * PI/180), jugador.getPosition()[1] + 75*sin(angulo2 * PI/180));
+
+    else
+        brujula.setPosition(jugador.getPosition()[0] - 75*cos(angulo2 * PI/180), jugador.getPosition()[1] - 75*sin(angulo2 * PI/180));
+
+
+
+    //Cálculos que giran la flecha para que apunte al objetivo
+    if(jugador.getPosition()[1] > targetY) {
+        brujula.setRotation(-angulo+180);
+
+    } else {
+        brujula.setRotation(-angulo);
+    }
+
 }

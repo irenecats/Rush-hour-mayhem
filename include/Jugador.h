@@ -28,12 +28,16 @@ class Jugador
         void render(Window&, float ptick);
 
         Sprite getJugador();
+        Sprite getBrujula();
 
         void setPowerUp(int pw);
         void activarPowerUp();
 
         bool disparando();
         Bala* getBala();
+
+        void updateBrujula(float targetX, float targetY);
+        void renderBrujula(Window&, float ptick);
 
     private:
         static Jugador* claseJugador;
@@ -46,6 +50,8 @@ class Jugador
         Sprite jugador;
         Interpolacion lastState;
         Interpolacion newState;
+
+        Sprite brujula;
 
         Bala* bala = nullptr;
 
