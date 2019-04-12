@@ -3,9 +3,11 @@
 NPC::NPC(Node &nodoInicial) : nodoDestino(nodoInicial)
 {
     std::string ruta("resources/audi.png");
-    refTextura = TexturaContainer::instancia()->crearTextura(ruta);
-    sprite.setTextura(TexturaContainer::instancia()->getTextura(refTextura));
+    TexturaContainer::instancia()->crearTextura(ruta, "Audi");
+
+    sprite.setTextura(TexturaContainer::instancia()->getTextura("Audi"));
     sprite.setOrigin(sprite.getGlobalBounds()[0] / 2, sprite.getGlobalBounds()[1] / 2);
+
     rectFrenado.setSize(sf::Vector2f(50, sprite.getGlobalBounds()[1]));
     rectFrenado.setOrigin(sprite.getGlobalBounds()[0] * -0.70, sprite.getGlobalBounds()[1] / 2);
     rectFrenado.setFillColor(sf::Color::Transparent);

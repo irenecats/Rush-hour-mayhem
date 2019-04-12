@@ -10,8 +10,8 @@ class TexturaContainer
         virtual ~TexturaContainer();
         static TexturaContainer* instancia();
 
-        int crearTextura(std::string &url);
-        sf::Texture* getTextura(int num);
+        void crearTextura(std::string &url, std::string nombreTextura);
+        sf::Texture* getTextura(std::string nombreTextura);
 
         int crearTexturaMapa(std::string &url);
         std::vector <sf::Texture*> getTexturaMapa();
@@ -19,7 +19,7 @@ class TexturaContainer
     private:
         static TexturaContainer* claseTextura;
 
-        std::vector <sf::Texture*> vectorTexturas;
+        std::map<std::string, sf::Texture*> mapaTexturas;
         std::vector <sf::Texture*> vectorTexturasMapa;
 };
 

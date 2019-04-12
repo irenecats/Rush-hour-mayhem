@@ -3,9 +3,9 @@
 Bala::Bala(float _x, float _y,float rot, float _dirx, float _diry){
 
     std::string url ("resources/spritesheet_vehiclesmod.png");
-    int pos = TexturaContainer::instancia()->crearTextura(url);
+    TexturaContainer::instancia()->crearTextura(url, "Bala");
 
-    bala.setTextura(TexturaContainer::instancia()->getTextura(pos));
+    bala.setTextura(TexturaContainer::instancia()->getTextura("Bala"));
 
     bala.setRectTextura(sf::IntRect(3*70 + 5, 3*131 - 12, 70, 128));
     bala.setPosition(_x, _y);

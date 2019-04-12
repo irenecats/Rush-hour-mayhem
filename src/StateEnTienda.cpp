@@ -93,8 +93,8 @@ StateEnTienda::StateEnTienda()
 
 
     std::string url ("resources/box.png");
-    TexturaContainer::instancia()->crearTextura(url);
-    cajaDialogo = new Sprite(TexturaContainer::instancia()->getTextura(4));
+    TexturaContainer::instancia()->crearTextura(url, "CajaDialogo");
+    cajaDialogo = new Sprite(TexturaContainer::instancia()->getTextura("CajaDialogo"));
     cajaDialogo->setScale(0.2f, 0.15f);
     cajaDialogo->setPosition(kMargen, tamanyoY - cajaDialogo->getGlobalBounds()[1] - kMargen);
 

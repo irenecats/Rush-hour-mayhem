@@ -13,28 +13,27 @@ TexturaContainer::TexturaContainer()
 {
     //ctor
 }
-
+///No se si se puede hacer el delete de esto así ahora que es un map y no un vetor
 TexturaContainer::~TexturaContainer()
-{
-    if(!vectorTexturas.empty()){
-        for (sf::Texture* text:vectorTexturas){
+{/*
+    if(!mapaTexturas.empty()){
+        for (sf::Texture* text:mapaTexturas){
             if(text) delete text;
             text = nullptr;
         }
 
-        vectorTexturas.clear();
-    }
+        mapaTexturas.clear();
+    }*/
 }
 
 
-int TexturaContainer::crearTextura(std::string &url){
+void TexturaContainer::crearTextura(std::string &url, std::string nombreTextura){
     sf::Texture *text = new sf::Texture;
     if(!text->loadFromFile(url)){
         text = nullptr;
     }
-    vectorTexturas.push_back(text);
+    mapaTexturas[nombreTextura] = text;
 
-    return vectorTexturas.size()-1;
 }
 
 int TexturaContainer::crearTexturaMapa(std::string &url){
@@ -49,11 +48,13 @@ int TexturaContainer::crearTexturaMapa(std::string &url){
 
 
 
-sf::Texture* TexturaContainer::getTextura(int num){
-    if(num>=vectorTexturas.size())
-        num = vectorTexturas.size()-1;
+sf::Texture* TexturaContainer::getTextura(std::string nombreTextura){
 
-    return vectorTexturas[num];
+    if (mapaTexturas.find(nombreTextura) != mapaTexturas.end() ) {
+        return mapaTexturas[nombreTextura];
+    } else {
+        return NULL;
+    }
 }
 
 std::vector <sf::Texture*> TexturaContainer::getTexturaMapa(){

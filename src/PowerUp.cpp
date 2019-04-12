@@ -5,8 +5,8 @@ PowerUp::PowerUp(int p_id, std::string p_nom, std::string p_descrip, int p_preci
     nombre = p_nom;
     descripcion = p_descrip;
     precio = p_precio;
-    TexturaContainer::instancia()->crearTextura(ruta);
-    sprite = new Sprite(TexturaContainer::instancia()->getTextura(1));
+    TexturaContainer::instancia()->crearTextura(ruta, "PowerUps");
+    sprite = new Sprite(TexturaContainer::instancia()->getTextura("PowerUps"));
 }
 
 PowerUp::PowerUp()

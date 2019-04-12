@@ -20,16 +20,16 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     destino     = new sf::RectangleShape(tam);
     dineroMax   = dinero;
 
+    //Solo carga el spritesheet de los personajes cuando se crea la primera ruta
+    if(idRuta == 1) {
+        std::string urlIntro = "resources/personajesDialogo.png";
+        TexturaContainer::instancia()->crearTextura(urlIntro, "SpritesDialogos");
+    }
 
-    ///Hay que cambiar esto para que solo cree la textura al cargar la primera ruta
-    ///Hacer un método en ContainerTextura para que devuelva las texturas por el nombre y aquí meterle un if(idRuta == 1) etc
-    std::string urlIntro = "resources/personajesDialogo.png";
-    tex = TexturaContainer::instancia()->crearTextura(urlIntro);
-
-    cliente.setTextura(TexturaContainer::instancia()->getTextura(tex));
+    cliente.setTextura(TexturaContainer::instancia()->getTextura("SpritesDialogos"));
     cliente.setRectTextura(areaRecorte);
 
-    cajaDialogo.setTextura(TexturaContainer::instancia()->getTextura(tex));
+    cajaDialogo.setTextura(TexturaContainer::instancia()->getTextura("SpritesDialogos"));
     cajaDialogo.setRectTextura(sf::IntRect(0,128,800,250));
     cajaDialogo.setOrigin(cajaDialogo.getGlobalBounds()[0]/2,cajaDialogo.getGlobalBounds()[1]/2);
 
@@ -189,7 +189,7 @@ void Ruta::Update(Clock& tiempo)
                 cliente.setTextura(nullptr);
                 nombre.setString("");
             } else {
-                cliente.setTextura(TexturaContainer::instancia()->getTextura(tex));
+                cliente.setTextura(TexturaContainer::instancia()->getTextura("SpritesDialogos"));
                 nombre.setString(nombreCliente);
             }
 
@@ -272,13 +272,14 @@ void Ruta::setDiagActual(int tipo)
 void Ruta::pasarDialogo()
 {
 
-    if(numfrase < (int) dialogointro.size()-1 && DiagActual==1)
+    if(numfrase < (int) dialogointro.size()-1 && DiagActual == 1)
     {
         numfrase++;
+        letra = 0;
     }
     else
     {
         setDiagActual(0);
     }
-    printf("Numeo de frase: %i \n",numfrase);
+    printf("Numero de frase: %i \n",numfrase);
 }
