@@ -29,9 +29,6 @@ class StateEnTienda : public State
         static StateEnTienda* instancia;
 
         FactoryPowerUp* fpu;
-        PowerUp* powerUp;
-        PowerUp* powerUp2;
-        PowerUp* powerUp3;
 
         int seleccionado = 0;
         int dineroAhorrado = 200; //sacar esta info desde jugador
@@ -39,11 +36,9 @@ class StateEnTienda : public State
         sf::Font* fuente;
         sf::Text* titulo;
         Sprite* cajaDialogo; //esto cambiar mas adelante
+        sf::RectangleShape* recSeleccion;
 
-        std::vector<sf::RectangleShape*> powerUps;
-        sf::RectangleShape* r1;
-        sf::RectangleShape* r2;
-        sf::RectangleShape* r3;
+        std::vector<PowerUp*> powerUps;
 
         std::vector<sf::Text*> precios;
         sf::Text* precio1;
@@ -60,7 +55,10 @@ class StateEnTienda : public State
 
         void configurarPowerUps(sf::RectangleShape*& r, sf::Color color, float n1, float n2);
         void configurarPrecios(sf::Text*& precio, int num, int numPowerUp);
-        void configurarInfo(sf::Text*& tex, float x, float y);
+        void configurarInfo(sf::Text*& tex, int tamanyo, float x, float y);
+
+        int numRandom(std::string tipoPowerUp);
+
 
         StateEnTienda();
 };

@@ -23,4 +23,4 @@ int PowerUp::getId() {  return id;  }
 std::string PowerUp::getNombre() {  return nombre;   }
 std::string PowerUp::getDescripcion() {  return descripcion;  }
 int PowerUp::getPrecio() {  return precio;  }
-Sprite* PowerUp::getSprite() {  return sprite;  }
+Sprite* PowerUp::getSpritePU() {  return sprite;  }

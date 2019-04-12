@@ -16,7 +16,7 @@ class PowerUp
         std::string getNombre();
         std::string getDescripcion();
         int getPrecio();
-        Sprite* getSprite();
+        Sprite* getSpritePU();
 
     protected:
 
