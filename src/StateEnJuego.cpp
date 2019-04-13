@@ -52,8 +52,14 @@ void StateEnJuego::update()
     ruta->Update(reloj);
     Jugador::instancia()->update();
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update();
-    Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
+    if(ruta->getActiva()){
+        Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
                                         ruta->getDestino()->getPosition().y);
+    }
+    else{
+         Jugador::instancia()->updateBrujula(ruta->getOrigen()->getPosition().x,
+                                        ruta->getOrigen()->getPosition().y);
+    }
 }
 
 void StateEnJuego::render(Window &window, const float updateTickTime)
