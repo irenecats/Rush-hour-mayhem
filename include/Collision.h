@@ -73,6 +73,7 @@ bool CircleTest(const sf::Sprite& Object1, const sf::Sprite& Object2);
 //////
 bool BoundingBoxTest(const sf::Sprite& Object1, const sf::Sprite& Object2);
 bool BoundingBoxRectTest(const sf::RectangleShape& Object1, const sf::RectangleShape& Object2);
+bool BoundingBoxSpriteRectTest(const sf::Sprite& Object1, const sf::RectangleShape& Object2);
 
 }
 

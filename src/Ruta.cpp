@@ -14,11 +14,20 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     //Inicializamos valores generales de ruta
     idRuta = id;
     nombreCliente = name;
-    sf::Vector2f tam(10.0,10.0);
+    sf::Vector2f tam(50.0,50.0);
     activa      = false;
+    terminada   = false;
     origen      = new sf::RectangleShape(tam);
     destino     = new sf::RectangleShape(tam);
-    dineroMax   = dinero;
+
+    //Ponemos el origen el en centro y posicionamos el inicio y el fin de la ruta
+    origen->setOrigin(origen->getSize().x/2,origen->getSize().y/2);
+    origen->setPosition(inicio);
+    origen->setFillColor(sf::Color::Red);
+
+    destino->setOrigin(destino->getSize().x/2,destino->getSize().y/2);
+    destino->setPosition(fin);
+    destino->setFillColor(sf::Color::Blue);
 
     //Solo carga el spritesheet de los personajes cuando se crea la primera ruta
     if(idRuta == 1) {
@@ -33,14 +42,7 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     cajaDialogo.setRectTextura(sf::IntRect(0,128,800,250));
     cajaDialogo.setOrigin(cajaDialogo.getGlobalBounds()[0]/2,cajaDialogo.getGlobalBounds()[1]/2);
 
-    //Ponemos el origen el en centro y posicionamos el inicio y el fin de la ruta
-    origen->setOrigin(origen->getSize().x/2,origen->getSize().y/2);
-    origen->setPosition(inicio);
-    origen->setFillColor(sf::Color::Red);
 
-    destino->setOrigin(destino->getSize().x/2,destino->getSize().y/2);
-    destino->setPosition(fin);
-    destino->setFillColor(sf::Color::Blue);
 
     //Leemos el fichero y guardamos
     leefichero(titulo);
@@ -51,7 +53,8 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
         std::cerr << "Error al cargar la fuente\n" << std::endl;
         exit(0);
     }
-
+    //Ponemos estilo a los cuadros de dialogo
+    //Solo serán los atributos comunes entre el diag de inicio y el de choque
     dialogo.setFont(fuente);
     dialogo.setColor(sf::Color::White);
 
@@ -127,6 +130,9 @@ void Ruta::leefichero(const char* titulo)
     dialogochoque = quejas;
 }
 
+/*
+    Activa la ruta y llama al método que realiza el cambio de estilo del cuadro de dialogo
+*/
 void Ruta::haLlegado()
 {
     printf("preparo\n");
@@ -135,12 +141,19 @@ void Ruta::haLlegado()
 
 }
 
+void Ruta::haTerminado(){
+    terminada = true;
+}
+
+/*
+    Dependiendo del tipo del dialogo actual anyadimos un estilo u otro
+    a los cuadros de dialogo
+*/
 void Ruta::cambiaEstiloDialogo()
 {
     switch(DiagActual)
     {
     case 1:
-        //Preparo el dialogo
         nombre.setCharacterSize(30);
         nombre.setPosition(80, 450);
 
@@ -155,30 +168,51 @@ void Ruta::cambiaEstiloDialogo()
 
         break;
     case 2:
-        ///TODO determinar estilo, por ahora solo cambiaremos el color
-
-        cajaDialogo.setScale(0.5f, 0.5f);
-        cajaDialogo.setPosition(800/2, 500);
 
         nombre.setCharacterSize(20);
         nombre.setPosition(220, 460);
 
         dialogo.setCharacterSize(30);
         dialogo.setPosition(220, 500);
+
+        cajaDialogo.setScale(0.5f, 0.5f);
+        cajaDialogo.setPosition(800/2, 500);
         break;
     default:
         break;
     }
 }
+/*
+    Cambia a la siguiente frase, si ya se han acabado cambiamos DiagActual indicando que
+    no hay ningun dialogo que mostrar en este momento
+*/
+void Ruta::pasarDialogo()
+{
 
+    if(numfrase < (int) dialogointro.size()-1 && DiagActual == 1)
+    {
+        numfrase++;
+        letra = 0;
+    }
+    else
+    {
+        setDiagActual(0);
+    }
+    printf("Numero de frase: %i \n",numfrase);
+}
+/*
+    Calcula como pasan los dialogos y cuanto tiempo duran en la pantalla dependiendo de su tipo
+        Si Introduccion:
+            Se escriben progresivamente y se cambia de oracion al pulsar el espacio
+        Si Choque:
+            Se muestran directamente y dejan de dibujarse tras 1 sefundo
+*/
 void Ruta::Update(Clock& tiempo)
 {
     if(activa && DiagActual==1 && numfrase < (int) dialogointro.size() )
     {
-        //printf("%f",tiempo.getElapsedTime());
         if (tiempo.getElapsedTime()> 50 && letra < (int) dialogointro[numfrase].length())
         {
-            //frases[numfrase].length()
             tiempo.restart();
             letra++;
             //Mostramos por pantalla un substring de la frase. Con cada iteración aumenta el substring, consiguiendo el efecto de aparición
@@ -202,8 +236,7 @@ void Ruta::Update(Clock& tiempo)
     }
     else if(activa && DiagActual == 2)
     {
-        //dialogo.setString(dialogochoque[numfrase]);
-        if(tiempo.getElapsedTime() >= 2000)
+        if(tiempo.getElapsedTime() >= 1000)
         {
             tiempo.restart();
             DiagActual = 0;
@@ -212,7 +245,9 @@ void Ruta::Update(Clock& tiempo)
         printf("%i\n",numfrase);
     }
 }
-
+/*
+    Dependiendo del estado de la ruta ,activa o inactiva, se mostrara el punto de inicio de la ruta o el final
+*/
 void Ruta::RenderPuntos(Window& window)
 {
     if(!activa)
@@ -225,6 +260,11 @@ void Ruta::RenderPuntos(Window& window)
     }
 }
 
+/*
+    Se encuentra separado del anterior Render debido a que se tiene que dibujar sobre otra view
+    Dibuja el cuadro de dialogo con el fondo, nombre y frase del cliente, si estamos en la
+    introduccion, tambien dibujaremos el sprite del cliente
+*/
 void Ruta::RenderDialogos(Window& window)
 {
         if(DiagActual!=0)
@@ -237,6 +277,7 @@ void Ruta::RenderDialogos(Window& window)
                 window.draw(cliente.getSprite());
         }
 }
+
 
 sf::RectangleShape* Ruta::getOrigen()
 {
@@ -269,17 +310,6 @@ void Ruta::setDiagActual(int tipo)
     cambiaEstiloDialogo();
 }
 
-void Ruta::pasarDialogo()
-{
-
-    if(numfrase < (int) dialogointro.size()-1 && DiagActual == 1)
-    {
-        numfrase++;
-        letra = 0;
-    }
-    else
-    {
-        setDiagActual(0);
-    }
-    printf("Numero de frase: %i \n",numfrase);
+bool Ruta::getTerminada(){
+    return terminada;
 }

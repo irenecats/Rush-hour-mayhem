@@ -14,13 +14,17 @@ class Mapa{
     //Grafo de nodos y mapa por capas
     std::vector<Node*> nodos;
     Sprite**** dibujar;
+
+
     //Variables de tamaño del mapa por capas
-    int numlayer;
     int _width;
     int _height;
+    int numlayer;
 
     public:
     Mapa();
+
+
     static Mapa* Instance();
     std::vector<Node*> getGrafo();
     Sprite**** getMapa();
@@ -28,5 +32,8 @@ class Mapa{
     void destructorGrafo();
     void renderMapaAbajo(Window &window);
     void renderMapaArriba(Window &window);
+    int  getNumlayer();
+    int  getWidth();
+    int  getHeight();
 };
 #endif

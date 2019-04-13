@@ -26,8 +26,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
         case 1:
             inicio.x = 10.0;
             inicio.y = 10.0;
-            fin.x = 40.0;
-            fin.y = 40.0;
+            fin.x = 100.0;
+            fin.y = 100.0;
             dinero = 300;
             fichero = "resources/pija.txt";
             personaje   = "Brittany";  //o tiffany, se aceptan propuestas

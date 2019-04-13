@@ -17,43 +17,44 @@ class Ruta
         Ruta();
         Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo, std::string name, sf::IntRect areaRecorte);
         virtual         ~Ruta();
-        int             getDiag();
-        bool            getActiva();
-        sf::RectangleShape*   getOrigen();
-        sf::RectangleShape*   getDestino();
-        sf::Text        getNombre();
-        sf::Text        getDialogo();
-        int             getDiagActual();
-        void            setDiagActual(int tipo);
-        std::vector <std::string>        getFrasesIni();
+
+        void            haTerminado();
         void            haLlegado();
         void            pasarDialogo();
+        void            RenderPuntos(Window& window);
+        void            RenderDialogos(Window& window);
+        void            Update(Clock& tiempo);
+        bool            getActiva();
+        bool            getTerminada();
+        int             getDiagActual();
+        void            setDiagActual(int tipo);
 
-        void RenderPuntos(Window& window);
-        void RenderDialogos(Window& window);
-        void Update(Clock& tiempo);
+        sf::RectangleShape*   getOrigen();
+        sf::RectangleShape*   getDestino();
 
     protected:
     private:
+        //General
         int idRuta;
         std::string nombreCliente;
         sf::RectangleShape*  origen;
         sf::RectangleShape*  destino;
         int                  dineroMax;
         bool                 activa;
-        //Cliente
-        Sprite              cliente;
-        std::vector <std::string>        dialogointro;
-        std::vector <std::string>        dialogochoque;
+        bool                 terminada;
         //Dialogo
         sf::Text            nombre;
         sf::Text            dialogo;
         Sprite              cajaDialogo;
         sf::Font            fuente;
-        int                 DiagActual;
+        int                 DiagActual;// 0 = Sin dialogo; 1 = Dialogo introduccion; 2 = Dialogo de choque;
         int                 letra;
         int                 numfrase;
         int                 tex;
+        //Cliente
+        Sprite                           cliente;
+        std::vector <std::string>        dialogointro;
+        std::vector <std::string>        dialogochoque;
 
         void leefichero(const char* titulo);
         void cambiaEstiloDialogo();

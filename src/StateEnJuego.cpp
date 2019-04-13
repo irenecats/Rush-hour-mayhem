@@ -28,7 +28,8 @@ ID_State StateEnJuego::input(int teclaPulsada)
         reloj.restart();
         ruta->pasarDialogo();
     }
-    else if(teclaPulsada == sf::Keyboard::O){
+    else if(teclaPulsada == sf::Keyboard::O)
+    {
         reloj.restart();
         ruta->haLlegado();
     }
@@ -42,9 +43,12 @@ ID_State StateEnJuego::input(int teclaPulsada)
 
 void StateEnJuego::update()
 {
+
     //Cuando coche choque con ruta->getDestino,
     // delete ruta; rura = nullptr;
     // update del estado enJuego
+    detectColisionMapa();
+    detectColisionRuta();
     ruta->Update(reloj);
     Jugador::instancia()->update();
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update();
@@ -77,6 +81,8 @@ StateEnJuego::StateEnJuego()
 {
     id = ID_State::enJuego;
     ruta = factoriaRuta.creaRuta(1);
+    origen = ruta->getOrigen();
+    destino = ruta->getDestino();
     std::cout<<"Estado ruta: "<<ruta->getActiva()<<std::endl;
 }
 
@@ -84,3 +90,43 @@ StateEnJuego::~StateEnJuego()
 {
     //dtor
 }
+
+void StateEnJuego::detectColisionRuta()
+{
+    if(!ruta->getActiva())
+    {
+        if (!ruta->getActiva() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*origen) )
+        {
+            reloj.restart();
+            ruta->haLlegado();
+        }
+    }
+    else
+    {
+        if (!ruta->getTerminada() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*destino))
+        {
+            ruta->haTerminado();
+            printf("FIN DE LA RUTA\n");
+        }
+    }
+}
+
+void StateEnJuego::detectColisionMapa()
+{   //Cojo los tiles cercanos
+    int tilex=Jugador::instancia()->getJugador().getPosition()[0]/32;
+    int tiley=Jugador::instancia()->getJugador().getPosition()[1]/32;
+
+    mapa = Mapa::Instance()->getMapa();
+    for(int y=0; y<Mapa::Instance()->getHeight(); y++)
+    {
+        for(int x=0; x<Mapa::Instance()->getWidth(); x++)
+        {
+                //detecto si colisiona y hago que no se mueva
+                if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))
+                {
+
+                }
+        }
+    }
+}
+

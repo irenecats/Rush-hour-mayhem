@@ -2,6 +2,8 @@
 #define STATEENJUEGO_H
 
 #include "State.h"
+#include "Collision.h"
+#include <Sprite.h>
 #include <iostream>
 #include <FactoryRuta.h>
 #include <Ruta.h>
@@ -24,8 +26,14 @@ class StateEnJuego : public State
         static StateEnJuego* instancia;
         FactoryRuta          factoriaRuta;
         Ruta*                ruta;
+        sf::RectangleShape*  origen;
+        sf::RectangleShape*  destino;
         Clock                reloj;
+        Sprite****           mapa;
+        bool                 colision;
         StateEnJuego();
+        void detectColisionRuta();
+        void detectColisionMapa();
 };
 
 #endif // STATEENJUEGO_H
