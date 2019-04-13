@@ -448,7 +448,7 @@ void Mapa::renderMapaAbajo(Window &window)
                 {
                     if(dibujar[z][y][x]!=NULL)
                     {
-                        window.draw(dibujar[z][y][x]->getSprite());
+                        window.draw(*dibujar[z][y][x]);
                     }
                 }
             }
@@ -468,7 +468,7 @@ void Mapa::renderMapaArriba(Window &window)
             {
                 if(dibujar[numlayer-2][y][x]!=NULL)
                 {
-                    window.draw(dibujar[numlayer-2][y][x]->getSprite());
+                    window.draw(*dibujar[numlayer-2][y][x]);
                 }
             }
         }

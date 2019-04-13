@@ -269,12 +269,12 @@ void Ruta::RenderDialogos(Window& window)
 {
         if(DiagActual!=0)
         {
-            window.draw(cajaDialogo.getSprite());
+            window.draw(cajaDialogo);
             window.draw(dialogo);
             window.draw(nombre);
 
             if(DiagActual == 1)
-                window.draw(cliente.getSprite());
+                window.draw(cliente);
         }
 }
 

@@ -2,6 +2,7 @@
 #define WINDOW_H
 #include <string>
 #include <SFML/Graphics.hpp>
+#include "Sprite.h"
 
 
 class Window
@@ -23,9 +24,9 @@ class Window
         void close();
         void clear(const sf::Color &color = sf::Color(0, 0, 0, 255));
         void display();
-        void draw(sf::Sprite sprite);
-        void draw(sf::RectangleShape shape);
-        void draw(sf::Text text);
+        void draw(Sprite &sprite);
+        void draw(sf::RectangleShape &shape);
+        void draw(sf::Text &text);
         sf::Vector2u getSize();
         void setView(sf::View view);
     protected:

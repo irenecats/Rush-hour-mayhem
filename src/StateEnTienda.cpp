@@ -65,11 +65,11 @@ void StateEnTienda::render(Window& window, const float updateTickTime)
     window.draw(*precio2);
     window.draw(*precio3);
     window.draw(*recSeleccion);
-    window.draw(powerUps[0]->getSpritePU()->getSprite());
-    window.draw(powerUps[1]->getSpritePU()->getSprite());
-    window.draw(powerUps[2]->getSpritePU()->getSprite());
+    window.draw(*powerUps[0]->getSpritePU());
+    window.draw(*powerUps[1]->getSpritePU());
+    window.draw(*powerUps[2]->getSpritePU());
     window.draw(*ayudaPlayer);
-    window.draw(cajaDialogo->getSprite());
+    window.draw(*cajaDialogo);
     window.draw(*nom);
     window.draw(*descrip);
 

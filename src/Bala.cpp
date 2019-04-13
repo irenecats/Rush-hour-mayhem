@@ -36,7 +36,7 @@ void Bala::update(){
 
 void Bala::render(Window &window, float ptick){
     bala.setPosition(lastState.Getx()*(1-ptick) + newState.Getx()*(ptick), lastState.Gety()*(1-ptick) + newState.Gety()*(ptick));
-    window.draw(bala.getSprite());
+    window.draw(bala);
 }
 
 

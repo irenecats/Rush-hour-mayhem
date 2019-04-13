@@ -149,11 +149,11 @@ float dirx, diry, mv, kr;
 //Render con interpolacion
 void Jugador::render(Window& window, float ptick){
     jugador.setPosition(lastState.Getx()*(1-ptick) + newState.Getx()*(ptick), lastState.Gety()*(1-ptick) + newState.Gety()*(ptick));
-    window.draw(jugador.getSprite());
+    window.draw(jugador);
 }
 
 void Jugador::renderBrujula(Window& window, float ptick){
-    window.draw(brujula.getSprite());
+    window.draw(brujula);
 }
 
 //Devuelve el Sprite del jugador

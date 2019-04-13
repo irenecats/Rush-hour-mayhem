@@ -66,19 +66,19 @@ void Window::clear(const sf::Color &color) {
 
 void Window::display() { window.display(); }
 
-void Window::draw(sf::Sprite sprite) {
-    window.draw(sprite);
+void Window::draw(Sprite &sprite) {
+    window.draw(sprite.getSprite());
 }
 
 sf::Vector2u Window::getSize() {
     return window.getSize();
 }
 
-void Window::draw(sf::RectangleShape shape){
+void Window::draw(sf::RectangleShape &shape){
     window.draw(shape);
 }
 
-void Window::draw(sf::Text text){
+void Window::draw(sf::Text &text){
     window.draw(text);
 }
 
