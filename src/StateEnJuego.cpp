@@ -44,8 +44,6 @@ ID_State StateEnJuego::input(int teclaPulsada)
 void StateEnJuego::update()
 {
 
-    //Cuando coche choque con ruta->getDestino,
-    // delete ruta; rura = nullptr;
     // update del estado enJuego
     detectColisionMapa();
     detectColisionRuta();
@@ -80,6 +78,7 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
     ruta->RenderDialogos(window);
     //Brujula
     //GUI
+    if(ruta->getTerminada())    window.draw(finRuta);
     window.display();
 }
 
@@ -90,6 +89,18 @@ StateEnJuego::StateEnJuego()
     origen = ruta->getOrigen();
     destino = ruta->getDestino();
     std::cout<<"Estado ruta: "<<ruta->getActiva()<<std::endl;
+
+
+    fuente = sf::Font();
+    if (!fuente.loadFromFile("resources/Ticketing.ttf")) {
+        std::cerr << "Error al cargar la fuente\n" << std::endl;
+        exit(0);
+    }
+
+    finRuta = sf::Text("Pulsa G para ver tu puntuacion", fuente, 20);
+    finRuta.setOrigin(finRuta.getGlobalBounds().width/2,finRuta.getGlobalBounds().height/2);
+    finRuta.setColor(sf::Color::White);
+    finRuta.setPosition(400, 375);
 }
 
 StateEnJuego::~StateEnJuego()
@@ -112,6 +123,8 @@ void StateEnJuego::detectColisionRuta()
         if (!ruta->getTerminada() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*destino))
         {
             ruta->haTerminado();
+            //Cuando coche choque con ruta->getDestino,
+            // delete ruta; rura = nullptr;
             printf("FIN DE LA RUTA\n");
         }
     }
@@ -119,13 +132,18 @@ void StateEnJuego::detectColisionRuta()
 
 void StateEnJuego::detectColisionMapa()
 {   //Cojo los tiles cercanos
-    int tilex=Jugador::instancia()->getJugador().getPosition()[0]/32;
-    int tiley=Jugador::instancia()->getJugador().getPosition()[1]/32;
+    int         tilex = Jugador::instancia()->getJugador().getPosition()[0]/32;
+    int         tiley = Jugador::instancia()->getJugador().getPosition()[1]/32;
+    Sprite****  mapa  = Mapa::Instance()->getMapa();
+    int         my    = std::min(Mapa::Instance()->getHeight(), tiley +3);
+    int         mx    = std::min(Mapa::Instance()->getWidth(), tilex +3);
 
-    mapa = Mapa::Instance()->getMapa();
-    for(int y=0; y<Mapa::Instance()->getHeight(); y++)
+    tilex = std::max(0,tilex - 3);
+    tiley = std::max(0,tiley -3);
+
+    for(int y=tiley; y<my; y++)
     {
-        for(int x=0; x<Mapa::Instance()->getWidth(); x++)
+        for(int x=tilex; x<mx; x++)
         {
                 //detecto si colisiona y hago que no se mueva
                 if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))

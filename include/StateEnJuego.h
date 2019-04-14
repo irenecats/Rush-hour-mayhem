@@ -9,6 +9,7 @@
 #include <Ruta.h>
 #include <Clock.h>
 
+
 class StateEnJuego : public State
 {
     public:
@@ -29,8 +30,9 @@ class StateEnJuego : public State
         sf::RectangleShape*  origen;
         sf::RectangleShape*  destino;
         Clock                reloj;
-        Sprite****           mapa;
         bool                 colision;
+        sf::Font             fuente;
+        sf::Text             finRuta;
         StateEnJuego();
         void detectColisionRuta();
         void detectColisionMapa();
