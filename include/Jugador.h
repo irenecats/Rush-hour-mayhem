@@ -8,12 +8,12 @@
 #include "Window.h"
 #include "Bala.h"
 
-#define kVel 2
+#define kVel 4
 #define PI 3.141592
 #define rad PI/180
-#define kMaxSpeed 6
-#define kRot 0.5
-#define kFr 0.1
+#define kMaxSpeed 18
+#define kRot 0.4
+#define kFr 0.3
 
 class Jugador
 {

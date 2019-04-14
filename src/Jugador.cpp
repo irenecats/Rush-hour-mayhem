@@ -18,8 +18,8 @@ Jugador::Jugador(){
 
     jugador.setRectTextura(sf::IntRect(2*70 + 5, 3*131 - 12, 70, 128));
     jugador.setPosition(1000, 1000);
-    jugador.setScale(0.25f, 0.25f);
-    jugador.setOrigin(35, 35);
+    jugador.setScale(0.30f, 0.30f);
+    jugador.setOrigin(35, 45);
 
     lastState.Setx(jugador.getPosition()[0]);
     lastState.Sety(jugador.getPosition()[1]);
@@ -37,7 +37,7 @@ Jugador::Jugador(){
     brujula.setPosition(jugador.getPosition()[0], jugador.getPosition()[1]); //Al principio se coloca donde el personaje
 
 
-    powerUp = 3;
+    powerUp = 1;
 }
 
 Jugador::~Jugador()
@@ -63,15 +63,18 @@ float dirx, diry, mv, kr;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) right = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) left = true;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) space = true;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) space = true;
+
     //Controlar aqui tambien si se activa el powerup
 
         if(delante){
             if(vel<kMaxSpeed) vel+=0.1*kVel;
+            if(vel<0) vel+=0.1*kVel;
         }
 
         if(atras){
             if(vel>-kMaxSpeed) vel-=0.1*kVel;
+            if(vel>0) vel-=0.1*kVel;
         }
 
 
@@ -85,38 +88,11 @@ float dirx, diry, mv, kr;
 
         kr=kRot;
 
-        if(powerUpActivado){
-
-            switch(powerUp){
-                case 1:
-                    std::cout << "Tenemos el turbo" << std::endl;
-
-                    if(space){
-                        if(mv<kMaxSpeed*2) mv=mv*2;
-                    //if(abs(vel)>0.1 && view.getSize().x<640) view.zoom(1.001f);
-                    //if(abs(vel)<0.1 && view.getSize().x>512)view.zoom(0.999f);
-                    } //else if(view.getSize().x>512) view.zoom(0.999f);
-
-                    break;
-                case 2:
-                    std::cout << "Tenemos el giro cerrado" << std::endl;
-                    if(space){ kr = 1;}
-                    break;
-                case 3:
-                    std::cout << "Tenemos el lanzacohetes" << std::endl;
-                    break;
-                default:
-                    std::cout << "No tenemos powerUp" << std::endl;
-                    break;
-
-            }
-
-        }
-
+        if(powerUp==2 && space) kr = 1;
 
         if(vel!=0){
             //ajustar frenada
-            if(vel<0.01 && vel>-0.01) vel = 0;
+            if(vel<0.4 && vel>-0.4) vel = 0;
             if(right){
                 jugador.rotar(1.0f*kr*vel);
             }
@@ -127,6 +103,13 @@ float dirx, diry, mv, kr;
 
         mv = vel;
 
+        if(powerUp==1 && space){
+            if(mv<kMaxSpeed*2) mv=mv*2;
+        //if(abs(vel)>0.1 && view.getSize().x<640) view.zoom(1.001f);
+        //if(abs(vel)<0.1 && view.getSize().x>512)view.zoom(0.999f);
+        } //else if(view.getSize().x>512) view.zoom(0.999f);
+
+
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
@@ -135,8 +118,9 @@ float dirx, diry, mv, kr;
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);
 
-        if(space && powerUp==3 && bala==nullptr){
+        if(space && powerUp==5 && bala==nullptr){
             bala = new Bala(jugador.getPosition()[0], jugador.getPosition()[1], jugador.getRotation(), dirx, diry);
+
         }
 
         if(bala!=nullptr && bala->getaborrar()){
