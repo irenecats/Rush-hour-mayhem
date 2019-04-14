@@ -10,7 +10,7 @@
 class IACircular : public IA
 {
     public:
-        IACircular(std::vector<Node*> &p_nodos);
+        IACircular(/*std::vector<Node*> &p_nodos*/);
         virtual ~IACircular();
 
         virtual Node* getNextNode(Node &nodoActual);

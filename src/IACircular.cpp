@@ -1,6 +1,6 @@
 #include "IACircular.h"
 
-IACircular::IACircular(std::vector<Node*> &p_nodos) : IA(p_nodos)
+IACircular::IACircular(/*std::vector<Node*> &p_nodos*/) : IA(/*p_nodos*/)
 {
     srand(time(NULL));
 }

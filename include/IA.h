@@ -9,9 +9,9 @@ class IA
         virtual ~IA();
         virtual Node* getNextNode(Node &nodoActual) = 0;
     protected:
-        std::vector<Node*> *nodos;
+        //std::vector<Node*> *nodos;
 
-        IA(std::vector<Node*> &p_nodos);
+        IA(/*std::vector<Node*> &p_nodos*/);
     private:
 };
 
