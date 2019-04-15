@@ -28,7 +28,13 @@ void StateEnPuntuacion::update()
         ncoli->setOrigin(ncoli->getGlobalBounds().width/2, ncoli->getGlobalBounds().height/2);
         ncoli->setPosition(800/3, 200);
 
-        c++; //Incrementamos el valor para la siguiente iteración
+        //Incrementamos el valor para la siguiente iteración
+        if(col-c >= 5)
+            c+=5;
+        else if(col-c == 0) //para que no esté haciéndolo en bucle
+            c=col+1;
+        else
+            c=col-c;
     }
 
     if(t <= tiemp) {
@@ -36,17 +42,28 @@ void StateEnPuntuacion::update()
         ntiemp->setOrigin(ntiemp->getGlobalBounds().width/2, ntiemp->getGlobalBounds().height/2);
         ntiemp->setPosition(800-800/3, 200);
 
-        t++;
+        if(tiemp-t >= 5)
+            t+=5;
+        else if(tiemp-t == 0)
+            t=tiemp+1;
+        else
+            t = tiemp-t;
     }
 
     //Cuando ya han terminado de aparecer los resultados anteriores, se muestra la barra de porcentaje
     //Se crea lo "verde" hasta que su ancho es igual que el de la barra blanca multiplicada por el porcentaje
-    if(t > tiemp && c > col && relleno->getSize().x <= rect->getSize().x * porcentaje / 100) {
-        relleno->setSize(sf::Vector2f(relleno->getSize().x + 1, 30));
+    if(t >= tiemp && c >= col && relleno->getSize().x <= rect->getSize().x * porcentaje / 100) {
+        int incremento = 5;
+
+        if(rect->getSize().x - relleno->getSize().x < 5)
+            incremento = rect->getSize().x - relleno->getSize().x;
+
+        relleno->setSize(sf::Vector2f(relleno->getSize().x + incremento, 30));
     }
 
+
     //Cuando ha terminado lo anterior, pasamos a mostrar el dinero total obtenido en la misión
-    if(t > tiemp && c > col && relleno->getSize().x > (rect->getSize().x * porcentaje/100) && d <= dinero) {
+    if(t >= tiemp && c >= col && relleno->getSize().x >= (rect->getSize().x * porcentaje/100) && d <= dinero) {
         ndinero->setString(std::to_string(d));
 
         //Todo el rato se actualiza el origen pq si el número pasa de 1 a 2, 3... las cifras se descentran
@@ -58,7 +75,12 @@ void StateEnPuntuacion::update()
         dineroObtenido->setOrigin(dineroObtenido->getGlobalBounds().width/2, dineroObtenido->getGlobalBounds().height/2);
         dineroObtenido->setPosition(330, 500);
 
-        d++;
+        if(dinero-d >= 5)
+            d+=5;
+        else if(dinero-d == 0)
+            d=dinero+1;
+        else
+            d = dinero-d;
     }
 }
 
@@ -128,7 +150,8 @@ void StateEnPuntuacion::calcularPuntuacion (int colisiones, float tiempo, float 
 
 
     //Quitamos más cantidad de dinero si tarda mucho
-    dinero *= tiempoPerfecto/tiempo;
+    dinero *= (float)tiempoPerfecto/tiempo;
+    dinero = (int)dinero;
 
     porcentaje = dinero / dineroPerfecto * 100.f;
 
@@ -147,5 +170,13 @@ void StateEnPuntuacion::crearText(sf::Text*& text, std::string str, int tamanyo,
 
 StateEnPuntuacion::~StateEnPuntuacion()
 {
-    //dtor
+    delete resultados;
+    delete colisiones;
+    delete tiempo;
+    delete ncoli;
+    delete ndinero;
+    delete dineroObtenido;
+    delete rect;
+    delete relleno;
+    delete fuente;
 }
