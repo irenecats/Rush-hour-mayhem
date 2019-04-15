@@ -13,7 +13,7 @@
 class Bala
 {
     public:
-        Bala(float _x, float _y,float rot, float _dirx, float _diry);
+        Bala(float _x, float _y,float rot, float _dirx, float _diry, float vel);
 
         void update();
         void render(Window&, float ptick);
@@ -27,7 +27,7 @@ class Bala
         Interpolacion lastState;
         Interpolacion newState;
 
-        float dirx, diry;
+        float dirx, diry, vel;
 
         Clock clock;
         bool aborrar = false;

@@ -25,7 +25,8 @@ class Jugador
         static Jugador* instancia();
 
         void update();
-        void render(Window&, float ptick);
+        void interpolar(float ptick);
+        void dibujar(Window&);
 
         Sprite getJugador();
         Sprite getBrujula();
@@ -59,6 +60,8 @@ class Jugador
         Interpolacion newState;
 
         Sprite brujula;
+        Interpolacion lastStateB;
+        Interpolacion newStateB;
 
         Bala* bala = nullptr;
 

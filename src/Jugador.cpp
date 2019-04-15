@@ -36,8 +36,13 @@ Jugador::Jugador(){
     brujula.setScale(0.03f, 0.03f);
     brujula.setPosition(jugador.getPosition()[0], jugador.getPosition()[1]); //Al principio se coloca donde el personaje
 
+    lastStateB.Setx(brujula.getPosition()[0]);
+    lastStateB.Sety(brujula.getPosition()[1]);
 
-    powerUp = 1;
+    newStateB.Setx(brujula.getPosition()[0]);
+    newStateB.Sety(brujula.getPosition()[1]);
+
+    powerUp = 5;
 }
 
 Jugador::~Jugador()
@@ -119,8 +124,7 @@ float dirx, diry, mv, kr;
         newState.Sety(jugador.getPosition()[1]);
 
         if(space && powerUp==5 && bala==nullptr){
-            bala = new Bala(jugador.getPosition()[0], jugador.getPosition()[1], jugador.getRotation(), dirx, diry);
-
+            bala = new Bala(jugador.getPosition()[0], jugador.getPosition()[1], jugador.getRotation(), dirx, diry, mv);
         }
 
         if(bala!=nullptr && bala->getaborrar()){
@@ -131,12 +135,17 @@ float dirx, diry, mv, kr;
 }
 
 //Render con interpolacion
-void Jugador::render(Window& window, float ptick){
+void Jugador::interpolar(float ptick){
     jugador.setPosition(lastState.Getx()*(1-ptick) + newState.Getx()*(ptick), lastState.Gety()*(1-ptick) + newState.Gety()*(ptick));
+}
+
+void Jugador::dibujar(Window& window){
     window.draw(jugador);
 }
 
+
 void Jugador::renderBrujula(Window& window, float ptick){
+    brujula.setPosition(lastStateB.Getx()*(1-ptick) + newStateB.Getx()*(ptick), lastStateB.Gety()*(1-ptick) + newStateB.Gety()*(ptick));
     window.draw(brujula);
 }
 
@@ -169,6 +178,10 @@ Bala* Jugador::getBala(){
 }
 
 void Jugador::updateBrujula(float targetX, float targetY){
+
+    lastStateB.Setx(newStateB.Getx());
+    lastStateB.Sety(newStateB.Gety());
+
     float angulo = atan ((targetX - jugador.getPosition()[0]) /
                          (targetY - jugador.getPosition()[1])) * 180.0 / PI;
 
@@ -185,7 +198,8 @@ void Jugador::updateBrujula(float targetX, float targetY){
     else
         brujula.setPosition(jugador.getPosition()[0] - 75*cos(angulo2 * PI/180), jugador.getPosition()[1] - 75*sin(angulo2 * PI/180));
 
-
+        newStateB.Setx(brujula.getPosition()[0]);
+        newStateB.Sety(brujula.getPosition()[1]);
 
     //Cálculos que giran la flecha para que apunte al objetivo
     if(jugador.getPosition()[1] > targetY) {

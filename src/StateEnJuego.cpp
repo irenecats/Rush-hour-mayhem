@@ -64,19 +64,19 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
 {
     window.clear();
 
+    Jugador::instancia()->interpolar(updateTickTime);
     Camara::instancia()->centrarVista();
     window.setView(Camara::instancia()->getCarView());
 
     Mapa::Instance()->renderMapaAbajo(window);
     ruta->RenderPuntos(window);
-    Jugador::instancia()->render(window, 1);
-    if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->render(window, 1);
+    Jugador::instancia()->dibujar(window);
+    if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->render(window, updateTickTime);
     Mapa::Instance()->renderMapaArriba(window);
-    Jugador::instancia()->renderBrujula(window, 1);
+    Jugador::instancia()->renderBrujula(window, updateTickTime);
 
     window.setView(Camara::instancia()->getFullView());
     ruta->RenderDialogos(window);
-    //Brujula
     //GUI
     if(ruta->getTerminada())    window.draw(finRuta);
     window.display();
