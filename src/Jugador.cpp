@@ -199,7 +199,7 @@ void Jugador::updateBrujula(float targetX, float targetY){
 
 
 void Jugador::setDinero(int money) {
-    dinero = money;
+    dinero += money;
 
     //Solo cuando se gana dinero se actualiza esta variable
     if(money > 0)

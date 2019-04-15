@@ -46,10 +46,10 @@ class Jugador
     private:
         static Jugador* claseJugador;
 
-        int dinero;
-        int dineroTotal;
+        int dinero = 0;
+        int dineroTotal = 0;
 
-        float vel=0;
+        float vel = 0;
 
         int powerUp;
         bool powerUpActivado = false;

@@ -24,12 +24,18 @@ ID_State StateEnTienda::input(int teclaPulsada)
 
             //Le restamos lo que vale
             Jugador::instancia()->setDinero(-powerUps[seleccionado]->getPrecio());
+            std::cout << "Dinero restante: " << Jugador::instancia()->getDinero() << std::endl;
 
             next_state = ID_State::enJuego;
 
         } else {
             std::cout << "eres pobre no puedes" << std::endl;
         }
+    }
+
+    if(teclaPulsada == sf::Keyboard::Escape) {
+        std::cout << "Has salido sin comprar nada" << std::endl;
+        next_state = ID_State::enJuego;
     }
 
     if(teclaPulsada == sf::Keyboard::Right)
@@ -146,7 +152,7 @@ StateEnTienda::StateEnTienda()
     dineroJugador->setColor(sf::Color::White);
     dineroJugador->setPosition(tamanyoX - dineroJugador->getGlobalBounds().width - kMargen, kMargen);
 
-    ayudaPlayer = new sf::Text("Pulsa ENTER para comprar un Power-Up", *fuente, 20);
+    ayudaPlayer = new sf::Text("Pulsa ENTER para comprar un Power-Up\nPulsa ESC para salir de la tienda sin comprar", *fuente, 20);
     ayudaPlayer->setOrigin(ayudaPlayer->getGlobalBounds().width/2, ayudaPlayer->getGlobalBounds().height/2);
     ayudaPlayer->setColor(sf::Color::White);
     ayudaPlayer->setPosition(400, 375);
@@ -155,7 +161,6 @@ StateEnTienda::StateEnTienda()
 
 void StateEnTienda::configurarPowerUps(PowerUp*& pu, float n1, float n2) {
     pu->getSpritePU()->setOrigin(pu->getSpritePU()->getGlobalBounds()[0]/2, pu->getSpritePU()->getGlobalBounds()[1]/2);
-    pu->getSpritePU()->setScale(0.25, 0.3);
     pu->getSpritePU()->setPosition(tamanyoX*n1 - 10, tamanyoY-tamanyoY*n2);
 }
 
@@ -195,5 +200,19 @@ int StateEnTienda::numRandom(std::string tipoPowerUp) {
 
 StateEnTienda::~StateEnTienda()
 {
-    //dtor
+    delete titulo;
+    delete dineroJugador;
+    delete precio1;
+    delete precio2;
+    delete precio3;
+    delete recSeleccion;
+    delete powerUps[0];
+    delete powerUps[1];
+    delete powerUps[2];
+    delete ayudaPlayer;
+    delete cajaDialogo;
+    delete nom;
+    delete descrip;
+    delete fpu;
+    delete fuente;
 }
