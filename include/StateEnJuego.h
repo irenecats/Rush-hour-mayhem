@@ -8,6 +8,8 @@
 #include <FactoryRuta.h>
 #include <Ruta.h>
 #include <Clock.h>
+#include <Node.h>
+#include <NPC.h>
 
 
 class StateEnJuego : public State
@@ -36,9 +38,17 @@ class StateEnJuego : public State
         bool                 colision;
         sf::Font             fuente;
         sf::Text             finRuta;
+        std::vector<Node*>   nodos;
+        std::vector<Node*>   cercanos;
+        std::vector<NPC>     npcs;
+        sf::VertexArray      linea;
         StateEnJuego();
+        void buscaCercanos();
+        void generaCoches(int tot);
+        int  compruebaNPC();
         void detectColisionRuta();
         void detectColisionMapa();
+        void recalculaRango();
 };
 
 #endif // STATEENJUEGO_H

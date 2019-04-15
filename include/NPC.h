@@ -33,6 +33,7 @@ class NPC
         sf::RectangleShape rectFrenado;
         IA* inteligencia;
         Node nodoDestino;
+        Node nodoInicio;
 
         sf::Vector2i puntoImaginario;
         int sentidoGiro;

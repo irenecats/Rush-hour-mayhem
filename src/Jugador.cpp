@@ -17,8 +17,8 @@ Jugador::Jugador(){
     jugador.setTextura(TexturaContainer::instancia()->getTextura("Jugador"));
 
     jugador.setRectTextura(sf::IntRect(2*70 + 5, 3*131 - 12, 70, 128));
-    jugador.setPosition(1000, 1000);
-    jugador.setScale(0.30f, 0.30f);
+    jugador.setPosition(7232.0, 11072.0);
+    jugador.setScale(0.6f, 0.6f);
     jugador.setOrigin(35, 45);
 
     lastState.Setx(jugador.getPosition()[0]);
