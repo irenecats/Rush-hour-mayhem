@@ -20,6 +20,9 @@ class State
         virtual void update()  = 0;
         virtual void render(Window&, const float)  = 0;
 
+        virtual void inicializar() = 0;
+        virtual void limpiar() = 0;
+
     protected :
 
         ID_State id;

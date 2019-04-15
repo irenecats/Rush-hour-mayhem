@@ -56,6 +56,7 @@ void StateManager::iniciar()
     if(!estadoActual)
     {
         estadoActual = StateInicio::instance();
+        estadoActual->inicializar();
         std::cout << "StateManager::iniciar(): Estado actual es ahora: inicio" << std::endl;
     }
     else
@@ -263,6 +264,8 @@ void StateManager::render(Window& window, const float updateTickTime)
     }
     else
     {
+        window.clear();
         estadoActual->render(window, updateTickTime);
+        window.display();
     }
 }

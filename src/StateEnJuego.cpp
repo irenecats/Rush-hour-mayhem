@@ -62,8 +62,6 @@ void StateEnJuego::update()
 
 void StateEnJuego::render(Window &window, const float updateTickTime)
 {
-    window.clear();
-
     Jugador::instancia()->interpolar(updateTickTime);
     Camara::instancia()->centrarVista();
     window.setView(Camara::instancia()->getCarView());
@@ -79,7 +77,6 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
     ruta->RenderDialogos(window);
     //GUI
     if(ruta->getTerminada())    window.draw(finRuta);
-    window.display();
 }
 
 StateEnJuego::StateEnJuego()
@@ -154,3 +151,12 @@ void StateEnJuego::detectColisionMapa()
     }
 }
 
+void StateEnJuego::inicializar()
+{
+
+}
+
+void StateEnJuego::limpiar()
+{
+
+}

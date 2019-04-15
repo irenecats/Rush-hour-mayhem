@@ -14,6 +14,9 @@ class StateInicio : public State
         void update();
         void render(Window&, const float);
 
+        void inicializar();
+        void limpiar();
+
         ~StateInicio();
 
     private:
@@ -21,6 +24,17 @@ class StateInicio : public State
         static StateInicio* instancia;
 
         StateInicio();
+
+        sf::RectangleShape* contenedorMenu = nullptr;
+
+        sf::Font* fuente = nullptr;
+
+        sf::Text* nuevaPartida = nullptr;
+        sf::Text* cargarPartida = nullptr;
+        sf::Text* instrucciones = nullptr;
+
+        std::vector<sf::Text*>* opciones = nullptr;
+        int seleccion = 0;
 };
 
 #endif // STATEINICIO_H

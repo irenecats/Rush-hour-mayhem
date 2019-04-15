@@ -86,8 +86,6 @@ void StateEnPuntuacion::update()
 
 void StateEnPuntuacion::render(Window &window, const float updateTickTime)
 {
-    window.clear();
-
     window.draw(*resultados);
     window.draw(*colisiones);
     window.draw(*tiempo);
@@ -97,8 +95,6 @@ void StateEnPuntuacion::render(Window &window, const float updateTickTime)
     window.draw(*dineroObtenido);
     window.draw(*rect);
     window.draw(*relleno);
-
-    window.display();
 }
 
 StateEnPuntuacion::StateEnPuntuacion()
@@ -179,4 +175,14 @@ StateEnPuntuacion::~StateEnPuntuacion()
     delete rect;
     delete relleno;
     delete fuente;
+}
+
+void StateEnPuntuacion::inicializar()
+{
+
+}
+
+void StateEnPuntuacion::limpiar()
+{
+
 }

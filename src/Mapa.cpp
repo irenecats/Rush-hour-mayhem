@@ -50,7 +50,7 @@ Mapa::Mapa()
             bool flag2=false;
             int save=0;
             int save2=0;
-            for(int i=0; i<nodos.size(); i++)
+            for(int i=0; i<(int)nodos.size(); i++)
             {
                 if(nodos[i]->coor[0]==xaux && nodos[i]->coor[1]==yaux)
                 {
@@ -66,7 +66,7 @@ Mapa::Mapa()
             //EL nodo existe
             if(flag==true)
             {
-                for(int i=0; i<nodos.size(); i++)
+                for(int i=0; i<(int)nodos.size(); i++)
                 {
                     if(nodos[i]->coor[0]==(xaux+xadj) && nodos[i]->coor[1]==(yaux+yadj))
                     {
@@ -97,7 +97,7 @@ Mapa::Mapa()
             {
                 Node* nuevo=new Node(xaux,yaux);
 
-                for(int i=0; i<nodos.size(); i++)
+                for(int i=0; i<(int)nodos.size(); i++)
                 {
                     if(nodos[i]->coor[0]==(xaux+xadj) && nodos[i]->coor[1]==(yaux+yadj))
                     {
@@ -269,7 +269,7 @@ Mapa::Mapa()
                 n = auxnum;
                 while ( n /= 10 )
                     length++;
-                if(auxnum==0 || auxnum==NULL)
+                if(auxnum==0 || !auxnum)
                 {
                     auxnum=0;
                 }
@@ -450,7 +450,7 @@ void Mapa::destructorMapa()
 }
 void Mapa::destructorGrafo()
 {
-    for (int i = 0; i < nodos.size(); ++i)
+    for (int i = 0; i < (int)nodos.size(); ++i)
     {
         delete nodos[i];
     }

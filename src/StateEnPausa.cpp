@@ -16,6 +16,25 @@ ID_State StateEnPausa::input(int teclaPulsada)
 {
     next_state = id;
 
+    if(teclaPulsada == sf::Keyboard::Up)
+    {
+        if(seleccion == 0)
+            seleccion = (int) opciones->size() - 1;
+        else
+            seleccion--;
+    }
+
+    if(teclaPulsada == sf::Keyboard::Down)
+    {
+        if(seleccion >= (int) opciones->size() - 1)
+            seleccion = 0;
+        else
+            seleccion++;
+    }
+
+    if(teclaPulsada == sf::Keyboard::Return && seleccion == 0)
+        next_state = ID_State::enJuego;
+
     if(teclaPulsada == sf::Keyboard::Escape)
         next_state = ID_State::enJuego;
 
@@ -24,22 +43,70 @@ ID_State StateEnPausa::input(int teclaPulsada)
 
 void StateEnPausa::update()
 {
-    // update del estado pausa
+    for(int i = 0; i < (int) opciones->size(); ++i)
+        if(seleccion == i)
+            opciones->at(i)->setColor(sf::Color::White);
+        else
+            opciones->at(i)->setColor(sf::Color(128, 128, 128, 255));
 }
 
 void StateEnPausa::render(Window &window, const float updateTickTime)
 {
-    window.clear();
-    // render del menu de pausa
-    window.display();
+    StateEnJuego::instance()->render(window, 0.f);
+
+    window.draw(*contenedorMenu);
+
+    for(sf::Text* &opcion : *opciones)
+        window.draw(*opcion);
 }
 
 StateEnPausa::StateEnPausa()
 {
     id = ID_State::enPausa;
+
+    inicializar();
 }
 
 StateEnPausa::~StateEnPausa()
 {
     //dtor
+}
+
+void StateEnPausa::inicializar()
+{
+    fuente = new sf::Font();
+
+    if (!fuente->loadFromFile("resources/Ticketing.ttf")) {
+        std::cerr << "Error al cargar la fuente\n" << std::endl;
+        exit(-1);
+    }
+
+    seguirPartida = new sf::Text(sf::String("Continuar"), *fuente);
+    guardarPartida = new sf::Text(sf::String("Guardar Partida"), *fuente);
+    salir = new sf::Text(sf::String("Salir"), *fuente);
+
+    contenedorMenu = new sf::RectangleShape(sf::Vector2f(800.f*0.8f, 600.f*0.8f));
+
+    contenedorMenu->setOrigin(contenedorMenu->getSize().x / 2.f, 0);
+    contenedorMenu->setPosition(800.f/2.f, 600.f*0.1f);
+    contenedorMenu->setFillColor(sf::Color(255, 255, 255, 127));
+    contenedorMenu->setOutlineThickness(4.f);
+    contenedorMenu->setOutlineColor(sf::Color::White);
+
+    opciones = new std::vector<sf::Text*>();
+
+    opciones->push_back(seguirPartida);
+    opciones->push_back(guardarPartida);
+    opciones->push_back(salir);
+
+    for(int i = 0; i < (int) opciones->size(); ++i)
+    {
+        opciones->at(i)->setOrigin(opciones->at(i)->getGlobalBounds().width / 2.f, 0);
+        opciones->at(i)->setPosition(contenedorMenu->getPosition().x, 75.f + (100.f * (i+1)));
+    }
+}
+
+void StateEnPausa::limpiar()
+{
+
 }

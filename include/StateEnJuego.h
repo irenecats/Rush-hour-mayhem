@@ -20,6 +20,9 @@ class StateEnJuego : public State
         void update();
         void render(Window&, const float);
 
+        void inicializar();
+        void limpiar();
+
         ~StateEnJuego();
 
     private:

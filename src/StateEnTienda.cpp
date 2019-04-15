@@ -63,8 +63,6 @@ void StateEnTienda::update()
 
 void StateEnTienda::render(Window& window, const float updateTickTime)
 {
-    window.clear();
-
     window.draw(*titulo);
     window.draw(*dineroJugador);
     window.draw(*precio1);
@@ -78,8 +76,6 @@ void StateEnTienda::render(Window& window, const float updateTickTime)
     window.draw(*cajaDialogo);
     window.draw(*nom);
     window.draw(*descrip);
-
-    window.display();
 }
 
 StateEnTienda::StateEnTienda()
@@ -215,4 +211,14 @@ StateEnTienda::~StateEnTienda()
     delete descrip;
     delete fpu;
     delete fuente;
+}
+
+void StateEnTienda::inicializar()
+{
+
+}
+
+void StateEnTienda::limpiar()
+{
+
 }
