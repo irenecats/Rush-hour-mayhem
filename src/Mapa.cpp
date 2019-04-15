@@ -208,6 +208,8 @@ Mapa::Mapa()
     const int altura=_height;
     const int anchura=_width;
 
+
+
     unsigned int*** _tilemap=new unsigned int**[numcapas];
          for (int i = 0; i < numcapas; i++){
            _tilemap[i] = new unsigned int*[altura]();
@@ -228,8 +230,10 @@ Mapa::Mapa()
         {
             for(int x=0; x<_width; x++)
             {
+
                 unsigned int auxnum=0;
                 data[z]->QueryUnsignedAttribute("gid", &auxnum);
+
                 int length = 1;
                 int n = auxnum;
                 while ( n /= 10 )
@@ -285,6 +289,7 @@ Mapa::Mapa()
     int numtileset=0;
     int tamArray;
     XMLElement* tilesetcounter=map->FirstChildElement("tileset");
+
     while(tilesetcounter)
     {
         numtileset++;
@@ -295,10 +300,13 @@ Mapa::Mapa()
         tamArray=a+b;
         tilesetcounter=tilesetcounter->NextSiblingElement("tileset");
     }
+
     cout<<"Num.Tilesets: " << numtileset <<endl;
     cout<<"Num.Tiles: " << tamArray <<endl;
     //Declaramos arrays con la información requerida para crear cada sprite
+
     sf::IntRect *_tilemapSprite[tamArray];
+
     int textureinfo[tamArray];
     //sf::Texture aux[numtileset];
 
