@@ -204,8 +204,23 @@ Mapa::Mapa()
 
     //Leer todas las capas cada una con sus gid
     //En esta matriz estan todos los gid de la capa
-    unsigned int _tilemap [numlayer][_height][_width];
-    int tilemapflags [numlayer][_height][_width];
+     const int numcapas=numlayer;
+    const int altura=_height;
+    const int anchura=_width;
+
+    unsigned int*** _tilemap=new unsigned int**[numcapas];
+         for (int i = 0; i < numcapas; i++){
+           _tilemap[i] = new unsigned int*[altura]();
+             for (int j = 0; j < altura; j++){
+                _tilemap[i][j] = new unsigned int[anchura]();
+        }}
+
+        int*** tilemapflags=new int**[numcapas];
+         for (int i = 0; i < numcapas; i++){
+           tilemapflags[i] = new int*[altura]();
+             for (int j = 0; j < altura; j++){
+                tilemapflags[i][j] = new int[anchura]();
+        }}
 
     for(int z=0; z<numlayer; z++)
     {
@@ -338,9 +353,7 @@ Mapa::Mapa()
 
     //Recorremos la matriz de gid y buscamos el Sprite que hay que dibujar en la matriz de Sprites,
     //y lo añadimos en una matriz de dibujado definitiva
-    const int numcapas=numlayer;
-    const int altura=_height;
-    const int anchura=_width;
+
     dibujar=new Sprite***[numcapas];
     for (int i = 0; i < numcapas; i++)
     {
@@ -392,6 +405,16 @@ Mapa::Mapa()
             }
         }
     }
+
+    //Delete de los array reservados en memoria provisionalmente por exceso de tamaño
+
+    for(int i=0;i!= numlayer; ++i){
+        for(int j=0;j != _height; ++j){
+            delete[] tilemapflags[i][j];
+        }
+        delete[] tilemapflags[i];
+    }
+    delete[] tilemapflags;
 
 }
 Mapa* Mapa::instancia=nullptr;
