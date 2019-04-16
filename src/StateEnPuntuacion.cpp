@@ -14,7 +14,7 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 {
     next_state = id;
 
-    if(teclaPulsada == sf::Keyboard::T)
+    if(teclaPulsada == sf::Keyboard::Return)
         next_state = ID_State::enTienda;
 
     return next_state;

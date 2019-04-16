@@ -191,8 +191,8 @@ void Ruta::pasarDialogo()
 
     if(numfrase < (int) dialogointro.size()-1 && DiagActual == 1)
     {
-        numfrase++;
         letra = 0;
+        numfrase++;
     }
     else
     {
@@ -211,7 +211,7 @@ void Ruta::Update(Clock& tiempo)
 {
     if(activa && DiagActual==1 && numfrase < (int) dialogointro.size() )
     {
-        if (tiempo.getElapsedTime()> 50 && letra < (int) dialogointro[numfrase].length())
+        if (tiempo.getElapsedTime()> 25 && letra < (int) dialogointro[numfrase].length())
         {
             tiempo.restart();
             letra++;

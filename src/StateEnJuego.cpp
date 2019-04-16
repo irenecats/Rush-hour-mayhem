@@ -19,7 +19,7 @@ ID_State StateEnJuego::input(int teclaPulsada)
     {
         next_state = ID_State::enPausa;
     }
-    else if(teclaPulsada == sf::Keyboard::G)
+    else if(ruta->getTerminada() && teclaPulsada == sf::Keyboard::Return)
     {
         next_state = ID_State::enPuntuacion;
     }
