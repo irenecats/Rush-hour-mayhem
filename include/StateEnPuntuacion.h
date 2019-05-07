@@ -7,6 +7,7 @@
 #include "State.h"
 #include "Sprite.h"
 #include "TexturaContainer.h"
+#include "StateEnJuego.h"
 
 class StateEnPuntuacion : public State
 {
@@ -58,7 +59,7 @@ class StateEnPuntuacion : public State
 
         void calcularPuntuacion (int colisiones, float tiempo, float tiempoPerfecto, float dineroPerfecto);
         void crearText(sf::Text*& text, std::string str, int tamanyo, float x, float y);
-        void muestaFinal();
+        void muestraFinal();
         void leeFichero();
 
 };

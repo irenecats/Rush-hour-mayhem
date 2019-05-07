@@ -16,7 +16,7 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 
     if(teclaPulsada == sf::Keyboard::Return)
         if(StateEnJuego::instance()->getRuta())
-           muestaFinal();
+          muestraFinal();
         else
             next_state = ID_State::enTienda;
 
@@ -187,5 +187,9 @@ void StateEnPuntuacion::inicializar()
 
 void StateEnPuntuacion::limpiar()
 {
+
+}
+
+void StateEnPuntuacion::muestraFinal(){
 
 }
