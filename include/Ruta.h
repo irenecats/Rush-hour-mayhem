@@ -24,6 +24,7 @@ class Ruta
         void            RenderPuntos(Window& window);
         void            RenderDialogos(Window& window);
         void            Update(Clock& tiempo);
+        int             getID();
         bool            getActiva();
         bool            getTerminada();
         int             getDiagActual();

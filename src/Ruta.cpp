@@ -313,3 +313,7 @@ void Ruta::setDiagActual(int tipo)
 bool Ruta::getTerminada(){
     return terminada;
 }
+
+int Ruta::getID(){
+    return idRuta;
+}

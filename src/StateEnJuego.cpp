@@ -297,6 +297,13 @@ void StateEnJuego::recalculaRango()
     cercanos = cercaAux;
 }
 
+bool StateEnJuego::getRuta(){
+    if(ruta->getID() == 5)
+        return true;
+    else
+        return false;
+}
+
 void StateEnJuego::inicializar()
 {
 

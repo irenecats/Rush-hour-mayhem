@@ -58,6 +58,8 @@ class StateEnPuntuacion : public State
 
         void calcularPuntuacion (int colisiones, float tiempo, float tiempoPerfecto, float dineroPerfecto);
         void crearText(sf::Text*& text, std::string str, int tamanyo, float x, float y);
+        void muestaFinal();
+        void leeFichero();
 
 };
 

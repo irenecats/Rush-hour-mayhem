@@ -24,6 +24,7 @@ class StateEnJuego : public State
 
         void inicializar();
         void limpiar();
+        bool getRuta();
 
         ~StateEnJuego();
 
@@ -42,6 +43,7 @@ class StateEnJuego : public State
         std::vector<Node*>   cercanos;
         std::vector<NPC>     npcs;
         sf::VertexArray      linea;
+
         StateEnJuego();
         void buscaCercanos();
         void generaCoches(int tot);
@@ -49,6 +51,7 @@ class StateEnJuego : public State
         void detectColisionRuta();
         void detectColisionMapa();
         void recalculaRango();
+
 };
 
 #endif // STATEENJUEGO_H
