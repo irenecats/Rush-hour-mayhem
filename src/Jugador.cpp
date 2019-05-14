@@ -64,22 +64,28 @@ float dirx, diry, mv, kr;
     lastState.Setx(newState.Getx());
     lastState.Sety(newState.Gety());
 
+if(!chocando){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) delante = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) right = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) left = true;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) space = true;
+}
 
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y)){
+        if(emergencia) emergencia = false;
+        else emergencia = true;
+    }
     //Controlar aqui tambien si se activa el powerup
 
         if(delante){
             if(vel<kMaxSpeed) vel+=0.1*kVel;
-            if(vel<0) vel+=0.1*kVel;
+            if(vel<0) vel+=0.2*kVel;
         }
 
         if(atras){
             if(vel>-kMaxSpeed) vel-=0.1*kVel;
-            if(vel>0) vel-=0.1*kVel;
+            if(vel>0) vel-=0.2*kVel;
         }
 
 
@@ -118,6 +124,11 @@ float dirx, diry, mv, kr;
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
+        if(chocando){
+            dirx = sin(jugador.getRotation()*rad*-2);
+            diry = -cos(jugador.getRotation()*rad*-2);
+        }
+
         jugador.mover(dirx*mv, diry*mv);
 
         newState.Setx(jugador.getPosition()[0]);
@@ -131,6 +142,9 @@ float dirx, diry, mv, kr;
             delete bala;
             bala = nullptr;
         }
+
+        _dirx = dirx;
+        _diry = dirx;
 
 }
 
@@ -226,4 +240,22 @@ int Jugador::getDinero() {
 
 int Jugador::getDineroTotal() {
     return dineroTotal;
+}
+
+void Jugador::frenar(){
+if(!emergencia){
+    vel = vel/4;
+    jugador.setPosition(lastState.Getx(), lastState.Gety());
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
+    //jugador.setColor(sf::Color::Red);
+    chocando = true;
+} else{
+    nofrenar();
+}
+}
+
+void Jugador::nofrenar(){
+    //jugador.setColor(sf::Color::Green);
+    chocando = false;
 }

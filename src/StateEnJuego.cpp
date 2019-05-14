@@ -56,10 +56,11 @@ void StateEnJuego::update()
     }
 
     //detectColisioncNPC();
-    detectColisionMapa();
-    detectColisionRuta();
+
     ruta->Update(reloj);
     Jugador::instancia()->update();
+    detectColisionMapa();
+    detectColisionRuta();
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update();
     if(ruta->getActiva())
     {
@@ -237,6 +238,7 @@ void StateEnJuego::detectColisionMapa()
     Sprite****  mapa  = Mapa::Instance()->getMapa();
     int         my    = std::min(Mapa::Instance()->getHeight(), tiley +3);
     int         mx    = std::min(Mapa::Instance()->getWidth(), tilex +3);
+    int cont = 0;
 
     tilex = std::max(0,tilex - 3);
     tiley = std::max(0,tiley -3);
@@ -248,10 +250,13 @@ void StateEnJuego::detectColisionMapa()
             //detecto si colisiona y hago que no se mueva
             if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))
             {
-                //COLISIONA
+                cont++;
             }
         }
     }
+
+    if(cont>0) Jugador::instancia()->frenar();
+    else Jugador::instancia()->nofrenar();
 }
 
 void StateEnJuego::recalculaRango()

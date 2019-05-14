@@ -22,6 +22,7 @@ class Sprite //: public sf::Drawable, public sf::Transformable
         void setRotation(float r);
         void setScale(float x, float y);
         void setOrigin(float x, float y);
+        void setColor(sf::Color);
 
         void setTextura(sf::Texture* textura);
         void setRectTextura(sf::IntRect rect);

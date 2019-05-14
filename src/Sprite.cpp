@@ -88,6 +88,10 @@ void Sprite::setRectTextura(sf::IntRect rect) {
 void Sprite::setTextura(sf::Texture* textura) {
     s.setTexture(*textura);
 }
+
+void Sprite::setColor(sf::Color c){
+    s.setColor(c);
+}
 /*
 void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform();
