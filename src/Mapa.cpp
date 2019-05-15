@@ -371,17 +371,20 @@ Mapa::Mapa()
             dibujar[i][j] = new Sprite* [anchura]();
         }
     }
+
     for(int z=0; z<numlayer; z++)
     {
         for(int y=0; y<_height; y++)
         {
             for(int x=0; x<_width; x++)
             {
-
-                if(_tilemap[z][y][x]>0)
+            //cout<<_tilemap[z][y][x]<<endl;
+                if(_tilemap[z][y][x]>20)
                 {
 
                     dibujar[z][y][x]=new Sprite(TexturaContainer::instancia()->getTexturaMapa()[textureinfo[_tilemap[z][y][x]-1]],*_tilemapSprite[_tilemap[z][y][x]-1]);
+
+
 
                     dibujar[z][y][x]->setPosition(x*32,y*32);
                     dibujar[z][y][x]->setOrigin(16,16);
@@ -413,6 +416,7 @@ Mapa::Mapa()
             }
         }
     }
+
 
     //Delete de los array reservados en memoria provisionalmente por exceso de tamaño
 
