@@ -26,7 +26,7 @@ void Juego::buclePrincipal() {
 
         if(clock.getElapsedTime() > updateTickTime)
         {
-            stateManager.update(); //Pasar el tiempo por aqui?
+            stateManager.update(clock.getElapsedTime()); //Pasar el tiempo por aqui?
             clock.restart();
         }
 

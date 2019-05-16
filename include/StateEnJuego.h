@@ -10,6 +10,7 @@
 #include <Clock.h>
 #include <Node.h>
 #include <NPC.h>
+#include "IACircular.h"
 
 
 class StateEnJuego : public State
@@ -19,7 +20,7 @@ class StateEnJuego : public State
         static StateEnJuego* instance();
 
         ID_State input(int);
-        void update();
+        void update(int tiempo);
         void render(Window&, const float);
 
         void inicializar();
@@ -43,6 +44,7 @@ class StateEnJuego : public State
         std::vector<Node*>   cercanos;
         std::vector<NPC>     npcs;
         sf::VertexArray      linea;
+        IACircular           iaCirc;
 
         StateEnJuego();
         void buscaCercanos();

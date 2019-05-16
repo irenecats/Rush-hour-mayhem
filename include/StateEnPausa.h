@@ -11,7 +11,7 @@ class StateEnPausa : public State
         static StateEnPausa* instance();
 
         ID_State input(int);
-        void update();
+        void update(int tiempo);
         void render(Window&, const float);
 
         void inicializar();

@@ -41,18 +41,22 @@ ID_State StateEnJuego::input(int teclaPulsada)
     return next_state;
 }
 
-void StateEnJuego::update()
+void StateEnJuego::update(int tiempo)
 {
 
     // update del estado enJuego
     recalculaRango();
     int eliminados = compruebaNPC();
+    /*
     if(npcs.size() + eliminados > 10){
         generaCoches(eliminados);
     }
     else{
 
         generaCoches(20 - int(npcs.size()));
+    }*/
+    if (npcs.size() < 1) {
+        generaCoches(1);
     }
 
     //detectColisioncNPC();
@@ -72,6 +76,11 @@ void StateEnJuego::update()
         Jugador::instancia()->updateBrujula(ruta->getOrigen()->getPosition().x,
                                             ruta->getOrigen()->getPosition().y);
     }
+
+    for(int i = 0; i<npcs.size(); i++)
+    {
+        npcs[i].update(tiempo); //TODO: ayuda
+    }
 }
 
 void StateEnJuego::render(Window &window, const float updateTickTime)
@@ -90,7 +99,7 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
 
     for(int i = 0; i<npcs.size(); i++)
     {
-        npcs[i].render(window,1);
+        npcs[i].render(window, updateTickTime);
     }
 
     window.setView(Camara::instancia()->getFullView());
@@ -144,7 +153,8 @@ void StateEnJuego::generaCoches(int tot)
     {
         num = (0 + (rand() % (int)(mx)));
         contr = false;
-            npcs.push_back(NPC(*cercanos[num]));
+            npcs.push_back(NPC(cercanos[num], &iaCirc));
+            npcs.back().setPosicionesIniciales();
             i++;
     }
     //printf("Tamanyo tras generar %i\n",npcs.size());

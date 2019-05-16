@@ -49,7 +49,7 @@ ID_State StateInicio::input(int teclaPulsada)
     return next_state;
 }
 
-void StateInicio::update()
+void StateInicio::update(int tiempo)
 {
     for(int i = 0; i < (int) opciones->size(); ++i)
         if(seleccion == i)

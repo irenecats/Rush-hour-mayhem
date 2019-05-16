@@ -47,7 +47,7 @@ ID_State StateEnTienda::input(int teclaPulsada)
     return next_state;
 }
 
-void StateEnTienda::update()
+void StateEnTienda::update(int tiempo)
 {
     if(seleccionado == -1)
         seleccionado = powerUps.size()-1;

@@ -18,7 +18,7 @@ Camara::Camara()
     carview.setCenter(Jugador::instancia()->getJugador().getPosition()[0], Jugador::instancia()->getJugador().getPosition()[1]);
     carview.setSize(tamanyoX, tamanyoY);
     carview.setViewport(sf::FloatRect(0, 0, 1, 1));
-    carview.zoom(0.8);
+    carview.zoom(2);
 
 }
 

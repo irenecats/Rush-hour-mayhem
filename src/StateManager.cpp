@@ -242,7 +242,7 @@ void StateManager::comprar()
     }
 }
 
-void StateManager::update()
+void StateManager::update(int tiempo)
 {
     if(!estadoActual)
     {
@@ -251,7 +251,7 @@ void StateManager::update()
     }
     else
     {
-        estadoActual->update();
+        estadoActual->update(tiempo);
     }
 }
 
