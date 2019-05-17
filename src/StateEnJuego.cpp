@@ -65,7 +65,11 @@ void StateEnJuego::update(int tiempo) {
     for(int i = 0; i<npcs.size(); i++) {
         bool tocaFrenar = false;
         for(int j = 0; !tocaFrenar && j<npcs.size(); j++) {
-            if (i != j && Collision::BoundingBoxSpriteRectTest(npcs[j].Getsprite().getSprite(), npcs[i].GetRectFrenado())) {
+            if (i == j) {
+                if (Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(), npcs[i].GetRectFrenado())) {
+                    tocaFrenar = true;
+                }
+            } else if (Collision::BoundingBoxSpriteRectTest(npcs[j].Getsprite().getSprite(), npcs[i].GetRectFrenado())) {
                 tocaFrenar = true;
             }
         }

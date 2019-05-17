@@ -40,7 +40,7 @@ public:
 protected:
 
 private:
-    static const int RADIO_GIRO = 60;
+    static const int RADIO_GIRO = 160;
     Interpolacion posAnterior, posSiguiente;
     Sprite sprite;
     sf::RectangleShape rectFrenado;
@@ -55,7 +55,7 @@ private:
     float velocidad = MAX_VEL; // pixeles por segundo
     int sentidoGiro;
     int anguloNuevo;
-    int anguloBarrido;
+    float anguloBarrido;
     int orientacionDeg;
 
     sf::Vector2i calculaPuntoImaginario(Node* puntoCurva);
