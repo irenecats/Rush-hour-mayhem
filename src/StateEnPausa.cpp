@@ -120,5 +120,5 @@ void StateEnPausa::inicializar()
 void StateEnPausa::limpiar()
 {
     seleccion = 0;
-    update(); // para que cuando entremos otra vez, haya hecho efecto el reinicio de los parametros iniciales
+    update(0); // para que cuando entremos otra vez, haya hecho efecto el reinicio de los parametros iniciales
 }
