@@ -78,8 +78,8 @@ void StateManager::iniciar()
                 break;
 
             case ID_State::enPuntuacion :
-                std::cout << "StateManager::iniciar(): Error en StateManager. El estado actual es enPuntuacion al intentar acceder a iniciar()" << std::endl;
-                exit(EXIT_FAILURE);
+                std::cout << "StateManager::iniciar(): Ahora el estado es inicio" << std::endl;
+                estadoActual = StateInicio::instance(); // cambiamos el estado de inicio a enJuego
                 break;
 
             case ID_State::enTienda :

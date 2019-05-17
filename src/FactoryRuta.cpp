@@ -24,10 +24,15 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
 
     switch(numRuta){
         case 1:
-            inicio.x = 7000.0;
-            inicio.y = 10000.0;
-            fin.x = 7232.0;
-            fin.y = 11072.0;
+
+            //inicio.x = 405*32;
+            //inicio.y = 288*32;
+
+            inicio.x = 226*32;
+            inicio.y = 349*32;
+            fin.x = 226*32;
+            fin.y = 349*32;
+
             dinero = 300;
             fichero = "resources/pija.txt";
             personaje   = "Brittany";  //o tiffany, se aceptan propuestas
@@ -35,19 +40,43 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 2:
-            areaRecorte = sf::IntRect(128,0,128,128);
+            inicio.x = 7000.0;
+            inicio.y = 10000.0;
+            fin.x = 7232.0;
+            fin.y = 11072.0;
+            fichero = "resources/embarazada.txt";
+            personaje   = "Embarazada";
+            areaRecorte = sf::IntRect(128,0,124,128);
             break;
 
         case 3:
-            areaRecorte = sf::IntRect(256,0,128,128);
+            inicio.x = 7000.0;
+            inicio.y = 10000.0;
+            fin.x = 7232.0;
+            fin.y = 11072.0;
+            fichero = "resources/naufrago.txt";
+            personaje   = "Naufrago";
+            areaRecorte = sf::IntRect(256,0,127,128);
             break;
 
         case 4:
-            areaRecorte = sf::IntRect(384,0,128,128);
+            inicio.x = 7000.0;
+            inicio.y = 10000.0;
+            fin.x = 7232.0;
+            fin.y = 11072.0;
+            fichero = "resources/preso.txt";
+            personaje   = "Preso";
+            areaRecorte = sf::IntRect(384,0,127,128);
             break;
 
         case 5:
-            areaRecorte = sf::IntRect(512,0,128,128);
+            inicio.x = 7000.0;
+            inicio.y = 10000.0;
+            fin.x = 7232.0;
+            fin.y = 11072.0;
+            //fichero = "resources/embarazada.txt";
+            //personaje   = "Embarazada";
+            areaRecorte = sf::IntRect(512,0,127,128);
             break;
     }
 

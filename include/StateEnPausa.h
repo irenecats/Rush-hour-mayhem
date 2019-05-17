@@ -35,6 +35,8 @@ class StateEnPausa : public State
 
         std::vector<sf::Text*>* opciones = nullptr;
         int seleccion = 0;
+
+        bool    fin;
 };
 
 #endif // STATEENPAUSA_H

@@ -32,11 +32,20 @@ ID_State StateEnPausa::input(int teclaPulsada)
             seleccion++;
     }
 
-    if(teclaPulsada == sf::Keyboard::Return && seleccion == 0)
-        next_state = ID_State::enJuego;
+    switch(teclaPulsada)
+    {
+        case sf::Keyboard::Return :
+            if(seleccion == 0)
+                next_state = ID_State::enJuego;
+            break;
 
-    if(teclaPulsada == sf::Keyboard::Escape)
-        next_state = ID_State::enJuego;
+        case sf::Keyboard::Escape :
+            limpiar(); // reinicia los valores (en este caso la seleccion se pone a 0 otra vez)
+            next_state = ID_State::enJuego;
+            break;
+
+        default : break;
+    }
 
     return next_state;
 }
@@ -99,6 +108,8 @@ void StateEnPausa::inicializar()
     opciones->push_back(guardarPartida);
     opciones->push_back(salir);
 
+    fin = false;
+
     for(int i = 0; i < (int) opciones->size(); ++i)
     {
         opciones->at(i)->setOrigin(opciones->at(i)->getGlobalBounds().width / 2.f, 0);
@@ -108,5 +119,6 @@ void StateEnPausa::inicializar()
 
 void StateEnPausa::limpiar()
 {
-
+    seleccion = 0;
+    update(); // para que cuando entremos otra vez, haya hecho efecto el reinicio de los parametros iniciales
 }

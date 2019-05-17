@@ -17,7 +17,7 @@ Jugador::Jugador(){
     jugador.setTextura(TexturaContainer::instancia()->getTextura("Jugador"));
 
     jugador.setRectTextura(sf::IntRect(2*70 + 5, 3*131 - 12, 70, 128));
-    jugador.setPosition(7232.0, 11072.0);
+    jugador.setPosition(131*32, 410*32);
     jugador.setScale(0.6f, 0.6f);
     jugador.setOrigin(35, 45);
 
@@ -28,12 +28,14 @@ Jugador::Jugador(){
     newState.Sety(jugador.getPosition()[1]);
 
 
-    url = "resources/arrow.png";
+    url = "resources/arrow_1.png";
     TexturaContainer::instancia()->crearTextura(url, "Brujula");
     brujula.setTextura(TexturaContainer::instancia()->getTextura("Brujula"));
+    brujula.getSprite().setColor(sf::Color::Red);
 
     brujula.setOrigin(brujula.getGlobalBounds()[0]/2,brujula.getGlobalBounds()[1]/2);
-    brujula.setScale(0.03f, 0.03f);
+    brujula.setColor(sf::Color::Red);
+    brujula.setScale(0.08f, 0.08f);
     brujula.setPosition(jugador.getPosition()[0], jugador.getPosition()[1]); //Al principio se coloca donde el personaje
 
     lastStateB.Setx(brujula.getPosition()[0]);
@@ -64,18 +66,14 @@ float dirx, diry, mv, kr;
     lastState.Setx(newState.Getx());
     lastState.Sety(newState.Gety());
 
-if(!chocando){
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) delante = true;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) right = true;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) left = true;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) space = true;
-}
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Y)){
-        if(emergencia) emergencia = false;
-        else emergencia = true;
+    if(!chocando){
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) delante = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) right = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) left = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) space = true;
     }
+
     //Controlar aqui tambien si se activa el powerup
 
         if(delante){
@@ -124,12 +122,7 @@ if(!chocando){
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
-        if(chocando){
-            dirx = sin(jugador.getRotation()*rad*-2);
-            diry = -cos(jugador.getRotation()*rad*-2);
-        }
-
-        jugador.mover(dirx*mv, diry*mv);
+        if(!chocando)jugador.mover(dirx*mv, diry*mv);
 
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);
@@ -142,9 +135,6 @@ if(!chocando){
             delete bala;
             bala = nullptr;
         }
-
-        _dirx = dirx;
-        _diry = dirx;
 
 }
 
@@ -242,20 +232,31 @@ int Jugador::getDineroTotal() {
     return dineroTotal;
 }
 
-void Jugador::frenar(){
-if(!emergencia){
-    vel = vel/4;
+void Jugador::frenar(float colx, float coly){
+
     jugador.setPosition(lastState.Getx(), lastState.Gety());
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
-    //jugador.setColor(sf::Color::Red);
+
     chocando = true;
-} else{
-    nofrenar();
-}
+
+
+    float angulo2 = atan2 ((jugador.getPosition()[1] - coly),
+                     (jugador.getPosition()[0] - colx)) * 180.0 / PI;
+
+    if(angulo2<0) angulo2 = 360 + angulo2;
+
+    if(angulo2>=45&&angulo2<135) jugador.mover(0, 5);
+    if(angulo2>=135&&angulo2<225) jugador.mover(-5, 0);
+    if(angulo2>=225&&angulo2<315) jugador.mover(0, -5);
+    if(angulo2>=315||angulo2<45) jugador.mover(5, 0);
+
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
+
+    vel=0;
 }
 
 void Jugador::nofrenar(){
-    //jugador.setColor(sf::Color::Green);
     chocando = false;
 }
