@@ -8,12 +8,12 @@
 #include "Window.h"
 #include "Bala.h"
 
-#define kVel 6
+#define kVel 10
 #define PI 3.141592
 #define rad PI/180
-#define kMaxSpeed 24
-#define kRot 0.2
-#define kFr 0.5
+#define kMaxSpeed 34
+#define kRot 0.25
+#define kFr 1
 
 class Jugador
 {
@@ -44,7 +44,7 @@ class Jugador
         int getDinero();
         int getDineroTotal();
 
-        void frenar();
+        void frenar(float colx, float coly);
         void nofrenar();
 
     private:
@@ -60,10 +60,7 @@ class Jugador
         int powerUp;
         bool powerUpActivado = false;
 
-        bool chocando=false;
-        bool permite=false;
-
-        bool emergencia = false;
+        bool chocando = false;
 
         Sprite jugador;
         Interpolacion lastState;

@@ -239,6 +239,10 @@ void StateEnJuego::detectColisionMapa()
     int         my    = std::min(Mapa::Instance()->getHeight(), tiley +3);
     int         mx    = std::min(Mapa::Instance()->getWidth(), tilex +3);
     int cont = 0;
+    float colx, coly, xx, yy;
+    float distancia, daux;
+
+    daux=0;
 
     tilex = std::max(0,tilex - 3);
     tiley = std::max(0,tiley -3);
@@ -251,11 +255,25 @@ void StateEnJuego::detectColisionMapa()
             if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))
             {
                 cont++;
+                colx = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[0];
+                coly = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[1];
+
+                distancia = sqrt((colx - coly)*(colx - coly) +
+                   (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
+
+                if(daux==0 || daux > distancia){
+                    daux = distancia;
+                    xx = colx;
+                    yy = coly;
+                }
+
             }
         }
     }
 
-    if(cont>0) Jugador::instancia()->frenar();
+
+
+    if(cont>0) Jugador::instancia()->frenar(xx, yy);
     else Jugador::instancia()->nofrenar();
 }
 
