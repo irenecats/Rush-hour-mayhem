@@ -8,41 +8,67 @@
 #include "IA.h"
 #include "Window.h"
 #include <string>
+#include <iostream>
 
-class NPC
-{
-    public:
-        NPC(Node &nodoInicial);
-        virtual ~NPC();
+class NPC {
+public:
+    NPC(Node* nodoInicial, IA* intelig);
+    virtual ~NPC();
 
-        void update(int time);
-        void render(Window &ventana, float ptick);
+    void update(int time);
+    void render(Window &ventana, float ptick);
 
-        void setInterpolaciones (Interpolacion val);
+    void setInterpolaciones (float x, float y);
+    void setPosicionesIniciales();
 
-        Sprite Getsprite() { return sprite; }
-        void Setsprite(Sprite val) { sprite = val; }
-        void Setinteligencia(IA* nuevaInteligencia) { inteligencia = nuevaInteligencia; };
 
-    protected:
+    Sprite Getsprite() {
+        return sprite;
+    }
+    sf::RectangleShape GetRectFrenado() {
+        return rectFrenado;
+    }
+    void Setsprite(Sprite val) {
+        sprite = val;
+    }
+    void Setinteligencia(IA* nuevaInteligencia) {
+        inteligencia = nuevaInteligencia;
+    };
+    void frenar();
+    void velocidadNormal();
 
-    private:
-        Interpolacion posAnterior, posSiguiente;
-        Sprite sprite;
-        int refTextura;
-        sf::RectangleShape rectFrenado;
-        IA* inteligencia;
-        Node nodoDestino;
-        Node nodoInicio;
+protected:
 
-        sf::Vector2i puntoImaginario;
-        int sentidoGiro;
-        int anguloNuevo;
-        int anguloBarrido;
+private:
+    static const int RADIO_GIRO = 160;
+    Interpolacion posAnterior, posSiguiente;
+    Sprite sprite;
+    sf::RectangleShape rectFrenado;
 
-        int anguloCalle(sf::Vector2i inicio, sf::Vector2i fin);
-        sf::Vector2i calculaPuntoImaginario();
+    IA* inteligencia;
+    Node* nodoInicio, *nodoDestino;
 
+    sf::Vector2i puntoImaginario;
+    sf::Vector2i centroGiro;
+
+    float MAX_VEL = 500;
+    float velocidad = MAX_VEL; // pixeles por segundo
+    int sentidoGiro;
+    int anguloNuevo;
+    float anguloBarrido;
+    int orientacionDeg;
+
+    sf::Vector2i calculaPuntoImaginario(Node* puntoCurva);
+    int anguloCalle(Node* inicio, Node* fin);
+    int calculaSentidoGiro();
+    float calculaAngBarridoInicial();
+    bool ceroNegativo(float valor);
+    bool estoyRecto();
+    bool mePasoMRU(sf::Vector2f posFinalFrame);
+    sf::Vector2f posMRU(int tiempoRecto);
+    sf::Vector2f damePuntoInicioGiro(Node &nodo);
+    sf::Vector2f damePuntoFinGiro(Node &nodo);
+    int calculaTiempoRecto();
 };
 
 #endif // NPC_H

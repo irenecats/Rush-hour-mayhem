@@ -17,7 +17,7 @@ class State
         ID_State getID();
 
         virtual ID_State input(int)   = 0;
-        virtual void update()  = 0;
+        virtual void update(int tiempo)  = 0;
         virtual void render(Window&, const float)  = 0;
 
         virtual void inicializar() = 0;

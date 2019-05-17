@@ -48,7 +48,7 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
     return next_state;
 }
 
-void StateEnPuntuacion::update()
+void StateEnPuntuacion::update(int tiempo)
 {
 
     if(c <= col)

@@ -50,7 +50,7 @@ ID_State StateEnPausa::input(int teclaPulsada)
     return next_state;
 }
 
-void StateEnPausa::update()
+void StateEnPausa::update(int tiempo)
 {
     for(int i = 0; i < (int) opciones->size(); ++i)
         if(seleccion == i)

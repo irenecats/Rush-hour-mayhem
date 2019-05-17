@@ -5,6 +5,12 @@ Interpolacion::Interpolacion()
     //ctor
 }
 
+Interpolacion::Interpolacion(float parX, float parY)
+{
+    x = parX;
+    y = parY;
+}
+
 Interpolacion::~Interpolacion()
 {
     //dtor

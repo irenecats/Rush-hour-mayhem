@@ -6,6 +6,7 @@ class Interpolacion
 {
     public:
         Interpolacion();
+        Interpolacion(float parX, float parY);
         virtual ~Interpolacion();
         Interpolacion(const Interpolacion& other);
         float Getx() { return x; }
@@ -14,8 +15,8 @@ class Interpolacion
         void Sety(float val) { y = val; }
     protected:
     private:
-        float x;
-        float y;
+        float x = 0;
+        float y = 0;
 };
 
 #endif // INTERPOLACION_H
