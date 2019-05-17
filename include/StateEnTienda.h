@@ -7,6 +7,7 @@
 #include "Sprite.h"
 #include "TexturaContainer.h"
 #include "FactoryPowerUp.h"
+#include "StateEnJuego.h"
 
 #define kMargen 20
 #define tamanyoX 800
