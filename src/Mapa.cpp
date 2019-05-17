@@ -475,7 +475,7 @@ void Mapa::renderMapaAbajo(Window &window)
             for(int x=0; x<_width; x++)
             {
                 //Distancia discreta en geometria del taxista (distancia Manhattan)
-                if(abs(tilex-x)+abs(tiley-y)<20)
+                if(abs(tilex-x)+abs(tiley-y)<50)
                 {
                     if(dibujar[z][y][x]!=NULL)
                     {
@@ -495,7 +495,7 @@ void Mapa::renderMapaArriba(Window &window)
         for(int x=0; x<_width; x++)
         {
             //Distancia discreta en geometria del taxista (distancia Manhattan)
-            if(abs(tilex-x)+abs(tiley-y)<20)
+            if(abs(tilex-x)+abs(tiley-y)<50)
             {
                 if(dibujar[numlayer-2][y][x]!=NULL)
                 {

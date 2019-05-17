@@ -25,17 +25,22 @@ public:
     Sprite Getsprite() {
         return sprite;
     }
+    sf::RectangleShape GetRectFrenado() {
+        return rectFrenado;
+    }
     void Setsprite(Sprite val) {
         sprite = val;
     }
     void Setinteligencia(IA* nuevaInteligencia) {
         inteligencia = nuevaInteligencia;
     };
+    void frenar();
+    void velocidadNormal();
 
 protected:
 
 private:
-    static const int RADIO_GIRO = 40;
+    static const int RADIO_GIRO = 60;
     Interpolacion posAnterior, posSiguiente;
     Sprite sprite;
     sf::RectangleShape rectFrenado;
@@ -45,10 +50,9 @@ private:
 
     sf::Vector2i puntoImaginario;
     sf::Vector2i centroGiro;
-    sf::Vector2i puntoInicioGiro;
-    sf::Vector2i puntoFinGiro;
 
-    int velocidad = 1; // pixeles por segundo
+    float MAX_VEL = 500;
+    float velocidad = MAX_VEL; // pixeles por segundo
     int sentidoGiro;
     int anguloNuevo;
     int anguloBarrido;
