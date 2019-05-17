@@ -27,6 +27,7 @@ ID_State StateEnTienda::input(int teclaPulsada)
             std::cout << "Dinero restante: " << Jugador::instancia()->getDinero() << std::endl;
 
             next_state = ID_State::enJuego;
+            StateEnJuego::instance()->inicializar();
 
         } else {
             std::cout << "eres pobre no puedes" << std::endl;
@@ -35,6 +36,8 @@ ID_State StateEnTienda::input(int teclaPulsada)
 
     if(teclaPulsada == sf::Keyboard::Escape) {
         std::cout << "Has salido sin comprar nada" << std::endl;
+        StateEnJuego::instance()->inicializar();
+
         next_state = ID_State::enJuego;
     }
 

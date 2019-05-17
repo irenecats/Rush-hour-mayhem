@@ -108,6 +108,8 @@ void StateEnPausa::inicializar()
     opciones->push_back(guardarPartida);
     opciones->push_back(salir);
 
+    fin = false;
+
     for(int i = 0; i < (int) opciones->size(); ++i)
     {
         opciones->at(i)->setOrigin(opciones->at(i)->getGlobalBounds().width / 2.f, 0);

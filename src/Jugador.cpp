@@ -28,12 +28,14 @@ Jugador::Jugador(){
     newState.Sety(jugador.getPosition()[1]);
 
 
-    url = "resources/arrow.png";
+    url = "resources/arrow_1.png";
     TexturaContainer::instancia()->crearTextura(url, "Brujula");
     brujula.setTextura(TexturaContainer::instancia()->getTextura("Brujula"));
+    brujula.getSprite().setColor(sf::Color::Red);
 
     brujula.setOrigin(brujula.getGlobalBounds()[0]/2,brujula.getGlobalBounds()[1]/2);
-    brujula.setScale(0.03f, 0.03f);
+    brujula.setColor(sf::Color::Red);
+    brujula.setScale(0.08f, 0.08f);
     brujula.setPosition(jugador.getPosition()[0], jugador.getPosition()[1]); //Al principio se coloca donde el personaje
 
     lastStateB.Setx(brujula.getPosition()[0]);

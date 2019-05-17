@@ -321,7 +321,7 @@ void StateEnJuego::recalculaRango()
 }
 
 bool StateEnJuego::getRuta(){
-    if(ruta->getID() == 5)
+    if(ruta->getID() == 1)//la ultima ruta
         return true;
     else
         return false;
@@ -329,7 +329,7 @@ bool StateEnJuego::getRuta(){
 
 void StateEnJuego::inicializar()
 {
-
+    ruta = factoriaRuta.creaRuta(ruta->getID()+1);
 }
 
 void StateEnJuego::limpiar()
