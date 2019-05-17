@@ -62,7 +62,8 @@ void StateEnJuego::update(int tiempo) {
                                             ruta->getOrigen()->getPosition().y);
     }
 
-    for(int i = 0; i<npcs.size(); i++) {
+    // Update de los npcs
+    /*for(int i = 0; i<npcs.size(); i++) {
         bool tocaFrenar = false;
         for(int j = 0; !tocaFrenar && j<npcs.size(); j++) {
             if (i == j) {
@@ -79,7 +80,7 @@ void StateEnJuego::update(int tiempo) {
             npcs[i].velocidadNormal();
         }
         npcs[i].update(67); //TODO: ayuda
-    }
+    }*/
 }
 
 void StateEnJuego::render(Window &window, const float updateTickTime) {
