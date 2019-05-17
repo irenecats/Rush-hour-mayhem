@@ -32,35 +32,37 @@ class StateEnTienda : public State
         static StateEnTienda* instancia;
         StateEnTienda();
 
-        FactoryPowerUp* fpu;
+        FactoryPowerUp* fpu = nullptr;
 
         int seleccionado = 0;
         int dineroAhorrado = 200; //sacar esta info desde jugador
 
-        sf::Font* fuente;
-        sf::Text* titulo;
-        sf::Text* dineroJugador;
-        sf::Text* ayudaPlayer;
+        sf::Font* fuente = nullptr;
+        sf::Text* titulo = nullptr;
+        sf::Text* dineroJugador = nullptr;
+        sf::Text* ayudaPlayer = nullptr;
 
         std::vector<PowerUp*> powerUps;
-        sf::RectangleShape* recSeleccion;
+        sf::RectangleShape* recSeleccion = nullptr;
 
         std::vector<sf::Text*> precios;
-        sf::Text* precio1;
-        sf::Text* precio2;
-        sf::Text* precio3;
+        sf::Text* precio1 = nullptr;
+        sf::Text* precio2 = nullptr;
+        sf::Text* precio3 = nullptr;
 
         std::vector<std::string> nombres;
         std::vector<std::string> descripciones;
 
-        sf::Text* nom;
-        sf::Text* descrip;
-        Sprite* cajaDialogo;
+        sf::Text* nom = nullptr;
+        sf::Text* descrip = nullptr;
+        Sprite* cajaDialogo = nullptr;
 
         void configurarPowerUps(PowerUp*& pu, float n1, float n2);
         void configurarPrecios(sf::Text*& precio, int num, int numPowerUp);
         void configurarInfo(sf::Text*& tex, int tamanyo, float x, float y);
         int numRandom(std::string tipoPowerUp);
+
+        bool reiniciarTienda = false;
 };
 
 #endif // STATEENTIENDA_H
