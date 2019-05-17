@@ -18,7 +18,10 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
         if(StateEnJuego::instance()->getRuta())
           muestraFinal();
         else
+        {
+            limpiar();
             next_state = ID_State::enTienda;
+        }
 
     return next_state;
 }
@@ -187,7 +190,38 @@ void StateEnPuntuacion::inicializar()
 
 void StateEnPuntuacion::limpiar()
 {
+    porcentaje = 0.f;
+    dinero = 0.f;
 
+    col = 15;
+    tiemp = 80;
+    tiempoPerf = 60;
+    dineroPerf = 350;
+
+    c = 0;
+    t = 0;
+    d = 0;
+
+    calcularPuntuacion(col, tiemp, tiempoPerf, dineroPerf);
+
+    ncoli->setString(std::to_string(c));
+    ntiemp->setString(std::to_string(t));
+    ndinero->setString(std::to_string(d));
+
+    if(rect)
+        delete rect;
+    if(relleno)
+        delete relleno;
+
+    rect = new sf::RectangleShape(sf::Vector2f(310,40));
+    rect->setOrigin(rect->getGlobalBounds().width/2, rect->getGlobalBounds().height/2);
+    rect->setPosition(800/2, 350);
+    rect->setOutlineColor(sf::Color::White);
+
+    relleno = new sf::RectangleShape(sf::Vector2f(0, 30));
+    relleno->setOrigin(relleno->getGlobalBounds().width/2, relleno->getGlobalBounds().height/2);
+    relleno->setPosition(rect->getPosition().x - rect->getGlobalBounds().width/2 + 5, rect->getPosition().y);
+    relleno->setFillColor(sf::Color::Green);
 }
 
 void StateEnPuntuacion::muestraFinal(){
