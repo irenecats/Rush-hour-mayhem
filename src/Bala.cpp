@@ -15,8 +15,8 @@ Bala::Bala(float _x, float _y,float rot, float _dirx, float _diry, float _vel){
 
     dirx = _dirx;
     diry = _diry;
-    if(_vel>3) vel = _vel;
-    else vel = 3;
+    if(_vel>3) vel = 1.5;
+    else vel = 1;
 
     lastState.Setx(bala.getPosition()[0]);
     lastState.Sety(bala.getPosition()[1]);
@@ -26,13 +26,13 @@ Bala::Bala(float _x, float _y,float rot, float _dirx, float _diry, float _vel){
 }
 
 
-void Bala::update(){
+void Bala::update(int tiempo){
 
     lastState.Setx(newState.Getx());
     lastState.Sety(newState.Gety());
 
     if(clock.getElapsedTime()<4000){
-        bala.mover(dirx*5*vel, diry*5*vel);
+        bala.mover(dirx*40*vel*tiempo*0.01, diry*40*vel*tiempo*0.01);
     }else{
         aborrar = true;
     }

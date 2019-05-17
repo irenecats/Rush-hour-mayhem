@@ -15,7 +15,7 @@ class Bala
     public:
         Bala(float _x, float _y,float rot, float _dirx, float _diry, float vel);
 
-        void update();
+        void update(int tiempo);
         void render(Window&, float ptick);
 
         bool getaborrar();

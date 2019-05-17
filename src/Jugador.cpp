@@ -58,7 +58,7 @@ Jugador::Jugador(const Jugador& other)
 }
 
 //Update con interpolacion que gestiona el movimiento del coche
-void Jugador::update(){
+void Jugador::update(int tiempo){
 
 bool left=false, right=false, delante = false, atras = false, space = false, clocktwo=false, tope=false;
 float dirx, diry, mv, kr;
@@ -122,7 +122,8 @@ float dirx, diry, mv, kr;
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
-        if(!chocando)jugador.mover(dirx*mv, diry*mv);
+        if(!chocando)jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
+        //if(!chocando)jugador.mover(dirx*mv, diry*mv);
 
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);

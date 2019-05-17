@@ -24,7 +24,7 @@ class Jugador
 
         static Jugador* instancia();
 
-        void update();
+        void update(int tiempo);
         void interpolar(float ptick);
         void dibujar(Window&);
 

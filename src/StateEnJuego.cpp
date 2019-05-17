@@ -50,10 +50,10 @@ void StateEnJuego::update(int tiempo) {
     //detectColisioncNPC();
 
     ruta->Update(reloj);
-    Jugador::instancia()->update();
+    Jugador::instancia()->update(tiempo);
     detectColisionMapa();
     detectColisionRuta();
-    if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update();
+    if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update(tiempo);
     if(ruta->getActiva()) {
         Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
                                             ruta->getDestino()->getPosition().y);
