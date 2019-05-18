@@ -25,14 +25,13 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
     switch(numRuta){
         case 1:
 
-            //inicio.x = 405*32;
-            //inicio.y = 288*32;
+            inicio.x = 405*32;
+            inicio.y = 288*32;
 
-            inicio.x = 226*32;
-            inicio.y = 349*32;
+            //inicio.x = 226*32;
+            //inicio.y = 349*32;
             fin.x = 226*32;
             fin.y = 349*32;
-
             dinero = 300;
             fichero = "resources/pija.txt";
             personaje   = "Brittany";  //o tiffany, se aceptan propuestas

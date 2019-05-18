@@ -66,8 +66,8 @@ PowerUp* FactoryPowerUp::crearPowerUp(int p_id) {
 
         case 7:
             id = p_id;
-            nombre = "Modo ambulancia";
-            descripcion = "Los coches se iran apartando para dejar paso al coche, que\nse convertira en una ambulancia.";
+            nombre = "Modo fantasma";
+            descripcion = "El jugador dejara de colisionar con otros cocher por un periodo de tiempo.";
             precio = 800;
             ruta = "resources/pu7.png";
         break;

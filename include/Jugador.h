@@ -33,6 +33,7 @@ class Jugador
 
         void setPowerUp(int pw);
         void activarPowerUp();
+        bool esFantasma();
 
         bool disparando();
         Bala* getBala();

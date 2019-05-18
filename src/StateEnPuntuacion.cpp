@@ -30,8 +30,6 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
             int minute = now->tm_min;
             currentTime = std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\t"+
                           std::to_string(hour)+":"+std::to_string(minute);
-
-
             muestraFinal();
         }
         else if(StateEnJuego::instance()->getRuta() && finjuego)
@@ -337,8 +335,8 @@ void StateEnPuntuacion::organizaRanking()
         }
         else
         {
-            fechaux+="---\n";
-            puntosaux +="---\n";
+            fechaux+="\t---\n";
+            puntosaux +="\t---\n";
         }
     }
 
@@ -352,13 +350,11 @@ void StateEnPuntuacion::organizaRanking()
     }
 
     fecha.setString(fechaux);
-    if(currentPos<=10)
-    {
-        flecha.setPosition(700,146+36*(currentPos - 1));
+    if(currentPos<=10){
+        flecha.setPosition(700,150+35*(currentPos - 1));
     }
-    else
-    {
-        flecha.setPosition(700,541);
+    else{
+        flecha.setPosition(700,521);
     }
     puntos.setString(puntosaux);
 }

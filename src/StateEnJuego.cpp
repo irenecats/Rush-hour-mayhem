@@ -299,7 +299,7 @@ void StateEnJuego::recalculaRango() {
 }
 
 bool StateEnJuego::getRuta(){
-    if(ruta->getID() == 1)//la ultima ruta
+    if(ruta->getID() == 5)//la ultima ruta
         return true;
     else
         return false;

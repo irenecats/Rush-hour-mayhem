@@ -137,6 +137,14 @@ float dirx, diry, mv, kr;
             bala = nullptr;
         }
 
+        //modo fantasma
+        if(powerUp == 7 && powerUpActivado){
+            jugador.setColor(sf::Color(255,255,255,127));
+        }
+        else if(powerUp == 7 && !powerUpActivado){
+            jugador.setColor(sf::Color(255,255,255,255));
+        }
+
 }
 
 //Render con interpolacion
@@ -147,7 +155,6 @@ void Jugador::interpolar(float ptick){
 void Jugador::dibujar(Window& window){
     window.draw(jugador);
 }
-
 
 void Jugador::renderBrujula(Window& window, float ptick){
     brujula.setPosition(lastStateB.Getx()*(1-ptick) + newStateB.Getx()*(ptick), lastStateB.Gety()*(1-ptick) + newStateB.Gety()*(ptick));
@@ -171,6 +178,15 @@ void Jugador::setPowerUp(int pw){
 //Activamos el powerUp
 void Jugador::activarPowerUp(){
     powerUpActivado = true;
+}
+
+bool Jugador::esFantasma(){
+    bool fant = false;
+    if(powerUp == 7 && powerUpActivado){
+        fant=true;
+    }
+
+    return fant;
 }
 
 bool Jugador::disparando(){
@@ -215,7 +231,6 @@ void Jugador::updateBrujula(float targetX, float targetY){
     }
 
 }
-
 
 void Jugador::setDinero(int money) {
     dinero += money;
