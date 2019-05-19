@@ -193,8 +193,16 @@ void Ruta::pasarDialogo()
 
     if(numfrase < (int) dialogointro.size()-1 && DiagActual == 1)
     {
-        letra = 0;
-        numfrase++;
+        if(!espacioPulsado && letra < (int) dialogointro[numfrase].length()) {   //Si el diálogo no ha acabado y se pulsa el espacio saca toda la frase
+            dialogo.setString(dialogointro[numfrase]);
+            letra = (int) dialogointro[numfrase].length();
+            espacioPulsado = true;
+
+        } else {    //Si ya se ha pulsado el espacio antes, la frase ya ha salido entera, así que pasamos a la siguiente
+            letra = 0;
+            numfrase++;
+            espacioPulsado = false;
+        }
     }
     else
     {
@@ -213,7 +221,7 @@ void Ruta::Update(Clock& tiempo)
 {
     if(activa && DiagActual==1 && numfrase < (int) dialogointro.size() )
     {
-        if (tiempo.getElapsedTime()> 25 && letra < (int) dialogointro[numfrase].length())
+        if (tiempo.getElapsedTime()> 10 && letra < (int) dialogointro[numfrase].length())
         {
             tiempo.restart();
             letra++;

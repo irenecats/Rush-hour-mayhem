@@ -20,6 +20,7 @@
 					<Add library="sfml-graphics" />
 					<Add library="sfml-window" />
 					<Add library="sfml-system" />
+					<Add library="sfml-audio" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -59,13 +60,9 @@
 		<Unit filename="FV City Map/xcolision.png" />
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Bala.h" />
-<<<<<<< Updated upstream
-		<Unit filename="include/Clock.h" />
-		<Unit filename="include/Collision.h" />
-=======
 		<Unit filename="include/Camara.h" />
 		<Unit filename="include/Clock.h" />
->>>>>>> Stashed changes
+		<Unit filename="include/Collision.h" />
 		<Unit filename="include/FactoryPowerUp.h" />
 		<Unit filename="include/FactoryRuta.h" />
 		<Unit filename="include/IA.h" />
@@ -91,16 +88,10 @@
 		<Unit filename="include/Window.h" />
 		<Unit filename="include/tinyxml2.h" />
 		<Unit filename="main.cpp" />
-<<<<<<< Updated upstream
-		<Unit filename="resources/audi.png" />
-		<Unit filename="src/Bala.cpp" />
-		<Unit filename="src/Clock.cpp" />
-		<Unit filename="src/Collision.cpp" />
-=======
 		<Unit filename="src/Bala.cpp" />
 		<Unit filename="src/Camara.cpp" />
 		<Unit filename="src/Clock.cpp" />
->>>>>>> Stashed changes
+		<Unit filename="src/Collision.cpp" />
 		<Unit filename="src/FactoryPowerUp.cpp" />
 		<Unit filename="src/FactoryRuta.cpp" />
 		<Unit filename="src/IA.cpp" />

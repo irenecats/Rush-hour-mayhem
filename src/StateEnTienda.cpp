@@ -30,9 +30,13 @@ ID_State StateEnTienda::input(int teclaPulsada)
             update(0);
             next_state = ID_State::enJuego;
             StateEnJuego::instance()->inicializar();
+            mTienda.stop();
+            cancionCambiada = false;
 
         } else {
             std::cout << "eres pobre no puedes" << std::endl;
+            mPobre.play();
+            mPobre.setVolume(400); //esto no se si va antes o despues
         }
     }
 
@@ -44,11 +48,15 @@ ID_State StateEnTienda::input(int teclaPulsada)
         StateEnJuego::instance()->inicializar();
     }
 
-    if(teclaPulsada == sf::Keyboard::Right)
+    if(teclaPulsada == sf::Keyboard::Right) {
         seleccionado++;
+        mFlechas.play();
+    }
 
-    if(teclaPulsada == sf::Keyboard::Left)
+    if(teclaPulsada == sf::Keyboard::Left) {
         seleccionado--;
+        mFlechas.play();
+    }
 
     return next_state;
 }
@@ -59,6 +67,11 @@ void StateEnTienda::update(int tiempo)
     {
         inicializar();
         reiniciarTienda = !reiniciarTienda;
+    }
+
+    if(!cancionCambiada) {
+        mTienda.play();
+        cancionCambiada = true;
     }
 
     if(seleccionado == -1)
@@ -75,6 +88,7 @@ void StateEnTienda::update(int tiempo)
 
 void StateEnTienda::render(Window& window, const float updateTickTime)
 {
+    window.draw(*fondoTienda);
     window.draw(*titulo);
     window.draw(*dineroJugador);
     window.draw(*precio1);
@@ -93,6 +107,9 @@ void StateEnTienda::render(Window& window, const float updateTickTime)
 StateEnTienda::StateEnTienda()
 {
     id = ID_State::enTienda;
+
+    std::string url = "resources/tienda.png";
+    TexturaContainer::instancia()->crearTextura(url, "tienda");
 
     inicializar();
 }
@@ -151,6 +168,7 @@ StateEnTienda::~StateEnTienda()
     delete powerUps[2];
     delete ayudaPlayer;
     delete cajaDialogo;
+    delete fondoTienda;
     delete nom;
     delete descrip;
     delete fpu;
@@ -277,6 +295,11 @@ void StateEnTienda::inicializar()
     cajaDialogo->setScale(0.9f, 0.6f);
     cajaDialogo->setPosition(400, 500);
 
+    fondoTienda = new Sprite(TexturaContainer::instancia()->getTextura("tienda"));
+    fondoTienda->setOrigin(fondoTienda->getGlobalBounds()[0]/2,fondoTienda->getGlobalBounds()[1]/2);
+    fondoTienda->setPosition(400, 300);
+
+
     if(titulo)
         delete titulo;
     //Otros textos de la pantalla
@@ -298,12 +321,12 @@ void StateEnTienda::inicializar()
     ayudaPlayer->setOrigin(ayudaPlayer->getGlobalBounds().width/2, ayudaPlayer->getGlobalBounds().height/2);
     ayudaPlayer->setColor(sf::Color::White);
     ayudaPlayer->setPosition(400, 375);
+
 }
 
 void StateEnTienda::limpiar()
 {
     seleccionado = 0;
     dineroAhorrado = 200;
-
     reiniciarTienda = true;
 }

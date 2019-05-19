@@ -1,6 +1,6 @@
 #include "Window.h"
 
-Window::Window() : window(sf::VideoMode(800, 600), "SFML window"){
+Window::Window() : window(sf::VideoMode(800, 600), "Rush Hour Mayhem"){
 }
 
 Window::Window(unsigned int ancho, unsigned int alto, const std::string titulo) : window(sf::VideoMode(ancho, alto), titulo) {

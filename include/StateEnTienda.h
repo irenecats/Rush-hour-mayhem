@@ -33,6 +33,8 @@ class StateEnTienda : public State
         static StateEnTienda* instancia;
         StateEnTienda();
 
+        bool cancionCambiada = false;
+
         FactoryPowerUp* fpu = nullptr;
 
         int seleccionado = 0;
@@ -57,6 +59,7 @@ class StateEnTienda : public State
         sf::Text* nom = nullptr;
         sf::Text* descrip = nullptr;
         Sprite* cajaDialogo = nullptr;
+        Sprite* fondoTienda = nullptr;
 
         void configurarPowerUps(PowerUp*& pu, float n1, float n2);
         void configurarPrecios(sf::Text*& precio, int num, int numPowerUp);

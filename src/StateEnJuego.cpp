@@ -22,6 +22,8 @@ ID_State StateEnJuego::input(int teclaPulsada)
     else if(ruta->getTerminada() && teclaPulsada == sf::Keyboard::Return)
     {
         next_state = ID_State::enPuntuacion;
+        State::tiempoPlayeado = mVictoria.getPlayingOffset();
+        mVictoria.stop();
     }
     else if(teclaPulsada == sf::Keyboard::Space && ruta->getActiva() && ruta->getDiagActual()==1)
     {
@@ -71,6 +73,15 @@ void StateEnJuego::update(int tiempo)
     {
         Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
                                             ruta->getDestino()->getPosition().y);
+<<<<<<< HEAD
+
+        if(!cancionCambiada && !ruta->getTerminada()) {
+            mTiempoLibre.stop();
+            mMision.play();
+            cancionCambiada = true;
+        }
+=======
+>>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
     }
     else
     {
@@ -121,9 +132,21 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
     window.setView(Camara::instancia()->getFullView());
     ruta->RenderDialogos(window);
     //GUI
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+    if(ruta->getTerminada()) {
+        window.draw(finRuta);
+    }
+=======
     if(ruta->getTerminada())    window.draw(finRuta);
     //std::cout<<"Tamaño "<<guia.getVertexCount()<<std::endl;
 
+>>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
+=======
+    if(ruta->getTerminada())    window.draw(finRuta);
+    //std::cout<<"Tamaño "<<guia.getVertexCount()<<std::endl;
+
+>>>>>>> Stashed changes
 }
 
 StateEnJuego::StateEnJuego()
@@ -131,6 +154,7 @@ StateEnJuego::StateEnJuego()
     id = ID_State::enJuego;
     nodos = Mapa::Instance()->getGrafo();
 
+    mTiempoLibre.play();
     //printf("busco los nodos cercanos y genero coches ahi\n");
     buscaCercanos();
     generaCoches(20);
@@ -149,7 +173,11 @@ StateEnJuego::StateEnJuego()
         exit(0);
     }
 
+<<<<<<< HEAD
+    finRuta = sf::Text("Pulsa ENTER para ver tu puntuacion", fuente, 20);
+=======
     finRuta = sf::Text("Pulsa INTRO para ver tu puntuacion", fuente, 20);
+>>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
     finRuta.setOrigin(finRuta.getGlobalBounds().width/2,finRuta.getGlobalBounds().height/2);
     finRuta.setColor(sf::Color::White);
     finRuta.setPosition(400, 375);
@@ -255,6 +283,15 @@ void StateEnJuego::detectColisionRuta()
         {
             ruta->haTerminado();
             //Cuando coche choque con ruta->getDestino,
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+            // delete ruta; rura = nullptr;
+=======
+>>>>>>> Stashed changes
+            mMision.stop();
+            mVictoria.play();
+=======
+>>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
             printf("FIN DE LA RUTA\n");
         }
     }
@@ -362,6 +399,8 @@ bool StateEnJuego::getRuta()
 void StateEnJuego::inicializar()
 {
     ruta = factoriaRuta.creaRuta(ruta->getID()+1);
+    mTiempoLibre.play();
+    cancionCambiada = false;
 }
 
 void StateEnJuego::limpiar()
@@ -371,6 +410,164 @@ void StateEnJuego::limpiar()
     printf("Tamanyo final %i\n", var);
 }
 
+<<<<<<< Updated upstream
+<<<<<<< HEAD
+void StateEnJuego::cambiarCancion(std::string nombreCancion, sf::Music musica) {
+=======
+void StateEnJuego::dibujaGuia(){
+std::vector<sf::Vector2f> lineaRuta = ruta->getGuia();
+sf::Vector2f player(Jugador::instancia()->getJugador().getPosition()[0],Jugador::instancia()->getJugador().getPosition()[1]);
+float thickness = 5;
+
+for(unsigned int i=1;i<lineaRuta.size();i++){
+    sf::Vector2f  p0 = lineaRuta[i-1];
+    sf::Vector2f  p1 = lineaRuta[i];
+    sf::Vector2f line = p1 - p0;
+    float separacion = sqrt((line.x*line.x) + (line.y*line.y));
+    sf::Vector2f normal = sf::Vector2f( -line.y, line.x)/separacion;
+    sf::Vector2f a = p0 - thickness * normal;
+    sf::Vector2f b = p0 + thickness * normal;
+    sf::Vector2f c = p1 - thickness * normal;
+    sf::Vector2f d = p1 + thickness * normal;
+    guia.append( sf::Vertex(a , sf::Color::Blue));
+    guia.append( sf::Vertex(b , sf::Color::Blue));
+    guia.append( sf::Vertex(c , sf::Color::Blue));
+    guia.append( sf::Vertex(d , sf::Color::Blue));
+}
+
+}
+
+/*
+void StateEnJuego::encuentraCMC()
+{
+    printf("Busco CMC\n");
+    int distancia=0;
+    int mini=0;
+    sf::Vector2f player(Jugador::instancia()->getJugador().getPosition()[0],Jugador::instancia()->getJugador().getPosition()[1]);
+
+    float mindist= abs(nodos[0]->getCoorX() - player.x)+
+                   abs(nodos[0]->getCoorY() - player.y);
+    for(unsigned int i=0; i<nodos.size(); i++)
+    {
+
+        distancia = abs(nodos[i]->getCoorX() - player.x);
+        distancia += abs(nodos[i]->getCoorY() - player.y);
+        //Distancia discreta en geometria del taxista (distancia Manhattan)
+        if(distancia<mindist)
+        {
+            mini=i;
+            mindist = distancia;
+            //printf("Disancia %i\n",distancia);
+            //printf("Posicion %i - %i\n",nodos[i]->getCoorX(),nodos[i]->getCoorY());
+            //cercanos.push_back(nodos[i]);
+        }
+    }
+    //nodo origen
+    Node* origin = nodos[mini];
+    sf::Vector2f dest(226*32,349*32);
+    std::vector<Node*> frontera;
+    std::vector<Node*> interior;
+    frontera.push_back(origin);
+
+
+    while(frontera.size()>0)
+    {
+        mindist = frontera[0]->getDistancia(dest) + frontera[0]->getCoste();
+        mini=0;
+        for(unsigned int i=0; i<frontera.size(); i++)
+        {
+            //Distancia discreta en geometria del taxista (distancia Manhattan)
+            distancia = frontera[i]->getDistancia(dest) + frontera[i]->getCoste();
+            if( distancia < mindist)
+            {
+                mini=i;
+                mindist = distancia;
+                //printf("Disancia %i\n",distancia);
+                //printf("Posicion %i - %i\n",nodos[i]->getCoorX(),nodos[i]->getCoorY());
+                //cercanos.push_back(nodos[i]);
+            }
+        }
+        interior.push_back(frontera[mini]);
+        frontera.erase(frontera.begin()+mini);
+
+        int num = interior.size()-1;
+        for(unsigned int i =0; i<interior[num]->adj.size(); i++)
+        {
+            bool contr=false;
+            int aux = -1;
+            for(unsigned int j=0; j<frontera.size();j++){
+                if(interior[num]->adj[j]->compare(frontera[j]) && aux ==-1){
+
+                    contr = true;
+                    aux = j;
+                }
+            }
+
+            if(!contr)
+            {
+                //printf("\tExiste\n");
+                frontera[mini]->adj[i]->setParent(interior[num]);
+                frontera.push_back(interior[num]->adj[i]);
+            }
+            else{
+                //printf("\t No existe\n");
+                if(frontera[aux]->getCoste() > interior[num]->getCoste()+10){
+                    frontera[aux]->setParent(interior[num]);
+                }
+            }ruta
+        }
+
+        if(frontera.size()<=0)
+        {
+            printf("Error \n");
+            break;
+        }
+        else if(mindist<=800)
+        {
+            printf("Encontrado\n");
+            std::cout<<interior[interior.size()-1]->getCoorX()<<" - "<<interior[interior.size()-1]->getCoorY()<<std::endl;
+            bool contr=false;
+                Nodo* fin = frontera[mini];
+            while(!fin.getPadre()){
+                sf::Vector2f  p0(fontera[mini]->getCoorX(),fontera[mini]->getCoorY());
+                sf::Vector2f  p1(fontera[mini]->getParent,fontera[mini]);
+                float thickness = 5;
+
+                sf::Vector2f line = p1 - p0;
+                float separacion = sqrt((line.x*line.x) + (line.y*line.y));
+                sf::Vector2f normal = sf::Vector2f( -line.y, line.x)/separacion;
+                sf::Vector2f a = p0 - thickness * normal;
+                sf::Vector2f b = p0 + thickness * normal;
+                sf::Vector2f c = p1 - thickness * normal;
+                sf::Vector2f d = p1 + thickness * normal;
+
+                Vector2f tangent = ((p2-p1).normalized() + (p1-p0).normalized()).normalized();
+                Vector2f miter = Vector2f( -tangent.y, tangent.x ); //normal of the tangent
+
+                float length = thickness / miter.dot( normal );
+
+                Vector2f m1 = p1 - length * miter;
+                Vector2f m2 = p1 + length * miter;
+
+                guia.append( sf::Vertex(a , sf::Color::Red));
+                guia.append( sf::Vertex(b , sf::Color::Red));
+                guia.append( sf::Vertex(c , sf::Color::Red));
+                guia.append( sf::Vertex(d , sf::Color::Red));
+                //}
+        }
+
+        std::cout<<frontera.size()<<std::endl;
+        if(frontera.size()>0)
+        std::cout<<frontera[0]->getCoorX()<<" - "<<frontera[0]->getCoorY()<<std::endl;
+        std::cout<<interior.size()<<std::endl;
+
+>>>>>>> Stashed changes
+
+    }
+
+}
+<<<<<<< Updated upstream
+=======
 void StateEnJuego::dibujaGuia(){
 std::vector<sf::Vector2f> lineaRuta = ruta->getGuia();
 sf::Vector2f player(Jugador::instancia()->getJugador().getPosition()[0],Jugador::instancia()->getJugador().getPosition()[1]);
@@ -525,3 +722,9 @@ void StateEnJuego::encuentraCMC()
 */
 
 
+>>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
+=======
+*/
+
+
+>>>>>>> Stashed changes

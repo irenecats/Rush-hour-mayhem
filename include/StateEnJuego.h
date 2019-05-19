@@ -38,6 +38,7 @@ class StateEnJuego : public State
         sf::RectangleShape*  destino;
         Clock                reloj;
         bool                 colision;
+        bool                 cancionCambiada = false;
         sf::Font             fuente;
         sf::Text             finRuta;
         std::vector<Node*>   nodos;
@@ -54,6 +55,10 @@ class StateEnJuego : public State
         void detectColisionRuta();
         void detectColisionMapa();
         void recalculaRango();
+<<<<<<< Updated upstream
+        void cambiarCancion(std::string nombreCancion, sf::Music musica);
+=======
+>>>>>>> Stashed changes
         void encuentraCMC();
         void dibujaGuia();
 

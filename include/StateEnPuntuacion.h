@@ -29,6 +29,8 @@ private:
     static StateEnPuntuacion* instancia;
     StateEnPuntuacion();
 
+    bool cancionCambiada = false;
+
     float porcentaje = 0.f;
     float dinero = 0.f;
 

@@ -67,7 +67,7 @@ PowerUp* FactoryPowerUp::crearPowerUp(int p_id) {
         case 7:
             id = p_id;
             nombre = "Modo fantasma";
-            descripcion = "El jugador dejara de colisionar con otros cocher por un periodo de tiempo.";
+            descripcion = "Durante 5 segundos el taxi no colisionara con los coches.\nTendra un cooldown de 10 segundos.";
             precio = 800;
             ruta = "resources/pu7.png";
         break;

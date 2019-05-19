@@ -16,6 +16,8 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 
     if(teclaPulsada == sf::Keyboard::Return)
     {
+        mVictoria.stop();
+
         if(StateEnJuego::instance()->getRuta() && !finjuego)
         {
             printf("Pantalla Final\n");
@@ -48,6 +50,11 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 
 void StateEnPuntuacion::update(int tiempo)
 {
+    if(!cancionCambiada) {
+        mVictoria.play();
+        mVictoria.setPlayingOffset(tiempoPlayeado); //Por algún motivo SFML decidio poner el offset despues de darle al play y no al revés... brillante
+        cancionCambiada = true;
+    }
 
     if(c <= col)
     {
@@ -145,6 +152,10 @@ void StateEnPuntuacion::render(Window &window, const float updateTickTime)
 StateEnPuntuacion::StateEnPuntuacion()
 {
     id = ID_State::enPuntuacion;
+
+    mVictoria.play();
+    mVictoria.setPlayingOffset(tiempoPlayeado); //Por algún motivo SFML decidio poner el offset despues de darle al play y no al revés... brillante
+    cancionCambiada = true;
 
     fuente = new sf::Font();
     if (!fuente->loadFromFile("resources/Ticketing.ttf"))
@@ -313,6 +324,8 @@ void StateEnPuntuacion::limpiar()
     relleno->setOrigin(relleno->getGlobalBounds().width/2, relleno->getGlobalBounds().height/2);
     relleno->setPosition(rect->getPosition().x - rect->getGlobalBounds().width/2 + 5, rect->getPosition().y);
     relleno->setFillColor(sf::Color::Green);
+
+    cancionCambiada = false;
 }
 
 void StateEnPuntuacion::muestraFinal()
