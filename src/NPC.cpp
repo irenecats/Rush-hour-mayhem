@@ -1,6 +1,6 @@
 #include "NPC.h"
 
-NPC::NPC(Node* nodoInicial, IA* intelig) : posAnterior(), posSiguiente() {
+NPC::NPC(Node* nodoInicial, IA* intelig) : posAnterior(), posSiguiente(), debugLine(sf::Lines, 2) {
     nodoInicio = nodoInicial;
     //std::cout << nodoInicial->getCoorX() << " = " <<nodoInicio->getCoorX() <<std::endl;
     std::string ruta("resources/audi.png");
@@ -24,8 +24,10 @@ NPC::NPC(Node* nodoInicial, IA* intelig) : posAnterior(), posSiguiente() {
     //std::cout << "nodoinicio (" << nodoInicio->getCoorX() << ", " << nodoInicio->getCoorY() << "), nododestino (" << nodoDestino->getCoorX() << ", " << nodoDestino->getCoorY() << std::endl;
     anguloNuevo = anguloCalle(nodoInicio, nodoDestino);
     orientacionDeg = anguloNuevo;
-    sprite.setRotation(orientacionDeg);
+    sprite.setRotation(a(orientacionDeg));
     sprite.setPosition(nodoInicio->getCoorX(), nodoInicio->getCoorY());
+
+    setDebugLine(nodoInicio, nodoDestino);
 }
 
 void NPC::setPosicionesIniciales() {
@@ -52,23 +54,23 @@ void NPC::velocidadNormal() {
 }
 sf::Vector2f NPC::posMRU(int tiempoRecto) {
     sf::Vector2f posReturn;
-    float orientacion = sprite.getRotation() * M_PI/180.0;
+    float orientacion = a(sprite.getRotation()) * M_PI/180.0;
 
     posReturn.x = sprite.getPosition()[0] + velocidad /*px por s */ * std::cos(orientacion) * (tiempoRecto/1000.f);
-    posReturn.y = sprite.getPosition()[1] + velocidad * std::sin(orientacion) * (tiempoRecto/1000.f);
+    posReturn.y = sprite.getPosition()[1] - velocidad * std::sin(orientacion) * (tiempoRecto/1000.f);
     return posReturn;
 }
 
 bool NPC::mePasoMRU(sf::Vector2f posFinalFrame) {
-    float orientacion = sprite.getRotation() * M_PI/180.0;
+    float orientacion = a(sprite.getRotation()) * M_PI/180.0;
     sf::Vector2f inicioGiro = damePuntoInicioGiro(*nodoDestino);
 
-    return ((ceroNegativo(sin(orientacion)) && ((posFinalFrame.x - inicioGiro.x) * std::cos(orientacion) >= 0))
-           || (ceroNegativo(cos(orientacion)) && ((posFinalFrame.x - inicioGiro.x) * std::sin(orientacion) <= 0)));
+    return ((ceroNegativo(std::sin(orientacion)) && ((posFinalFrame.x - inicioGiro.x) * std::cos(orientacion) >= 0))
+           || (ceroNegativo(std::cos(orientacion)) && ((posFinalFrame.y - inicioGiro.y) * std::sin(orientacion) <= 0)));
 }
 
 int NPC::calculaTiempoRecto() {
-    if (ceroNegativo(std::sin(sprite.getRotation() * M_PI/180.0))) {
+    if (ceroNegativo(std::sin(a(sprite.getRotation()) * M_PI/180.0))) {
         return std::abs(damePuntoInicioGiro(*nodoInicio).x - sprite.getPosition()[0]) / velocidad * 1000;
     } else {
         return std::abs(damePuntoInicioGiro(*nodoInicio).y - sprite.getPosition()[1]) / velocidad * 1000;
@@ -77,8 +79,8 @@ int NPC::calculaTiempoRecto() {
 
 sf::Vector2f NPC::damePuntoInicioGiro(Node &nodo) {
     sf::Vector2f devolver;
-    devolver.x = nodo.getCoorX() - RADIO_GIRO * std::cos(sprite.getRotation() * M_PI/180.0);
-    devolver.y = nodo.getCoorY() + RADIO_GIRO * std::sin(sprite.getRotation() * M_PI/180.0);
+    devolver.x = nodo.getCoorX() - RADIO_GIRO * std::cos(a(sprite.getRotation()) * M_PI/180.0);
+    devolver.y = nodo.getCoorY() + RADIO_GIRO * std::sin(a(sprite.getRotation()) * M_PI/180.0);
     return devolver;
 }
 
@@ -96,12 +98,13 @@ void NPC::update(int time) {
     posAnterior.Sety(posSiguiente.Gety());
 
     if (estoyRecto()) {
-        if (mePasoMRU(posMRU(tiempoRecto))) {
+        if (mePasoMRU(posMRU(time))) {
             nodoInicio = nodoDestino;
             nodoDestino = inteligencia->getNextNode(*nodoInicio);
+            //setDebugLine(nodoInicio, nodoDestino);
             anguloNuevo = anguloCalle(nodoInicio, nodoDestino);
 
-            if (sprite.getRotation() != anguloNuevo) {
+            if (a(sprite.getRotation()) != anguloNuevo) {
                 sentidoGiro = calculaSentidoGiro();
                 centroGiro = calculaPuntoImaginario(nodoInicio);
                 anguloBarrido = calculaAngBarridoInicial();
@@ -117,25 +120,28 @@ void NPC::update(int time) {
             tiempoRecto = time;
         }
     } else {
+        tiempoGiro = time;
         float anguloIncremento = sentidoGiro * (tiempoGiro/1000.f) * velocidad / RADIO_GIRO;
+        float anguloBarridoFinal = anguloNuevo - 90 * sentidoGiro;
+        if (anguloBarridoFinal >= 360) anguloBarridoFinal = 0;
+        else if (anguloBarridoFinal <= 0) anguloBarridoFinal = 360;
+        anguloBarridoFinal *= M_PI/180.0;
 
         if (sentidoGiro > 0) {
-            if (anguloBarrido + anguloIncremento > anguloNuevo * M_PI/180.0) {
-                tiempoRecto = (time/1000.f) - (anguloNuevo * M_PI/180.0 - anguloBarrido) * RADIO_GIRO / velocidad;
-                sprite.setRotation(anguloNuevo);
+            if (anguloBarrido + anguloIncremento > anguloBarridoFinal) {
+                tiempoRecto = time - (anguloBarridoFinal - anguloBarrido) * RADIO_GIRO / velocidad * 1000;
+                tiempoGiro = 0;
+                sprite.setRotation(a(anguloNuevo));
                 sf::Vector2f finGiro = damePuntoFinGiro(*nodoInicio);
                 sprite.setPosition(finGiro.x, finGiro.y);
-            } else {
-                tiempoGiro = time;
             }
         } else {
-            if (anguloBarrido + anguloIncremento < anguloNuevo * M_PI/180.0) {
-                tiempoRecto = (time/1000.f) - (anguloBarrido - anguloNuevo * M_PI/180.0) * RADIO_GIRO / velocidad;
-                sprite.setRotation(anguloNuevo);
+            if (anguloBarrido + anguloIncremento < anguloBarridoFinal) {
+                tiempoRecto = time - (anguloBarrido - anguloBarridoFinal) * RADIO_GIRO / velocidad * 1000;
+                tiempoGiro = 0;
+                sprite.setRotation(a(anguloNuevo));
                 sf::Vector2f finGiro = damePuntoFinGiro(*nodoInicio);
                 sprite.setPosition(finGiro.x, finGiro.y);
-            } else {
-                tiempoGiro = time;
             }
         }
     }
@@ -146,7 +152,7 @@ void NPC::update(int time) {
         posAuxiliar.x = centroGiro.x + RADIO_GIRO * std::cos(anguloBarrido);
         posAuxiliar.y = centroGiro.y - RADIO_GIRO * std::sin(anguloBarrido);
         sprite.setPosition(posAuxiliar.x, posAuxiliar.y);
-        sprite.setRotation((anguloBarrido * 180.0/M_PI) + 90 * sentidoGiro);
+        sprite.setRotation(a((anguloBarrido * 180.0/M_PI) + 90 * sentidoGiro));
     }
     if (tiempoRecto > 0) {
         posAuxiliar = posMRU(tiempoRecto);
@@ -155,6 +161,13 @@ void NPC::update(int time) {
     posSiguiente.Setx(sprite.getPosition()[0]);
     posSiguiente.Sety(sprite.getPosition()[1]);
 };
+
+void NPC::setDebugLine(Node *nodo1, Node *nodo2) {
+    debugLine[0].position = sf::Vector2f(nodo1->getCoorX(), nodo1->getCoorY());
+    debugLine[0].color = sf::Color::Red;
+    debugLine[1].position = sf::Vector2f(nodo2->getCoorX(), nodo2->getCoorY());
+    debugLine[1].color = sf::Color::Green;
+}
 
 void NPC::render(Window &ventana, float ptick) {
     float interPosX = posAnterior.Getx() * (1 - ptick) + posSiguiente.Getx() * ptick;
@@ -166,11 +179,12 @@ void NPC::render(Window &ventana, float ptick) {
     rectFrenado.setRotation(sprite.getRotation());
 
     ventana.draw(sprite);
-    ventana.draw(rectFrenado);
+    //ventana.draw(debugLine);
+    //ventana.draw(rectFrenado);
 };
 
 bool NPC::estoyRecto() {
-    int r = sprite.getRotation();
+    int r = a(sprite.getRotation());
     return (r == 0 || r == 90 || r == 180 || r == 270);
 }
 
@@ -224,7 +238,7 @@ sf::Vector2i NPC::calculaPuntoImaginario(Node* puntoCurva) {
 
 int NPC::calculaSentidoGiro() {
     int devolver;
-    orientacionDeg = sprite.getRotation();
+    orientacionDeg = a(sprite.getRotation());
 
     if (orientacionDeg == 270) {
         if (anguloNuevo == 180) {
@@ -301,3 +315,10 @@ void NPC::setInterpolaciones(float x, float y) {
     posSiguiente.Setx(x);
     posSiguiente.Sety(y);
 }
+
+float NPC::a(float angulo) {
+    //Laurent te odio con toda mi alma.
+    float r = 360 - angulo;
+    if (r >= 360) r -= 360;
+    return r;
+};

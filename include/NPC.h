@@ -51,7 +51,7 @@ private:
     sf::Vector2i puntoImaginario;
     sf::Vector2i centroGiro;
 
-    float MAX_VEL = 500;
+    float MAX_VEL = 400;
     float velocidad = MAX_VEL; // pixeles por segundo
     int sentidoGiro;
     int anguloNuevo;
@@ -69,6 +69,10 @@ private:
     sf::Vector2f damePuntoInicioGiro(Node &nodo);
     sf::Vector2f damePuntoFinGiro(Node &nodo);
     int calculaTiempoRecto();
+
+    float a(float angulo);
+    sf::VertexArray debugLine;
+    void setDebugLine(Node *nodo1, Node *nodo2);
 };
 
 #endif // NPC_H

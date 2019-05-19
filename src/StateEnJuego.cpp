@@ -50,17 +50,16 @@ void StateEnJuego::update(int tiempo)
     recalculaRango();
     int eliminados = compruebaNPC();
 
-    /*if(npcs.size() + eliminados > 10){
+    if(npcs.size() + eliminados > 10){
         generaCoches(eliminados);
     }
     else{
 
         generaCoches(20 - int(npcs.size()));
-    }*/
-    if (npcs.size() < 1)
-    {
+    }/*
+    if (npcs.size() < 1) {
         generaCoches(1);
-    }
+    }*/
 
     //detectColisioncNPC();
 
@@ -87,7 +86,7 @@ void StateEnJuego::update(int tiempo)
     }
 
     // Update de los npcs
-    /*for(int i = 0; i<npcs.size(); i++) {
+    for(int i = 0; i<npcs.size(); i++) {
         bool tocaFrenar = false;
         for(int j = 0; !tocaFrenar && j<npcs.size(); j++) {
             if (i == j) {
@@ -104,7 +103,7 @@ void StateEnJuego::update(int tiempo)
             npcs[i].velocidadNormal();
         }
         npcs[i].update(67); //TODO: ayuda
-    }*/
+    }
 }
 
 void StateEnJuego::render(Window &window, const float updateTickTime)
@@ -143,7 +142,7 @@ StateEnJuego::StateEnJuego()
     mTiempoLibre.play();
     //printf("busco los nodos cercanos y genero coches ahi\n");
     buscaCercanos();
-    generaCoches(20);
+    generaCoches(1);
 
 
     ruta = factoriaRuta.creaRuta(1);

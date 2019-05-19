@@ -28,6 +28,7 @@ class Window
         void draw(Sprite &sprite);
         void draw(sf::RectangleShape &shape);
         void draw(sf::Text &text);
+        void draw(sf::VertexArray &varray);
         sf::Vector2u getSize();
         void setView(sf::View view);
     protected:

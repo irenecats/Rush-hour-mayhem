@@ -70,6 +70,9 @@ void Window::draw(Sprite &sprite) {
     window.draw(sprite.getSprite());
 }
 
+void Window::draw(sf::VertexArray &varray) {
+    window.draw(varray);
+}
 sf::Vector2u Window::getSize() {
     return window.getSize();
 }
