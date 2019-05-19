@@ -8,7 +8,7 @@ Ruta::~Ruta()
     delete origen;
 }
 
-Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo,std::string name, sf::IntRect areaRecorte)
+Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo,std::string name, sf::IntRect areaRecorte, std::vector<sf::Vector2f> g)
 {
 
     //Inicializamos valores generales de ruta
@@ -65,6 +65,8 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     DiagActual  = 0;
     letra       = 0;
     numfrase    = 0;
+    guia = g;
+
 }
 
 
@@ -316,4 +318,8 @@ bool Ruta::getTerminada(){
 
 int Ruta::getID(){
     return idRuta;
+}
+
+std::vector<sf::Vector2f> Ruta::getGuia(){
+    return guia;
 }

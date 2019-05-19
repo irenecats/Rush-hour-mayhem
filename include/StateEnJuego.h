@@ -45,6 +45,7 @@ class StateEnJuego : public State
         std::vector<NPC>     npcs;
         sf::VertexArray      linea;
         IACircular           iaCirc;
+        sf::VertexArray      guia;
 
         StateEnJuego();
         void buscaCercanos();
@@ -53,6 +54,8 @@ class StateEnJuego : public State
         void detectColisionRuta();
         void detectColisionMapa();
         void recalculaRango();
+        void encuentraCMC();
+        void dibujaGuia();
 
 };
 

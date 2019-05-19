@@ -4,11 +4,16 @@
 #include <stdio.h>
 #include <iostream>
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 class Node{
     public:
     int coor[2]={0,0};
     std::vector<Node*> adj;
+    Node* padre;
+    int coste;
+    int distanciaH;
+
 
     Node();
     Node(int x,int y);
@@ -18,5 +23,9 @@ class Node{
     int getCoorY();
     void addAdj(Node* nuevo);
     int getSize();
+    void setParent(Node* parent);
+    int getCoste();
+    int getDistancia(sf::Vector2f);
+    bool compare(Node* otro);
 };
 #endif

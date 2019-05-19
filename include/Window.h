@@ -24,6 +24,7 @@ class Window
         void close();
         void clear(const sf::Color &color = sf::Color(0, 0, 0, 255));
         void display();
+        void draw(sf::VertexArray &Vertex);
         void draw(Sprite &sprite);
         void draw(sf::RectangleShape &shape);
         void draw(sf::Text &text);

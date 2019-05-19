@@ -85,7 +85,9 @@ void Window::draw(sf::Text &text){
 void Window::setView(sf::View view){
     window.setView(view);
 }
-
+void Window::draw(sf::VertexArray &vertex){
+    window.draw(vertex);
+}
 /*
 app.pollEvent(event)
 app.close()

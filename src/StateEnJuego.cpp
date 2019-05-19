@@ -3,34 +3,46 @@
 
 StateEnJuego* StateEnJuego::instancia = nullptr;
 
-StateEnJuego* StateEnJuego::instance() {
+StateEnJuego* StateEnJuego::instance()
+{
     if(!instancia)
         instancia = new StateEnJuego;
 
     return instancia;
 }
 
-ID_State StateEnJuego::input(int teclaPulsada) {
+ID_State StateEnJuego::input(int teclaPulsada)
+{
     next_state = id;
 
-    if(teclaPulsada == sf::Keyboard::Escape) {
+    if(teclaPulsada == sf::Keyboard::Escape)
+    {
         next_state = ID_State::enPausa;
-    } else if(ruta->getTerminada() && teclaPulsada == sf::Keyboard::Return) {
+    }
+    else if(ruta->getTerminada() && teclaPulsada == sf::Keyboard::Return)
+    {
         next_state = ID_State::enPuntuacion;
-    } else if(teclaPulsada == sf::Keyboard::Space && ruta->getActiva() && ruta->getDiagActual()==1) {
+    }
+    else if(teclaPulsada == sf::Keyboard::Space && ruta->getActiva() && ruta->getDiagActual()==1)
+    {
         reloj.restart();
         ruta->pasarDialogo();
-    } else if(teclaPulsada == sf::Keyboard::O) {
-        reloj.restart();
-        ruta->haLlegado();
-    } else if(teclaPulsada == sf::Keyboard::B && ruta->getActiva() && ruta->getDiagActual()==0) {
+    }
+    else if(teclaPulsada == sf::Keyboard::O)
+    {
+        // reloj.restart();
+        //ruta->haLlegado();
+       // encuentraCMC();
+        dibujaGuia();
+    } /*else if(teclaPulsada == sf::Keyboard::B && ruta->getActiva() && ruta->getDiagActual()==0) {
         reloj.restart();
         ruta->setDiagActual(2);
-    }
+    }*/
     return next_state;
 }
 
-void StateEnJuego::update(int tiempo) {
+void StateEnJuego::update(int tiempo)
+{
 
     // update del estado enJuego
     recalculaRango();
@@ -43,7 +55,8 @@ void StateEnJuego::update(int tiempo) {
 
         generaCoches(20 - int(npcs.size()));
     }*/
-    if (npcs.size() < 1) {
+    if (npcs.size() < 1)
+    {
         generaCoches(1);
     }
 
@@ -54,10 +67,13 @@ void StateEnJuego::update(int tiempo) {
     detectColisionMapa();
     detectColisionRuta();
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update(tiempo);
-    if(ruta->getActiva()) {
+    if(ruta->getActiva())
+    {
         Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
                                             ruta->getDestino()->getPosition().y);
-    } else {
+    }
+    else
+    {
         Jugador::instancia()->updateBrujula(ruta->getOrigen()->getPosition().x,
                                             ruta->getOrigen()->getPosition().y);
     }
@@ -83,35 +99,42 @@ void StateEnJuego::update(int tiempo) {
     }*/
 }
 
-void StateEnJuego::render(Window &window, const float updateTickTime) {
+void StateEnJuego::render(Window &window, const float updateTickTime)
+{
     Jugador::instancia()->interpolar(updateTickTime);
     Camara::instancia()->centrarVista();
     window.setView(Camara::instancia()->getCarView());
 
     Mapa::Instance()->renderMapaAbajo(window);
     ruta->RenderPuntos(window);
-
+    //if(Jugador::get){
+        window.draw(guia);
+    //}
     Jugador::instancia()->dibujar(window);
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->render(window, updateTickTime);
-    for(int i = 0; i<npcs.size(); i++) {
+    for(unsigned int i = 0; i<npcs.size(); i++)
+    {
         npcs[i].render(window, updateTickTime);
     }
     Mapa::Instance()->renderMapaArriba(window);
     Jugador::instancia()->renderBrujula(window, updateTickTime);
-
     window.setView(Camara::instancia()->getFullView());
     ruta->RenderDialogos(window);
     //GUI
     if(ruta->getTerminada())    window.draw(finRuta);
+    //std::cout<<"Tamaño "<<guia.getVertexCount()<<std::endl;
+
 }
 
-StateEnJuego::StateEnJuego() {
+StateEnJuego::StateEnJuego()
+{
     id = ID_State::enJuego;
     nodos = Mapa::Instance()->getGrafo();
 
     //printf("busco los nodos cercanos y genero coches ahi\n");
     buscaCercanos();
     generaCoches(20);
+
 
     ruta = factoriaRuta.creaRuta(1);
     origen = ruta->getOrigen();
@@ -120,29 +143,35 @@ StateEnJuego::StateEnJuego() {
 
 
     fuente = sf::Font();
-    if (!fuente.loadFromFile("resources/Ticketing.ttf")) {
+    if (!fuente.loadFromFile("resources/Ticketing.ttf"))
+    {
         std::cerr << "Error al cargar la fuente\n" << std::endl;
         exit(0);
     }
 
-    finRuta = sf::Text("Pulsa G para ver tu puntuacion", fuente, 20);
+    finRuta = sf::Text("Pulsa INTRO para ver tu puntuacion", fuente, 20);
     finRuta.setOrigin(finRuta.getGlobalBounds().width/2,finRuta.getGlobalBounds().height/2);
     finRuta.setColor(sf::Color::White);
     finRuta.setPosition(400, 375);
+    guia = sf::VertexArray(sf::TrianglesStrip);
+
 }
 
-StateEnJuego::~StateEnJuego() {
+StateEnJuego::~StateEnJuego()
+{
     //dtor
 }
 
-void StateEnJuego::generaCoches(int tot) {
+void StateEnJuego::generaCoches(int tot)
+{
     //printf("Genero %i coches",tot);
     int num = 0, i=0,mx = cercanos.size();
     // std::vector<Node*>   usados;
 
     bool contr = false;
     //printf("Tamanyo antes de generar %i\n",npcs.size());
-    while(i<tot && cercanos.size()>1) {
+    while(i<tot && cercanos.size()>1)
+    {
         num = (0 + (rand() % (int)(mx)));
         contr = false;
         npcs.push_back(NPC(cercanos[num], &iaCirc));
@@ -152,12 +181,14 @@ void StateEnJuego::generaCoches(int tot) {
     //printf("Tamanyo tras generar %i\n",npcs.size());
 }
 
-int StateEnJuego::compruebaNPC() {
+int StateEnJuego::compruebaNPC()
+{
     int eliminados = 0;
     int distancia = 0;
-    int i = 0;
+    unsigned int i = 0;
 
-    while(i<npcs.size()) {
+    while(i<npcs.size())
+    {
 
         distancia = int(abs(npcs[i].Getsprite().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[0]));
         //printf("Sprite %f - %f\n",npcs[i].Getsprite().getPosition()[0] , npcs[i].Getsprite().getPosition()[1]);
@@ -166,7 +197,8 @@ int StateEnJuego::compruebaNPC() {
         distancia +=abs(npcs[i].Getsprite().getPosition()[1] - Jugador::instancia()->getJugador().getPosition()[1]);
         //Distancia discreta en geometria del taxista (distancia Manhattan)
         //printf("Creado en %i - %i\n",npcs[i].Getsprite().getPosition()[0],npcs[i].Getsprite().getPosition()[1]);
-        if(distancia>1500) {
+        if(distancia>1500)
+        {
             /*printf("!!%i\n",i);
             printf("Eimino\n");
             printf("TAM %i\n", int(npcs.size()));
@@ -176,7 +208,9 @@ int StateEnJuego::compruebaNPC() {
             eliminados++;
             //eliminapos.push_back(i);
 
-        } else {
+        }
+        else
+        {
             //printf("no elimino\n");
             i++;
         }
@@ -187,14 +221,17 @@ int StateEnJuego::compruebaNPC() {
 
 }
 
-void StateEnJuego::buscaCercanos() {
+void StateEnJuego::buscaCercanos()
+{
     int distancia=0;
-    for(int i=0; i<nodos.size(); i++) {
+    for(unsigned int i=0; i<nodos.size(); i++)
+    {
 
         distancia = abs(nodos[i]->getCoorX() - Jugador::instancia()->getJugador().getPosition()[0]);
         distancia += abs(nodos[i]->getCoorY() - Jugador::instancia()->getJugador().getPosition()[1]);
         //Distancia discreta en geometria del taxista (distancia Manhattan)
-        if(distancia<2000) {
+        if(distancia<2000)
+        {
             //printf("Disancia %i\n",distancia);
             //printf("Posicion %i - %i\n",nodos[i]->getCoorX(),nodos[i]->getCoorY());
             cercanos.push_back(nodos[i]);
@@ -202,23 +239,29 @@ void StateEnJuego::buscaCercanos() {
     }
 }
 
-void StateEnJuego::detectColisionRuta() {
-    if(!ruta->getActiva()) {
-        if (!ruta->getActiva() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*origen) ) {
+void StateEnJuego::detectColisionRuta()
+{
+    if(!ruta->getActiva())
+    {
+        if (!ruta->getActiva() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*origen) )
+        {
             reloj.restart();
             ruta->haLlegado();
         }
-    } else {
-        if (!ruta->getTerminada() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*destino)) {
+    }
+    else
+    {
+        if (!ruta->getTerminada() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*destino))
+        {
             ruta->haTerminado();
             //Cuando coche choque con ruta->getDestino,
-            // delete ruta; rura = nullptr;
             printf("FIN DE LA RUTA\n");
         }
     }
 }
 
-void StateEnJuego::detectColisionMapa() {
+void StateEnJuego::detectColisionMapa()
+{
     //Cojo los tiles cercanos
     int         tilex = Jugador::instancia()->getJugador().getPosition()[0]/32;
     int         tiley = Jugador::instancia()->getJugador().getPosition()[1]/32;
@@ -234,18 +277,22 @@ void StateEnJuego::detectColisionMapa() {
     tilex = std::max(0,tilex - 3);
     tiley = std::max(0,tiley -3);
 
-    for(int y=tiley; y<my; y++) {
-        for(int x=tilex; x<mx; x++) {
+    for(int y=tiley; y<my; y++)
+    {
+        for(int x=tilex; x<mx; x++)
+        {
             //detecto si colisiona y hago que no se mueva
-            if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite())) {
+            if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))
+            {
                 cont++;
                 colx = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[0];
                 coly = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[1];
 
                 distancia = sqrt((colx - coly)*(colx - coly) +
-                   (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
+                                 (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
 
-                if(daux==0 || daux > distancia){
+                if(daux==0 || daux > distancia)
+                {
                     daux = distancia;
                     xx = colx;
                     yy = coly;
@@ -261,35 +308,41 @@ void StateEnJuego::detectColisionMapa() {
     else Jugador::instancia()->nofrenar();
 }
 
-void StateEnJuego::recalculaRango() {
+void StateEnJuego::recalculaRango()
+{
     int distancia = 0;
     std::vector<Node*> hijos;
     std::vector<Node*> cercaAux;
 
-    if(cercanos.size()<5) {
+    if(cercanos.size()<5)
+    {
         // printf("Busco cercanos por que no tengo casi \n");
         buscaCercanos();
     }
     //printf("Recalculo los nodos\n");
-    for(int i=0; i<cercanos.size(); i++) {
+    for(unsigned int i=0; i<cercanos.size(); i++)
+    {
         // std::cout<<"I = "<<i<<std::endl;
         //std::cout<<"Coord Cercanos"<<cercanos[i]->getCoorX()<<" - "<<cercanos[i]->getCoorY()<<std::endl;
         //std::cout<<"Coord Coche"<<Jugador::instancia()->getJugador().getPosition()[0]<<" - "<<Jugador::instancia()->getJugador().getPosition()[1]<<std::endl;
         distancia = int(abs(cercanos[i]->getCoorX() - Jugador::instancia()->getJugador().getPosition()[0]));
         distancia += abs(cercanos[i]->getCoorY() - Jugador::instancia()->getJugador().getPosition()[1]);
         //Distancia discreta en geometria del taxista (distancia Manhattan)
-        //printf("Distancia %i\n", distancia);
-        if(distancia < 1500 && distancia > 800) {
+        if(distancia < 1500 && distancia > 800)
+        {
             cercaAux.push_back(cercanos[i]);
         }
 
 
-        if(cercanos.size()<30) {
+        if(cercanos.size()<30)
+        {
             hijos= cercanos[i]->adj;
-            for(int j=0; j < hijos.size(); j++) {
+            for(unsigned int j=0; j < hijos.size(); j++)
+            {
                 distancia = int(abs(hijos[j]->getCoorX() - Jugador::instancia()->getJugador().getPosition()[0]));
                 distancia += abs(hijos[j]->getCoorY() - Jugador::instancia()->getJugador().getPosition()[1]);
-                if(distancia < 1500 && distancia > 800) {
+                if(distancia < 1500 && distancia > 800)
+                {
                     cercaAux.push_back(hijos[j]);
                 }
             }
@@ -298,7 +351,8 @@ void StateEnJuego::recalculaRango() {
     cercanos = cercaAux;
 }
 
-bool StateEnJuego::getRuta(){
+bool StateEnJuego::getRuta()
+{
     if(ruta->getID() == 5)//la ultima ruta
         return true;
     else
@@ -310,8 +364,164 @@ void StateEnJuego::inicializar()
     ruta = factoriaRuta.creaRuta(ruta->getID()+1);
 }
 
-void StateEnJuego::limpiar() {
+void StateEnJuego::limpiar()
+{
 
     int var = cercanos.size();
     printf("Tamanyo final %i\n", var);
 }
+
+void StateEnJuego::dibujaGuia(){
+std::vector<sf::Vector2f> lineaRuta = ruta->getGuia();
+sf::Vector2f player(Jugador::instancia()->getJugador().getPosition()[0],Jugador::instancia()->getJugador().getPosition()[1]);
+float thickness = 5;
+
+for(unsigned int i=1;i<lineaRuta.size();i++){
+    sf::Vector2f  p0 = lineaRuta[i-1];
+    sf::Vector2f  p1 = lineaRuta[i];
+    sf::Vector2f line = p1 - p0;
+    float separacion = sqrt((line.x*line.x) + (line.y*line.y));
+    sf::Vector2f normal = sf::Vector2f( -line.y, line.x)/separacion;
+    sf::Vector2f a = p0 - thickness * normal;
+    sf::Vector2f b = p0 + thickness * normal;
+    sf::Vector2f c = p1 - thickness * normal;
+    sf::Vector2f d = p1 + thickness * normal;
+    guia.append( sf::Vertex(a , sf::Color::Blue));
+    guia.append( sf::Vertex(b , sf::Color::Blue));
+    guia.append( sf::Vertex(c , sf::Color::Blue));
+    guia.append( sf::Vertex(d , sf::Color::Blue));
+}
+
+}
+
+/*
+void StateEnJuego::encuentraCMC()
+{
+    printf("Busco CMC\n");
+    int distancia=0;
+    int mini=0;
+    sf::Vector2f player(Jugador::instancia()->getJugador().getPosition()[0],Jugador::instancia()->getJugador().getPosition()[1]);
+
+    float mindist= abs(nodos[0]->getCoorX() - player.x)+
+                   abs(nodos[0]->getCoorY() - player.y);
+    for(unsigned int i=0; i<nodos.size(); i++)
+    {
+
+        distancia = abs(nodos[i]->getCoorX() - player.x);
+        distancia += abs(nodos[i]->getCoorY() - player.y);
+        //Distancia discreta en geometria del taxista (distancia Manhattan)
+        if(distancia<mindist)
+        {
+            mini=i;
+            mindist = distancia;
+            //printf("Disancia %i\n",distancia);
+            //printf("Posicion %i - %i\n",nodos[i]->getCoorX(),nodos[i]->getCoorY());
+            //cercanos.push_back(nodos[i]);
+        }
+    }
+    //nodo origen
+    Node* origin = nodos[mini];
+    sf::Vector2f dest(226*32,349*32);
+    std::vector<Node*> frontera;
+    std::vector<Node*> interior;
+    frontera.push_back(origin);
+
+
+    while(frontera.size()>0)
+    {
+        mindist = frontera[0]->getDistancia(dest) + frontera[0]->getCoste();
+        mini=0;
+        for(unsigned int i=0; i<frontera.size(); i++)
+        {
+            //Distancia discreta en geometria del taxista (distancia Manhattan)
+            distancia = frontera[i]->getDistancia(dest) + frontera[i]->getCoste();
+            if( distancia < mindist)
+            {
+                mini=i;
+                mindist = distancia;
+                //printf("Disancia %i\n",distancia);
+                //printf("Posicion %i - %i\n",nodos[i]->getCoorX(),nodos[i]->getCoorY());
+                //cercanos.push_back(nodos[i]);
+            }
+        }
+        interior.push_back(frontera[mini]);
+        frontera.erase(frontera.begin()+mini);
+
+        int num = interior.size()-1;
+        for(unsigned int i =0; i<interior[num]->adj.size(); i++)
+        {
+            bool contr=false;
+            int aux = -1;
+            for(unsigned int j=0; j<frontera.size();j++){
+                if(interior[num]->adj[j]->compare(frontera[j]) && aux ==-1){
+
+                    contr = true;
+                    aux = j;
+                }
+            }
+
+            if(!contr)
+            {
+                //printf("\tExiste\n");
+                frontera[mini]->adj[i]->setParent(interior[num]);
+                frontera.push_back(interior[num]->adj[i]);
+            }
+            else{
+                //printf("\t No existe\n");
+                if(frontera[aux]->getCoste() > interior[num]->getCoste()+10){
+                    frontera[aux]->setParent(interior[num]);
+                }
+            }
+        }
+
+        if(frontera.size()<=0)
+        {
+            printf("Error \n");
+            break;
+        }
+        else if(mindist<=800)
+        {
+            printf("Encontrado\n");
+            std::cout<<interior[interior.size()-1]->getCoorX()<<" - "<<interior[interior.size()-1]->getCoorY()<<std::endl;
+            bool contr=false;
+                Nodo* fin = frontera[mini];
+            while(!fin.getPadre()){
+                sf::Vector2f  p0(fontera[mini]->getCoorX(),fontera[mini]->getCoorY());
+                sf::Vector2f  p1(fontera[mini]->getParent,fontera[mini]);
+                float thickness = 5;
+
+                sf::Vector2f line = p1 - p0;
+                float separacion = sqrt((line.x*line.x) + (line.y*line.y));
+                sf::Vector2f normal = sf::Vector2f( -line.y, line.x)/separacion;
+                sf::Vector2f a = p0 - thickness * normal;
+                sf::Vector2f b = p0 + thickness * normal;
+                sf::Vector2f c = p1 - thickness * normal;
+                sf::Vector2f d = p1 + thickness * normal;
+
+                Vector2f tangent = ((p2-p1).normalized() + (p1-p0).normalized()).normalized();
+                Vector2f miter = Vector2f( -tangent.y, tangent.x ); //normal of the tangent
+
+                float length = thickness / miter.dot( normal );
+
+                Vector2f m1 = p1 - length * miter;
+                Vector2f m2 = p1 + length * miter;
+
+                guia.append( sf::Vertex(a , sf::Color::Red));
+                guia.append( sf::Vertex(b , sf::Color::Red));
+                guia.append( sf::Vertex(c , sf::Color::Red));
+                guia.append( sf::Vertex(d , sf::Color::Red));
+                //}
+        }
+
+        std::cout<<frontera.size()<<std::endl;
+        if(frontera.size()>0)
+        std::cout<<frontera[0]->getCoorX()<<" - "<<frontera[0]->getCoorY()<<std::endl;
+        std::cout<<interior.size()<<std::endl;
+
+
+    }
+
+}
+*/
+
+

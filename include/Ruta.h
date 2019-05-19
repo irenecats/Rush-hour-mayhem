@@ -15,7 +15,7 @@ class Ruta
 {
     public:
         Ruta();
-        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo, std::string name, sf::IntRect areaRecorte);
+        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo, std::string name, sf::IntRect areaRecorte,std::vector<sf::Vector2f>);
         virtual         ~Ruta();
 
         void            haTerminado();
@@ -32,6 +32,7 @@ class Ruta
 
         sf::RectangleShape*   getOrigen();
         sf::RectangleShape*   getDestino();
+        std::vector<sf::Vector2f> getGuia();
 
     protected:
     private:
@@ -43,6 +44,7 @@ class Ruta
         int                  dineroMax;
         bool                 activa;
         bool                 terminada;
+        std::vector<sf::Vector2f> guia;
         //Dialogo
         sf::Text            nombre;
         sf::Text            dialogo;
