@@ -23,11 +23,13 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     //Ponemos el origen el en centro y posicionamos el inicio y el fin de la ruta
     origen->setOrigin(origen->getSize().x/2,origen->getSize().y/2);
     origen->setPosition(inicio);
-    origen->setFillColor(sf::Color::Red);
+    origen->setFillColor(sf::Color(91,0,0,125));
+    origen->rotate(45);
 
     destino->setOrigin(destino->getSize().x/2,destino->getSize().y/2);
     destino->setPosition(fin);
-    destino->setFillColor(sf::Color::Blue);
+    destino->setFillColor(sf::Color(0,35,91,125));
+    destino->rotate(45);
 
     //Solo carga el spritesheet de los personajes cuando se crea la primera ruta
     if(idRuta == 1) {

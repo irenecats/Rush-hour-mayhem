@@ -326,6 +326,8 @@ void StateEnPuntuacion::limpiar()
     relleno->setFillColor(sf::Color::Green);
 
     cancionCambiada = false;
+    ndinero->setPosition(-10,-10);
+
 }
 
 void StateEnPuntuacion::muestraFinal()

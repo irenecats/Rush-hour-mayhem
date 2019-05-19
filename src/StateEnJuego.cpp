@@ -35,7 +35,7 @@ ID_State StateEnJuego::input(int teclaPulsada)
         // reloj.restart();
         //ruta->haLlegado();
        // encuentraCMC();
-        dibujaGuia();
+
     } /*else if(teclaPulsada == sf::Keyboard::B && ruta->getActiva() && ruta->getDiagActual()==0) {
         reloj.restart();
         ruta->setDiagActual(2);
@@ -114,9 +114,9 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
 
     Mapa::Instance()->renderMapaAbajo(window);
     ruta->RenderPuntos(window);
-    //if(Jugador::get){
+    if(Jugador::instancia()->muestroGuia()){
         window.draw(guia);
-    //}
+    }
     Jugador::instancia()->dibujar(window);
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->render(window, updateTickTime);
     for(unsigned int i = 0; i<npcs.size(); i++)
@@ -256,6 +256,7 @@ void StateEnJuego::detectColisionRuta()
         {
             reloj.restart();
             ruta->haLlegado();
+            dibujaGuia();
         }
     }
     else
@@ -263,6 +264,7 @@ void StateEnJuego::detectColisionRuta()
         if (!ruta->getTerminada() && Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(),*destino))
         {
             ruta->haTerminado();
+            guia = sf::VertexArray(sf::TrianglesStrip);
             //Cuando coche choque con ruta->getDestino,
             // delete ruta; rura = nullptr;
             mMision.stop();
@@ -401,10 +403,10 @@ for(unsigned int i=1;i<lineaRuta.size();i++){
     sf::Vector2f b = p0 + thickness * normal;
     sf::Vector2f c = p1 - thickness * normal;
     sf::Vector2f d = p1 + thickness * normal;
-    guia.append( sf::Vertex(a , sf::Color::Blue));
-    guia.append( sf::Vertex(b , sf::Color::Blue));
-    guia.append( sf::Vertex(c , sf::Color::Blue));
-    guia.append( sf::Vertex(d , sf::Color::Blue));
+    guia.append( sf::Vertex(a , sf::Color::Yellow));
+    guia.append( sf::Vertex(b , sf::Color::Yellow));
+    guia.append( sf::Vertex(c , sf::Color::Yellow));
+    guia.append( sf::Vertex(d , sf::Color::Yellow));
 }
 
 }

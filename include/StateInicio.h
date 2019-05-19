@@ -32,9 +32,12 @@ class StateInicio : public State
         sf::Text* nuevaPartida = nullptr;
         sf::Text* cargarPartida = nullptr;
         sf::Text* instrucciones = nullptr;
+        Sprite logo;
+        sf::Text textoinstrucciones;
 
         std::vector<sf::Text*>* opciones = nullptr;
         int seleccion = 0;
+        bool eninstrucciones;
 };
 
 #endif // STATEINICIO_H
