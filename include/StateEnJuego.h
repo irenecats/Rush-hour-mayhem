@@ -55,10 +55,7 @@ class StateEnJuego : public State
         void detectColisionRuta();
         void detectColisionMapa();
         void recalculaRango();
-<<<<<<< Updated upstream
         void cambiarCancion(std::string nombreCancion, sf::Music musica);
-=======
->>>>>>> Stashed changes
         void encuentraCMC();
         void dibujaGuia();
 

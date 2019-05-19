@@ -25,13 +25,6 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
 
     switch(numRuta){
         case 1:
-<<<<<<< Updated upstream
-
-            inicio.x = 405*32;
-            inicio.y = 288*32;
-=======
->>>>>>> Stashed changes
-
             //inicio.x = 405*32;
             //inicio.y = 288*32;
 
@@ -52,13 +45,6 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 2:
-<<<<<<< Updated upstream
-
-            inicio.x = 8000.0;
-            inicio.y = 10000.0;
-            fin.x = 7232.0;
-            fin.y = 11072.0;
-=======
             //inicio.x = 7000.0;
             //inicio.y = 10000.0;
             //fin.x = 240*32;
@@ -69,7 +55,6 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             //fin.y = 349*32;
             fin.x = 240*32;
             fin.y = 360*32;
->>>>>>> Stashed changes
             fichero = "resources/embarazada.txt";
             personaje   = "Embarazada";
             areaRecorte = sf::IntRect(128,0,124,128);

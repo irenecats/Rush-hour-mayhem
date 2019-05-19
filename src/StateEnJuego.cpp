@@ -73,15 +73,12 @@ void StateEnJuego::update(int tiempo)
     {
         Jugador::instancia()->updateBrujula(ruta->getDestino()->getPosition().x,
                                             ruta->getDestino()->getPosition().y);
-<<<<<<< HEAD
 
         if(!cancionCambiada && !ruta->getTerminada()) {
             mTiempoLibre.stop();
             mMision.play();
             cancionCambiada = true;
         }
-=======
->>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
     }
     else
     {
@@ -132,21 +129,10 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
     window.setView(Camara::instancia()->getFullView());
     ruta->RenderDialogos(window);
     //GUI
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-    if(ruta->getTerminada()) {
-        window.draw(finRuta);
-    }
-=======
+
     if(ruta->getTerminada())    window.draw(finRuta);
     //std::cout<<"Tamaño "<<guia.getVertexCount()<<std::endl;
 
->>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
-=======
-    if(ruta->getTerminada())    window.draw(finRuta);
-    //std::cout<<"Tamaño "<<guia.getVertexCount()<<std::endl;
-
->>>>>>> Stashed changes
 }
 
 StateEnJuego::StateEnJuego()
@@ -173,11 +159,7 @@ StateEnJuego::StateEnJuego()
         exit(0);
     }
 
-<<<<<<< HEAD
     finRuta = sf::Text("Pulsa ENTER para ver tu puntuacion", fuente, 20);
-=======
-    finRuta = sf::Text("Pulsa INTRO para ver tu puntuacion", fuente, 20);
->>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
     finRuta.setOrigin(finRuta.getGlobalBounds().width/2,finRuta.getGlobalBounds().height/2);
     finRuta.setColor(sf::Color::White);
     finRuta.setPosition(400, 375);
@@ -283,15 +265,9 @@ void StateEnJuego::detectColisionRuta()
         {
             ruta->haTerminado();
             //Cuando coche choque con ruta->getDestino,
-<<<<<<< Updated upstream
-<<<<<<< HEAD
             // delete ruta; rura = nullptr;
-=======
->>>>>>> Stashed changes
             mMision.stop();
             mVictoria.play();
-=======
->>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
             printf("FIN DE LA RUTA\n");
         }
     }
@@ -410,10 +386,7 @@ void StateEnJuego::limpiar()
     printf("Tamanyo final %i\n", var);
 }
 
-<<<<<<< Updated upstream
-<<<<<<< HEAD
-void StateEnJuego::cambiarCancion(std::string nombreCancion, sf::Music musica) {
-=======
+
 void StateEnJuego::dibujaGuia(){
 std::vector<sf::Vector2f> lineaRuta = ruta->getGuia();
 sf::Vector2f player(Jugador::instancia()->getJugador().getPosition()[0],Jugador::instancia()->getJugador().getPosition()[1]);
@@ -720,11 +693,3 @@ void StateEnJuego::encuentraCMC()
 
 }
 */
-
-
->>>>>>> 514afa0bc440b30e2901f8bb2386c4355dd4e8b4
-=======
-*/
-
-
->>>>>>> Stashed changes

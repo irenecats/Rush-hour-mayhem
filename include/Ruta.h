@@ -44,10 +44,7 @@ class Ruta
         int                  dineroMax;
         bool                 activa;
         bool                 terminada;
-<<<<<<< Updated upstream
         bool                espacioPulsado = false;
-=======
->>>>>>> Stashed changes
         std::vector<sf::Vector2f> guia;
         //Dialogo
         sf::Text            nombre;
@@ -58,7 +55,6 @@ class Ruta
         int                 letra;
         int                 numfrase;
         int                 tex;
-        bool                espacioPulsado = false;
         //Cliente
         Sprite                           cliente;
         std::vector <std::string>        dialogointro;
