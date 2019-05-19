@@ -189,6 +189,14 @@ bool Jugador::esFantasma(){
     return fant;
 }
 
+bool Jugador::muestroGuia(){
+    bool guia = false;
+    if(powerUp == 6){
+        guia = true;
+    }
+    return guia;
+}
+
 bool Jugador::disparando(){
     if(bala == nullptr) return false;
     else return true;
