@@ -436,7 +436,7 @@ void StateEnJuego::detectColisionNPC() {
                     coche.Setchoque(true);
                     coche.Getchoque();
                 }
-            }
+            } else Jugador::instancia()->nofrenar();
         }
     }
 }
