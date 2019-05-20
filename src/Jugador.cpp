@@ -44,7 +44,7 @@ Jugador::Jugador(){
     newStateB.Setx(brujula.getPosition()[0]);
     newStateB.Sety(brujula.getPosition()[1]);
 
-    powerUp = 5;
+    powerUp = 1;
 }
 
 Jugador::~Jugador()
@@ -60,7 +60,7 @@ Jugador::Jugador(const Jugador& other)
 //Update con interpolacion que gestiona el movimiento del coche
 void Jugador::update(int tiempo){
 
-bool left=false, right=false, delante = false, atras = false, space = false, clocktwo=false, tope=false;
+bool left=false, right=false, delante = false, atras = false, space = false/*, clocktwo=false, tope=false*/;
 float dirx, diry, mv, kr;
 
     lastState.Setx(newState.Getx());
@@ -71,7 +71,14 @@ float dirx, diry, mv, kr;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) right = true;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) left = true;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) space = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+            space = true;
+            if(!powerUpActivado && powerUp==1){
+                powerUpActivado=true;
+                turbo.restart();
+                std::cout << "Activo el powerup" << std::endl;
+            }
+        }
     }
 
     //Controlar aqui tambien si se activa el powerup
@@ -97,7 +104,7 @@ float dirx, diry, mv, kr;
 
         kr=kRot;
 
-        if(powerUp==2 && space) kr = 1;
+        if(powerUp==2 && space) kr = 0.5;
 
         if(vel!=0){
             //ajustar frenada
@@ -112,19 +119,25 @@ float dirx, diry, mv, kr;
 
         mv = vel;
 
-        if(powerUp==1 && space){
-            if(mv<kMaxSpeed*2) mv=mv*2;
-        //if(abs(vel)>0.1 && view.getSize().x<640) view.zoom(1.001f);
-        //if(abs(vel)<0.1 && view.getSize().x>512)view.zoom(0.999f);
-        } //else if(view.getSize().x>512) view.zoom(0.999f);
-
+        if(powerUp==1 && powerUpActivado){
+            if(turbo.getElapsedTime()<3000){
+                if(space){
+                    if(mv<kMaxSpeed*2) mv=mv*2;
+                    zoom=true;
+                }
+            }else{
+                zoom = false;
+                if(turbo.getElapsedTime()>7000){
+                    powerUpActivado=false;
+                }
+            }
+        }
 
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
-        if(!chocando)
-            jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
-        //if(!chocando)jugador.mover(dirx*mv, diry*mv);
+        //if(!chocando)jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
+        if(!chocando)jugador.mover(dirx*mv, diry*mv);
 
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);
@@ -257,6 +270,8 @@ int Jugador::getDineroTotal() {
 }
 
 void Jugador::frenar(float colx, float coly){
+int retr=10;
+if(powerUp==4) retr=5;
 
     jugador.setPosition(lastState.Getx(), lastState.Gety());
     newState.Setx(jugador.getPosition()[0]);
@@ -270,17 +285,67 @@ void Jugador::frenar(float colx, float coly){
 
     if(angulo2<0) angulo2 = 360 + angulo2;
 
-    if(angulo2>=45&&angulo2<135) jugador.mover(0, 5);
-    if(angulo2>=135&&angulo2<225) jugador.mover(-5, 0);
-    if(angulo2>=225&&angulo2<315) jugador.mover(0, -5);
-    if(angulo2>=315||angulo2<45) jugador.mover(5, 0);
+    if(angulo2>=45&&angulo2<135) jugador.mover(0, retr);
+    if(angulo2>=135&&angulo2<225) jugador.mover(-1*retr, 0);
+    if(angulo2>=225&&angulo2<315) jugador.mover(0, -1*retr);
+    if(angulo2>=315||angulo2<45) jugador.mover(retr, 0);
 
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
 
     vel=0;
+
+    if(powerUp!=3)colisiones++;
 }
 
 void Jugador::nofrenar(){
     chocando = false;
+}
+
+void Jugador::frenacoche(){
+
+    jugador.setPosition(lastState.Getx(), lastState.Gety());
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
+
+    chocando = true;
+
+    float dirx = sin(jugador.getRotation()*rad);
+    float diry = -cos(jugador.getRotation()*rad);
+
+    jugador.mover(dirx*10, diry*10);
+
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
+
+    vel=0;
+
+    if(powerUp!=3)colisiones++;
+}
+
+int Jugador::getColisiones(){
+    return colisiones;
+}
+
+void Jugador::borrarColisiones(){
+    colisiones=0;
+}
+
+void Jugador::borraBala(){
+     if(bala!=nullptr){
+        delete bala;
+        bala = nullptr;
+    }
+}
+
+bool Jugador::getPowerUpActivado(){
+    return powerUpActivado;
+}
+
+bool Jugador::getZoom(){
+    return zoom;
+}
+
+float Jugador::getVel(){
+    return vel;
 }

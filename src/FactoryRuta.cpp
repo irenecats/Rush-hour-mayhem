@@ -35,7 +35,7 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
 
             inicio.x = 226*32;
             inicio.y = 349*32;
-            fin.x = 230*32;
+            fin.x = 235*32;
             fin.y = 349*32;
 
             dinero = 300;
@@ -70,30 +70,48 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 3:
-            inicio.x = 7000.0;
+            /*inicio.x = 7000.0;
             inicio.y = 10000.0;
             fin.x = 7232.0;
-            fin.y = 11072.0;
+            fin.y = 11072.0;*/
+
+            inicio.x = 250*32;
+            inicio.y = 360*32;
+            fin.x = 240*32;
+            fin.y = 360*32;
             fichero = "resources/naufrago.txt";
             personaje   = "Robin";
             areaRecorte = sf::IntRect(256,0,127,128);
             break;
 
         case 4:
-            inicio.x = 7000.0;
+            /*inicio.x = 7000.0;
             inicio.y = 10000.0;
             fin.x = 7232.0;
-            fin.y = 11072.0;
+            fin.y = 11072.0;*/
+
+            inicio.x = 250*32;
+            inicio.y = 360*32;
+            fin.x = 240*32;
+            fin.y = 360*32;
             fichero = "resources/preso.txt";
             personaje   = "Luke";
             areaRecorte = sf::IntRect(384,0,127,128);
             break;
 
         case 5:
-            inicio.x = 7000.0;
+            /*inicio.x = 7000.0;
             inicio.y = 10000.0;
             fin.x = 7232.0;
             fin.y = 11072.0;
+            fichero = "resources/uber.txt";
+            personaje = "Travis";
+            fin.y = 11072.0;*/
+
+            inicio.x = 250*32;
+            inicio.y = 360*32;
+            fin.x = 240*32;
+            fin.y = 360*32;
             //fichero = "resources/embarazada.txt";
             personaje   = "Travis";
             areaRecorte = sf::IntRect(512,0,127,128);

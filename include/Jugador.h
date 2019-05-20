@@ -39,6 +39,7 @@ class Jugador
 
         bool disparando();
         Bala* getBala();
+        void borraBala();
 
         void updateBrujula(float targetX, float targetY);
         void renderBrujula(Window&, float ptick);
@@ -49,6 +50,16 @@ class Jugador
 
         void frenar(float colx, float coly);
         void nofrenar();
+        void frenacoche();
+
+        int getColisiones();
+        void borrarColisiones();
+
+        Clock turbo;
+
+        bool getPowerUpActivado();
+        bool getZoom();
+        float getVel();
 
     private:
         static Jugador* claseJugador;
@@ -60,8 +71,11 @@ class Jugador
 
         float _dirx, _diry;
 
+        int colisiones = 0;
+
         int powerUp;
         bool powerUpActivado = false;
+        bool zoom = false;
 
         bool chocando = false;
 

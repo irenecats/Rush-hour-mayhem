@@ -39,6 +39,7 @@ class StateInicio : public State
         std::vector<sf::Text*>* opciones = nullptr;
         int seleccion = 0;
         bool eninstrucciones;
+        bool cancionCambiada = false;
 };
 
 #endif // STATEINICIO_H

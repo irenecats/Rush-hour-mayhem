@@ -29,6 +29,8 @@ class StateEnJuego : public State
         void limpiar();
         bool getRuta();
 
+        int getIDRuta() { return ruta ? ruta->getID() : 0; }
+
         ~StateEnJuego();
 
     private:
@@ -49,6 +51,10 @@ class StateEnJuego : public State
         sf::VertexArray      linea;
         IACircular           iaCirc;
         sf::VertexArray      guia;
+        //cronometro
+        Clock                cronometro;
+        int                  delta;
+        sf::Text             textcronom;
 
         float* posInicialJugador = nullptr;
 

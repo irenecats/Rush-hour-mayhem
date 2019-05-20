@@ -49,11 +49,15 @@ ID_State StateInicio::input(int teclaPulsada)
             if(seleccion == 0)
             {
                 StateEnJuego::instance()->nuevaPartida();
+                mIntro.stop();
+                cancionCambiada = true;
             }
             else
             {
                 std::cout << "Metodo cargarPartida" << std::endl;
                 StateEnJuego::instance()->cargarPartida();
+                mIntro.stop();
+                cancionCambiada = true;
             }
         }
         else if(seleccion == 2){
@@ -69,17 +73,21 @@ ID_State StateInicio::input(int teclaPulsada)
 
 void StateInicio::update(int tiempo)
 {
-        for(int i = 0; i < (int) opciones->size(); ++i)
-            if(seleccion == i)
-                opciones->at(i)->setColor(sf::Color::White);
-            else
-                opciones->at(i)->setColor(sf::Color(128, 128, 128, 255));
+    if(!cancionCambiada) {
+        mIntro.play();
+        cancionCambiada = true;
+    }
+
+    for(int i = 0; i < (int) opciones->size(); ++i)
+        if(seleccion == i)
+            opciones->at(i)->setColor(sf::Color::White);
+        else
+            opciones->at(i)->setColor(sf::Color(128, 128, 128, 255));
 }
 
 
 void StateInicio::render(Window &window, const float updateTickTime)
 {
-
     window.draw(*contenedorMenu);
 
     if(!eninstrucciones){
@@ -89,7 +97,8 @@ void StateInicio::render(Window &window, const float updateTickTime)
     else{
         window.draw(textoinstrucciones);
     }
-     window.draw(logo);
+
+    window.draw(logo);
 }
 
 StateInicio::StateInicio()

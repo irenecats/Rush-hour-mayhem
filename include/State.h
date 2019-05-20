@@ -29,12 +29,14 @@ class State
         ID_State id;
         ID_State next_state;
 
+        sf::Music mIntro;
         sf::Music mTiempoLibre;
         sf::Music mMision;
         sf::Music mVictoria;
         sf::Music mTienda;
         sf::Music mFlechas;
         sf::Music mPobre;
+        sf::Music mRadio;
 
         static sf::Time tiempoPlayeado;
 };

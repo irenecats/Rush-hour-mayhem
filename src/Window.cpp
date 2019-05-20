@@ -88,6 +88,7 @@ void Window::setView(sf::View view){
 void Window::draw(sf::VertexArray &vertex){
     window.draw(vertex);
 }
+
 /*
 app.pollEvent(event)
 app.close()
