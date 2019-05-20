@@ -60,6 +60,8 @@ class Ruta
         std::vector <std::string>        dialogointro;
         std::vector <std::string>        dialogochoque;
 
+        static bool crearPersonajesDialogo;
+
         void leefichero(const char* titulo);
         void cambiaEstiloDialogo();
 };

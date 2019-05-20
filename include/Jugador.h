@@ -30,6 +30,7 @@ class Jugador
 
         Sprite getJugador();
         Sprite getBrujula();
+        int getPW() { return powerUp; }
 
         void setPowerUp(int pw);
         void activarPowerUp();

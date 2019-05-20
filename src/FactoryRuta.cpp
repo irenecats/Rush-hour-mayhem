@@ -23,6 +23,9 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
     sf::IntRect areaRecorte;
     std::vector<sf::Vector2f> guia;
 
+    std::cout << "Antes del switch de numRuta" << std::endl;
+    std::cout << "numRuta = " << numRuta << std::endl;
+
     switch(numRuta){
         case 1:
             //inicio.x = 405*32;
@@ -90,6 +93,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             areaRecorte = sf::IntRect(512,0,127,128);
             break;
     }
+
+    std::cout << "Creamos la ruta segun los datos aportados por factoryRuta" << std::endl;
 
     return new Ruta(numRuta, inicio, fin, false, dinero, fichero, personaje, areaRecorte,guia);
 }

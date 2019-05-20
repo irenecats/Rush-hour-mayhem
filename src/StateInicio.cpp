@@ -44,11 +44,17 @@ ID_State StateInicio::input(int teclaPulsada)
     }
 
     if(teclaPulsada == sf::Keyboard::Return && !eninstrucciones){
-        if(seleccion == 0){
+        if(seleccion < 2){
             next_state = ID_State::enJuego;
-        }
-        else if(seleccion == 1){
-            //cosas de mateo
+            if(seleccion == 0)
+            {
+                StateEnJuego::instance()->nuevaPartida();
+            }
+            else
+            {
+                std::cout << "Metodo cargarPartida" << std::endl;
+                StateEnJuego::instance()->cargarPartida();
+            }
         }
         else if(seleccion == 2){
            eninstrucciones = true;

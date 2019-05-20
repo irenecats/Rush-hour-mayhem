@@ -143,8 +143,10 @@ StateEnJuego::StateEnJuego()
     //printf("busco los nodos cercanos y genero coches ahi\n");
     buscaCercanos();
     generaCoches(1);
+}
 
-
+void StateEnJuego::nuevaPartida()
+{
     ruta = factoriaRuta.creaRuta(1);
     origen = ruta->getOrigen();
     destino = ruta->getDestino();
@@ -163,7 +165,55 @@ StateEnJuego::StateEnJuego()
     finRuta.setColor(sf::Color::White);
     finRuta.setPosition(400, 375);
     guia = sf::VertexArray(sf::TrianglesStrip);
+}
 
+void StateEnJuego::cargarPartida()
+{
+    std::ifstream fichero("./resources/partidaGuardada.txt");
+    std::string linea = "";
+
+    int idRuta = 1;
+    int pw = Jugador::instancia()->getPW();
+    int dinero = Jugador::instancia()->getDinero();
+
+    std::cout << "Vamos a leer el contenido del fichero tras recoger la idRuta, pw y dinero del jugador" << std::endl;
+
+    if(getline(fichero, linea))
+        idRuta = std::stoi(linea);
+    if(getline(fichero, linea))
+        pw = std::stoi(linea);
+    if(getline(fichero, linea))
+        dinero = std::stoi(linea);
+
+    std::cout << "Hemos leido el contenido correctamente" << std::endl;
+
+    Jugador::instancia()->setPowerUp(pw);
+    Jugador::instancia()->setDinero(dinero);
+
+    std::cout << "Set powerup y dinero del jugador" << std::endl;
+    std::cout << "Ruta = " << idRuta << ", pw = " << pw << ", dinero = " << dinero << std::endl;
+
+    ruta = factoriaRuta.creaRuta(idRuta);
+
+    std::cout << "Acabamos de crear la ruta con factoriaRuta.creaRuta(idRuta)" << std::endl;
+
+    origen = ruta->getOrigen();
+    destino = ruta->getDestino();
+    std::cout<<"Estado ruta: "<<ruta->getActiva()<<std::endl;
+
+
+    fuente = sf::Font();
+    if (!fuente.loadFromFile("resources/Ticketing.ttf"))
+    {
+        std::cerr << "Error al cargar la fuente\n" << std::endl;
+        exit(0);
+    }
+
+    finRuta = sf::Text("Pulsa ENTER para ver tu puntuacion", fuente, 20);
+    finRuta.setOrigin(finRuta.getGlobalBounds().width/2,finRuta.getGlobalBounds().height/2);
+    finRuta.setColor(sf::Color::White);
+    finRuta.setPosition(400, 375);
+    guia = sf::VertexArray(sf::TrianglesStrip);
 }
 
 StateEnJuego::~StateEnJuego()
@@ -367,7 +417,7 @@ void StateEnJuego::recalculaRango()
 
 bool StateEnJuego::getRuta()
 {
-    if(ruta->getID() == 5)//la ultima ruta
+    if(ruta->getID() >= 5)//la ultima ruta
         return true;
     else
         return false;
@@ -386,7 +436,6 @@ void StateEnJuego::limpiar()
     int var = cercanos.size();
     printf("Tamanyo final %i\n", var);
 }
-
 
 void StateEnJuego::dibujaGuia(){
 std::vector<sf::Vector2f> lineaRuta = ruta->getGuia();
