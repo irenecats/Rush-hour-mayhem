@@ -45,7 +45,6 @@ Jugador::Jugador(){
     newStateB.Sety(brujula.getPosition()[1]);
 
     powerUp = 1;
-    powerUp = 6;
 
 }
 

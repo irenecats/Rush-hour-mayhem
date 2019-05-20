@@ -19,6 +19,7 @@ ID_State StateEnJuego::input(int teclaPulsada)
     {
         next_state = ID_State::enPausa;
     }
+
     else if(ruta->getTerminada() && teclaPulsada == sf::Keyboard::Return)
     {
         next_state = ID_State::enPuntuacion;
@@ -113,7 +114,7 @@ void StateEnJuego::update(int tiempo)
         } else {
             npcs[i].velocidadNormal();
         }
-        npcs[i].update(67); //TODO: ayuda
+        npcs[i].update(tiempo);
     }
 }
 
@@ -397,7 +398,14 @@ void StateEnJuego::detectColisionMapa()
             if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))
             {
                 cont++;
-                Jugador::instancia()->setNumColisiones(1);
+
+                if(ruta->getActiva()) {
+                    Jugador::instancia()->setNumColisiones(1);
+
+                    ruta->setDiagActual(2);
+                    reloj.restart();
+                }
+
                 colx = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[0];
                 coly = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[1];
 
@@ -435,6 +443,12 @@ void StateEnJuego::detectColisionNPC() {
                     Jugador::instancia()->frenacoche();
                     coche.Setchoque(true);
                     coche.Getchoque();
+
+                    if(ruta->getActiva()) {
+                        Jugador::instancia()->setNumColisiones(1);
+                        ruta->setDiagActual(2);
+                        reloj.restart();
+                    }
                 }
             } else Jugador::instancia()->nofrenar();
         }

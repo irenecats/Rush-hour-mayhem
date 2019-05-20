@@ -31,6 +31,7 @@ class Ruta
         void            setDiagActual(int tipo);
         int             getTiempoMax() { return tiempoMax; }
         int             getDineroMax() { return dineroMax; }
+        int             tiempoAcumulado = 0;
 
         sf::RectangleShape*   getOrigen();
         sf::RectangleShape*   getDestino();

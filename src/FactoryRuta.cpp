@@ -24,20 +24,14 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
     sf::IntRect areaRecorte;
     std::vector<sf::Vector2f> guia;
 
-    std::cout << "Antes del switch de numRuta" << std::endl;
-    std::cout << "numRuta = " << numRuta << std::endl;
-
     switch(numRuta){
         case 1:
             inicio.x = 387*32;
             inicio.y = 290*32;
             fin.x = 241*32;
             fin.y = 414*32;
-
-
             dinero = 300;
-            tiempo = 60;
-
+            tiempo = 35;
             fichero = "resources/pija.txt";
             personaje   = "Brittany";  //o tiffany, se aceptan propuestas
             areaRecorte = sf::IntRect(0,0,128,128);
@@ -54,14 +48,12 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 2:
-
             inicio.x = 408*32;
             inicio.y = 73*32;
             fin.x = 272*32;
             fin.y = 372*32;
-		dinero = 300;
-            tiempo = 60;
-
+            dinero = 400;
+            tiempo = 75;
             fichero = "resources/embarazada.txt";
             personaje   = "Janette";
             areaRecorte = sf::IntRect(128,0,124,128);
@@ -81,16 +73,14 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 3:
-
-
             inicio.x = 466*32;
             inicio.y = 421*32;
             fin.x = 246*32;
             fin.y = 248*32;
             fichero = "resources/naufrago.txt";
             personaje   = "Robin";
-dinero = 300;
-            tiempo = 60;
+            dinero = 400;
+            tiempo = 75;
             areaRecorte = sf::IntRect(256,0,127,128);
             guia.push_back(sf::Vector2f(466*32,421*32));
             guia.push_back(sf::Vector2f(466*32,427*32));
@@ -111,15 +101,13 @@ dinero = 300;
             break;
 
         case 4:
-
-
             inicio.x = 391*32;
             inicio.y = 500*32;
             fin.x = 134*32;
             fin.y = 56*32;
             fichero = "resources/preso.txt";
             personaje   = "Luke";
-dinero = 300;
+            dinero = 300;
             tiempo = 60;
             areaRecorte = sf::IntRect(384,0,127,128);
             guia.push_back(sf::Vector2f(391*32,500*32));
@@ -149,8 +137,8 @@ dinero = 300;
             fin.x = 47*32;
             fin.y = 529*32;
             fichero = "resources/uber.txt";
-dinero = 300;
-            tiempo = 60;
+            dinero = 750;
+            tiempo = 150;
             personaje   = "Travis";
             areaRecorte = sf::IntRect(512,0,127,128);
             guia.push_back(sf::Vector2f(443*32,138*32));

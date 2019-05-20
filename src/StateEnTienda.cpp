@@ -46,7 +46,6 @@ ID_State StateEnTienda::input(int teclaPulsada)
         update(0);
         StateEnJuego::instance()->inicializar();
         next_state = ID_State::enJuego;
-        StateEnJuego::instance()->inicializar();
         mTienda.stop();
         cancionCambiada = false;
     }

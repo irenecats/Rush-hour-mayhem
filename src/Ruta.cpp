@@ -257,9 +257,11 @@ void Ruta::Update(Clock& tiempo)
     }
     else if(activa && DiagActual == 2)
     {
-        if(tiempo.getElapsedTime() >= 1000)
+        tiempoAcumulado += tiempo.getElapsedTime();
+
+        if(tiempoAcumulado >= 1000)
         {
-            tiempo.restart();
+            tiempoAcumulado = 0;
             DiagActual = 0;
 
         }
