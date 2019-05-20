@@ -10,7 +10,7 @@ Ruta::~Ruta()
     delete origen;
 }
 
-Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo,std::string name, sf::IntRect areaRecorte, std::vector<sf::Vector2f> g)
+Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, int tiempo, const char* titulo,std::string name, sf::IntRect areaRecorte, std::vector<sf::Vector2f> g)
 {
 
     //Inicializamos valores generales de ruta
@@ -21,6 +21,8 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     terminada   = false;
     origen      = new sf::RectangleShape(tam);
     destino     = new sf::RectangleShape(tam);
+    dineroMax   = dinero;
+    tiempoMax   = tiempo;
 
     std::cout << "Valores de la ruta " << id << " inicializados" << std::endl;
 

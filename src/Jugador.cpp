@@ -44,7 +44,7 @@ Jugador::Jugador(){
     newStateB.Setx(brujula.getPosition()[0]);
     newStateB.Sety(brujula.getPosition()[1]);
 
-    powerUp = 1;
+    powerUp = 5;
 }
 
 Jugador::~Jugador()
@@ -76,12 +76,13 @@ float dirx, diry, mv, kr;
             if(!powerUpActivado && powerUp==1){
                 powerUpActivado=true;
                 turbo.restart();
-                std::cout << "Activo el powerup" << std::endl;
+            }
+            if(!powerUpActivado && powerUp==7){
+                powerUpActivado=true;
+                turbo.restart();
             }
         }
     }
-
-    //Controlar aqui tambien si se activa el powerup
 
         if(delante){
             if(vel<kMaxSpeed) vel+=0.1*kVel;
@@ -151,12 +152,17 @@ float dirx, diry, mv, kr;
             bala = nullptr;
         }
 
-        //modo fantasma
-        if(powerUp == 7 && powerUpActivado){
-            jugador.setColor(sf::Color(255,255,255,127));
-        }
-        else if(powerUp == 7 && !powerUpActivado){
-            jugador.setColor(sf::Color(255,255,255,255));
+        if(powerUp==7 && powerUpActivado){
+            if(turbo.getElapsedTime()<4000){
+                jugador.setColor(sf::Color(255,255,255,127));
+                fant = true;
+            }else{
+                fant=false;
+                jugador.setColor(sf::Color(255,255,255,255));
+                if(turbo.getElapsedTime()>8000){
+                    powerUpActivado=false;
+                }
+            }
         }
 }
 
@@ -194,11 +200,6 @@ void Jugador::activarPowerUp(){
 }
 
 bool Jugador::esFantasma(){
-    bool fant = false;
-    if(powerUp == 7 && powerUpActivado){
-        fant=true;
-    }
-
     return fant;
 }
 
@@ -303,7 +304,8 @@ void Jugador::nofrenar(){
 }
 
 void Jugador::frenacoche(){
-
+int retr=30;
+if(powerUp==4) retr=20;
     jugador.setPosition(lastState.Getx(), lastState.Gety());
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
@@ -313,7 +315,7 @@ void Jugador::frenacoche(){
     float dirx = sin(jugador.getRotation()*rad);
     float diry = -cos(jugador.getRotation()*rad);
 
-    jugador.mover(dirx*10, diry*10);
+    jugador.mover(dirx*retr, diry*retr);
 
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
@@ -348,4 +350,16 @@ bool Jugador::getZoom(){
 
 float Jugador::getVel(){
     return vel;
+}
+
+int Jugador::getNumColisiones() {
+    return numColisiones;
+}
+
+void Jugador::setNumColisiones(int numero) {
+    if(numero > 0)
+        numColisiones += numero;
+
+    else
+        numColisiones = 0;
 }

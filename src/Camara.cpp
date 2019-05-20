@@ -36,7 +36,6 @@ sf::View Camara::getCarView(){
 }
 
 void Camara::centrarVista(){
-        std::cout << carview.getSize().x<< std::endl;
     carview.setCenter(Jugador::instancia()->getJugador().getPosition()[0], Jugador::instancia()->getJugador().getPosition()[1]);
     if(Jugador::instancia()->getZoom()){
         if(abs(Jugador::instancia()->getVel())>0.1 && carview.getSize().x<700) carview.zoom(1.001f);

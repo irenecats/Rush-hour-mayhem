@@ -24,6 +24,11 @@ ID_State StateEnJuego::input(int teclaPulsada)
         next_state = ID_State::enPuntuacion;
         State::tiempoPlayeado = mVictoria.getPlayingOffset();
         mVictoria.stop();
+        StateEnPuntuacion::instance()->setColisiones(Jugador::instancia()->getNumColisiones());
+        StateEnPuntuacion::instance()->setTiempo(delta);
+        StateEnPuntuacion::instance()->setTiempoPerf(ruta->getTiempoMax());
+        StateEnPuntuacion::instance()->setDineroPerf(ruta->getDineroMax());
+        StateEnPuntuacion::instance()->calcularPuntuacion();
     }
     else if(teclaPulsada == sf::Keyboard::Space && ruta->getActiva() && ruta->getDiagActual()==1)
     {
@@ -392,6 +397,7 @@ void StateEnJuego::detectColisionMapa()
             if(mapa[Mapa::Instance()->getNumlayer()-1][y][x]!=NULL && Collision::BoundingBoxTest(mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getSprite(), Jugador::instancia()->getJugador().getSprite()))
             {
                 cont++;
+                Jugador::instancia()->setNumColisiones(1);
                 colx = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[0];
                 coly = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[1];
 
@@ -421,14 +427,16 @@ void StateEnJuego::detectColisionNPC() {
     for (NPC &coche : npcs) {
         if (!coche.Getchoque()) {
             if (Jugador::instancia()->disparando() && Collision::BoundingBoxTest(Jugador::instancia()->getBala()->getBala().getSprite(), coche.Getsprite().getSprite())) {
-                //<Destruir bala>
+                Jugador::instancia()->borraBala();
                 coche.Setchoque(true);
                 coche.Getchoque();
-            } else if (Collision::BoundingBoxTest(Jugador::instancia()->getJugador().getSprite(), coche.Getsprite().getSprite())) {
-                //<Frenar jugador>
-                coche.Setchoque(true);
-                coche.Getchoque();
-            }
+            } else if (Collision::PixelPerfectTest(Jugador::instancia()->getJugador().getSprite(), coche.Getsprite().getSprite())) {
+                if(!Jugador::instancia()->esFantasma()){
+                    Jugador::instancia()->frenacoche();
+                    coche.Setchoque(true);
+                    coche.Getchoque();
+                }
+            } else Jugador::instancia()->nofrenar();
         }
     }
 }

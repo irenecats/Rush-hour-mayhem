@@ -18,11 +18,16 @@ public:
     ID_State input(int);
     void update(int tiempo);
     void update();
-   
+
     void render(Window&, const float);
 
     void inicializar();
     void limpiar();
+    void setColisiones(int numero);
+    void setTiempo(int segundos);
+    void setDineroPerf(int numero);
+    void setTiempoPerf(int numero);
+    void calcularPuntuacion();
 
     ~StateEnPuntuacion();
 
@@ -36,10 +41,10 @@ private:
     float dinero = 0.f;
 
     //Datos de ejemplo de una misión
-    int col = 15;
-    int tiemp = 80;
-    int tiempoPerf = 60;
-    int dineroPerf = 350;
+    int col = 0;
+    int tiemp = 0;
+    int tiempoPerf = 0;
+    int dineroPerf = 0;
 
     sf::Font* fuente;
     sf::Text* resultados;
@@ -74,7 +79,6 @@ private:
     Sprite          plata;
     Sprite          bronce;
 
-    void calcularPuntuacion (int colisiones, float tiempo, float tiempoPerfecto, float dineroPerfecto);
     void crearText(sf::Text*& text, std::string str, int tamanyo, float x, float y);
     void muestraFinal();
     void leeFichero();

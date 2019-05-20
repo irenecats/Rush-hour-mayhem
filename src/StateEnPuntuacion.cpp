@@ -20,6 +20,8 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 
         if(StateEnJuego::instance()->getRuta() && !finjuego)
         {
+            Jugador::instancia()->setNumColisiones(0);
+
             printf("Pantalla Final\n");
             finjuego = true;
 
@@ -33,13 +35,16 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
             currentTime = std::to_string(day)+"/"+std::to_string(month)+"/"+std::to_string(year)+"\t"+
                           std::to_string(hour)+":"+std::to_string(minute);
             muestraFinal();
+
         }
         else if(StateEnJuego::instance()->getRuta() && finjuego)
         {
+            Jugador::instancia()->setNumColisiones(0);
             next_state = ID_State::inicio;
         }
         else
         {
+            Jugador::instancia()->setNumColisiones(0);
             limpiar();
             next_state = ID_State::enTienda;
         }
@@ -50,6 +55,7 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 
 void StateEnPuntuacion::update(int tiempo)
 {
+
     if(!cancionCambiada) {
         mVictoria.play();
         mVictoria.setPlayingOffset(tiempoPlayeado); //Por algún motivo SFML decidio poner el offset despues de darle al play y no al revés... brillante
@@ -68,7 +74,7 @@ void StateEnPuntuacion::update(int tiempo)
         else if(col-c == 0) //para que no esté haciéndolo en bucle
             c=col+1;
         else
-            c=col-c;
+            c+=col-c;
     }
 
     if(t <= tiemp)
@@ -82,24 +88,27 @@ void StateEnPuntuacion::update(int tiempo)
         else if(tiemp-t == 0)
             t=tiemp+1;
         else
-            t = tiemp-t;
+            t+= tiemp-t;
     }
 
     //Cuando ya han terminado de aparecer los resultados anteriores, se muestra la barra de porcentaje
     //Se crea lo "verde" hasta que su ancho es igual que el de la barra blanca multiplicada por el porcentaje
-    if(t >= tiemp && c >= col && relleno->getSize().x <= rect->getSize().x * porcentaje / 100)
+    if(t >= tiemp && c >= col && relleno->getSize().x < (rect->getSize().x - 10) * porcentaje / 100)
     {
         int incremento = 5;
 
         if(rect->getSize().x - relleno->getSize().x < 5)
-            incremento = rect->getSize().x - relleno->getSize().x;
+            incremento = (rect->getSize().x - 10) - relleno->getSize().x;
 
         relleno->setSize(sf::Vector2f(relleno->getSize().x + incremento, 30));
+
+        //std::cout << "Relleno: " << relleno->getSize().x << std::endl;
+        //std::cout << "Blanco: " << rect->getSize().x << std::endl;
     }
 
 
     //Cuando ha terminado lo anterior, pasamos a mostrar el dinero total obtenido en la misión
-    if(t >= tiemp && c >= col && relleno->getSize().x >= (rect->getSize().x * porcentaje/100) && d <= dinero)
+    if(t >= tiemp && c >= col && relleno->getSize().x >= ((rect->getSize().x - 10) * porcentaje/100) && d <= dinero)
     {
         ndinero->setString(std::to_string(d));
 
@@ -117,7 +126,7 @@ void StateEnPuntuacion::update(int tiempo)
         else if(dinero-d == 0)
             d=dinero+1;
         else
-            d = dinero-d;
+            d+= dinero-d;
     }
 }
 
@@ -164,7 +173,17 @@ StateEnPuntuacion::StateEnPuntuacion()
         exit(0);
     }
 
-    calcularPuntuacion(col, tiemp, tiempoPerf, dineroPerf);
+    porcentaje = 0.f;
+    dinero = 0.f;
+
+    col = Jugador::instancia()->getNumColisiones();
+    tiemp = 80;
+    tiempoPerf = 60;
+    dineroPerf = 350;
+
+    c = 0;
+    t = 0;
+    d = 0;
 
     crearText(resultados, "RESULTADOS DE LA MISION", 50, 800/2, 50);
     crearText(colisiones, "Colisiones", 30, 800/3, 150);
@@ -238,28 +257,28 @@ StateEnPuntuacion::StateEnPuntuacion()
 }
 
 
-void StateEnPuntuacion::calcularPuntuacion (int colisiones, float tiempo, float tiempoPerfecto, float dineroPerfecto)
+void StateEnPuntuacion::calcularPuntuacion ()
 {
     //Se empieza teniendo todo el dinero, y de ahí se le va quitando.
-    dinero = dineroPerfecto;
+    dinero = dineroPerf;
 
     //Las colisiones no quitan tanto pq va a haber MUCHAS
-    for(int i = 0; i < colisiones; i++)
-        dinero *= 0.99;
+    for(int i = 0; i < col; i++)
+        dinero *= 0.999;
 
     //Por si lo hiciera más rápido (no va a pasar pero porsi)
-    if (tiempo < tiempoPerfecto)
-        tiempo = tiempoPerfecto;
+    if (tiemp > tiempoPerf)
+        dinero *= (float)tiempoPerf/tiemp;     //Quitamos más cantidad de dinero si tarda mucho
 
-
-    //Quitamos más cantidad de dinero si tarda mucho
-    dinero *= (float)tiempoPerfecto/tiempo;
     dinero = (int)dinero;
 
-    porcentaje = dinero / dineroPerfecto * 100.f;
+    porcentaje = dinero / dineroPerf * 100.f;
+
 
     //Actualizamos las variables de dinero del jugador
     Jugador::instancia()->setDinero(dinero);
+
+    std::cout << dinero/dineroPerf << std::endl;
 }
 
 
@@ -295,16 +314,14 @@ void StateEnPuntuacion::limpiar()
     porcentaje = 0.f;
     dinero = 0.f;
 
-    col = 15;
-    tiemp = 80;
+    col = 0;
+    tiemp = 0;
     tiempoPerf = 60;
     dineroPerf = 350;
 
     c = 0;
     t = 0;
     d = 0;
-
-    calcularPuntuacion(col, tiemp, tiempoPerf, dineroPerf);
 
     ncoli->setString(std::to_string(c));
     ntiemp->setString(std::to_string(t));
@@ -431,4 +448,21 @@ void StateEnPuntuacion::organizaRanking()
         flecha.setPosition(700,541);
     }
     puntos.setString(puntosaux);
+}
+
+
+void StateEnPuntuacion::setColisiones(int numero) {
+    col = numero;
+}
+
+void StateEnPuntuacion::setTiempo(int segundos) {
+    tiemp = segundos;
+}
+
+void StateEnPuntuacion::setTiempoPerf(int numero) {
+    tiempoPerf = numero;
+}
+
+void StateEnPuntuacion::setDineroPerf(int numero) {
+    dineroPerf = numero;
 }

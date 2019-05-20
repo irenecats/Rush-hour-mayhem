@@ -18,6 +18,7 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
     sf::Vector2f inicio(0.0,0.0);
     sf::Vector2f fin(0.0,0.0);
     int dinero = 0;
+    int tiempo = 0;
     const char* fichero;
     std::string personaje = "";
     sf::IntRect areaRecorte;
@@ -39,6 +40,7 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             fin.y = 349*32;
 
             dinero = 300;
+            tiempo = 60;
 
             fichero = "resources/pija.txt";
             personaje   = "Brittany";  //o tiffany, se aceptan propuestas
@@ -64,6 +66,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             inicio.y = 9500.0;
             fin.x = 7232.0;
             fin.y = 11072.0;
+            dinero = 300;
+            tiempo = 60;
             fichero = "resources/embarazada.txt";
             personaje   = "Janette";
             areaRecorte = sf::IntRect(128,0,124,128);
@@ -79,6 +83,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             inicio.y = 360*32;
             fin.x = 240*32;
             fin.y = 360*32;
+            dinero = 300;
+            tiempo = 60;
             fichero = "resources/naufrago.txt";
             personaje   = "Robin";
             areaRecorte = sf::IntRect(256,0,127,128);
@@ -94,6 +100,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             inicio.y = 360*32;
             fin.x = 240*32;
             fin.y = 360*32;
+            dinero = 300;
+            tiempo = 60;
             fichero = "resources/preso.txt";
             personaje   = "Luke";
             areaRecorte = sf::IntRect(384,0,127,128);
@@ -112,7 +120,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             inicio.y = 360*32;
             fin.x = 240*32;
             fin.y = 360*32;
-            //fichero = "resources/embarazada.txt";
+            dinero = 300;
+            tiempo = 60;
             personaje   = "Travis";
             areaRecorte = sf::IntRect(512,0,127,128);
             break;
@@ -120,5 +129,5 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
 
     std::cout << "Creamos la ruta segun los datos aportados por factoryRuta" << std::endl;
 
-    return new Ruta(numRuta, inicio, fin, false, dinero, fichero, personaje, areaRecorte,guia);
+    return new Ruta(numRuta, inicio, fin, false, dinero, tiempo, fichero, personaje, areaRecorte,guia);
 }
