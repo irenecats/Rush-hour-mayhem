@@ -29,6 +29,8 @@ class StateEnJuego : public State
         void limpiar();
         bool getRuta();
 
+        int getIDRuta() { return ruta ? ruta->getID() : 0; }
+
         ~StateEnJuego();
 
     private:

@@ -37,18 +37,27 @@ ID_State StateEnPausa::input(int teclaPulsada)
         case sf::Keyboard::Return :
             switch(seleccion)
             {
-                case 0 : next_state = ID_State::enJuego; break;
-                case 1 : guardar(); break;
-                case 2 : salirPartida = true; break;
-                default : break;
+                case 0 :
+                    next_state = ID_State::enJuego;
+                    guardarPartida->setString("Guardar partida");
+                    guardarPartida->setOrigin(guardarPartida->getGlobalBounds().width / 2.f, 0);
+                    break;
+                case 1 :
+                    guardar();
+                    break;
+                case 2 :
+                    salirPartida = true;
+                    break;
+                default :
+                    break;
             }
-            if(seleccion == 0)
-                next_state = ID_State::enJuego;
             break;
 
         case sf::Keyboard::Escape :
             limpiar(); // reinicia los valores (en este caso la seleccion se pone a 0 otra vez)
             next_state = ID_State::enJuego;
+            guardarPartida->setString("Guardar partida");
+            guardarPartida->setOrigin(guardarPartida->getGlobalBounds().width / 2.f, 0);
             break;
 
         default : break;
@@ -81,6 +90,28 @@ void StateEnPausa::render(Window &window, const float updateTickTime)
 
 void StateEnPausa::guardar()
 {
+    std::ofstream fichero;
+
+    remove("./resources/partidaGuardada.txt");
+
+    fichero.open("./resources/partidaGuardada.txt");
+
+    if(fichero.is_open())
+    {
+        fichero << std::to_string(StateEnJuego::instance()->getIDRuta()) << std::endl;
+        fichero << std::to_string(Jugador::instancia()->getPW()) << std::endl;
+        fichero << std::to_string(Jugador::instancia()->getDinero()) << std::endl;
+
+        fichero.close();
+
+        guardarPartida->setString("Partida guardada correctamente");
+        guardarPartida->setOrigin(guardarPartida->getGlobalBounds().width / 2.f, 0);
+    }
+    else
+    {
+        guardarPartida->setString("Error al guardar partida");
+        guardarPartida->setOrigin(guardarPartida->getGlobalBounds().width / 2.f, 0);
+    }
 
 }
 
