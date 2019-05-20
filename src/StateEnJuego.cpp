@@ -427,13 +427,15 @@ void StateEnJuego::detectColisionNPC() {
     for (NPC &coche : npcs) {
         if (!coche.Getchoque()) {
             if (Jugador::instancia()->disparando() && Collision::BoundingBoxTest(Jugador::instancia()->getBala()->getBala().getSprite(), coche.Getsprite().getSprite())) {
-                //<Destruir bala>
+                Jugador::instancia()->borraBala();
                 coche.Setchoque(true);
                 coche.Getchoque();
             } else if (Collision::PixelPerfectTest(Jugador::instancia()->getJugador().getSprite(), coche.Getsprite().getSprite())) {
-                //<Frenar jugador>
-                coche.Setchoque(true);
-                coche.Getchoque();
+                if(!Jugador::instancia()->esFantasma()){
+                    Jugador::instancia()->frenacoche();
+                    coche.Setchoque(true);
+                    coche.Getchoque();
+                }
             }
         }
     }

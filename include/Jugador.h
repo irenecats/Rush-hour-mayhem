@@ -79,6 +79,7 @@ class Jugador
         int powerUp;
         bool powerUpActivado = false;
         bool zoom = false;
+        bool fant;
 
         bool chocando = false;
 
