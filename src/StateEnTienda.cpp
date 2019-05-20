@@ -30,23 +30,8 @@ ID_State StateEnTienda::input(int teclaPulsada)
             update(0);
             next_state = ID_State::enJuego;
             StateEnJuego::instance()->inicializar();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             mTienda.stop();
             cancionCambiada = false;
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         } else {
             std::cout << "eres pobre no puedes" << std::endl;
@@ -57,40 +42,9 @@ ID_State StateEnTienda::input(int teclaPulsada)
 
     if(teclaPulsada == sf::Keyboard::Escape) {
         std::cout << "Has salido sin comprar nada" << std::endl;
-<<<<<<< HEAD
         limpiar();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         update(0);
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
         StateEnJuego::instance()->inicializar();
-
->>>>>>> de6e94e799dbfc9b6a1e3f47e594f9b265b29052
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         next_state = ID_State::enJuego;
         StateEnJuego::instance()->inicializar();
     }

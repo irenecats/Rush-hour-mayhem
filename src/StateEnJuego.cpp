@@ -360,41 +360,13 @@ void StateEnJuego::detectColisionMapa()
                 colx = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[0];
                 coly = mapa[Mapa::Instance()->getNumlayer()-1][y][x]->getPosition()[1];
 
-                distancia = sqrt((colx - coly)*(colx - coly) +
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                                 (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
+                distancia = sqrt((colx - coly)*(colx - coly) + (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
 
-                if(daux==0 || daux > distancia)
-                {
-=======
-                   (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
-
+   /*
                 if(daux==0 || daux > distancia){
->>>>>>> Stashed changes
-=======
                    (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
-
+*/
                 if(daux==0 || daux > distancia){
->>>>>>> Stashed changes
-=======
-                   (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
-
-                if(daux==0 || daux > distancia){
->>>>>>> Stashed changes
-=======
-                   (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
-
-                if(daux==0 || daux > distancia){
->>>>>>> Stashed changes
-=======
-                   (Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1])*(Jugador::instancia()->getJugador().getPosition()[0] - Jugador::instancia()->getJugador().getPosition()[1]));
-
-                if(daux==0 || daux > distancia){
->>>>>>> Stashed changes
                     daux = distancia;
                     xx = colx;
                     yy = coly;
@@ -453,26 +425,10 @@ void StateEnJuego::recalculaRango()
     cercanos = cercaAux;
 }
 
-<<<<<<< Updated upstream
 bool StateEnJuego::getRuta()
 {
     if(ruta->getID() >= 5)//la ultima ruta
-=======
-bool StateEnJuego::getRuta(){
-    if(ruta->getID() == 1)//la ultima ruta
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
         return true;
     else
         return false;
@@ -481,23 +437,8 @@ bool StateEnJuego::getRuta(){
 void StateEnJuego::inicializar()
 {
     ruta = factoriaRuta.creaRuta(ruta->getID()+1);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     mTiempoLibre.play();
     cancionCambiada = false;
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 void StateEnJuego::limpiar()

@@ -122,28 +122,9 @@ float dirx, diry, mv, kr;
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        if(!chocando)jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
+        if(!chocando)
+            jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
         //if(!chocando)jugador.mover(dirx*mv, diry*mv);
-=======
-        if(!chocando)jugador.mover(dirx*mv, diry*mv);
->>>>>>> Stashed changes
-=======
-        if(!chocando)jugador.mover(dirx*mv, diry*mv);
->>>>>>> Stashed changes
-=======
-        if(!chocando)jugador.mover(dirx*mv, diry*mv);
->>>>>>> Stashed changes
-=======
-        if(!chocando)jugador.mover(dirx*mv, diry*mv);
->>>>>>> Stashed changes
-=======
-        if(!chocando)jugador.mover(dirx*mv, diry*mv);
->>>>>>> Stashed changes
 
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);
@@ -157,11 +138,6 @@ float dirx, diry, mv, kr;
             bala = nullptr;
         }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         //modo fantasma
         if(powerUp == 7 && powerUpActivado){
             jugador.setColor(sf::Color(255,255,255,127));
@@ -169,17 +145,6 @@ float dirx, diry, mv, kr;
         else if(powerUp == 7 && !powerUpActivado){
             jugador.setColor(sf::Color(255,255,255,255));
         }
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 //Render con interpolacion
