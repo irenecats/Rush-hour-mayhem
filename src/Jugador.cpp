@@ -11,13 +11,13 @@ Jugador* Jugador::instancia() {
 
 //Al inicializar el jugador se carga la textura, se le asigna al Sprite y se posiciona en el juego
 Jugador::Jugador(){
-    std::string url ("resources/spritesheet_vehicles.png");
+    std::string url ("resources/vehicles.png");
     TexturaContainer::instancia()->crearTextura(url, "Jugador");
 
     jugador.setTextura(TexturaContainer::instancia()->getTextura("Jugador"));
 
-    jugador.setRectTextura(sf::IntRect(2*70 + 5, 3*131 - 12, 70, 128));
-    jugador.setPosition(131*32, 410*32); //(7232.0, 11072.0);
+    jugador.setRectTextura(sf::IntRect(123,0, 67, 122));
+    jugador.setPosition(151*32, 473*32); //(7232.0, 11072.0);
     jugador.setScale(0.6f, 0.6f);
     jugador.setOrigin(35, 45);
 
@@ -44,7 +44,9 @@ Jugador::Jugador(){
     newStateB.Setx(brujula.getPosition()[0]);
     newStateB.Sety(brujula.getPosition()[1]);
 
-    powerUp = 5;
+    powerUp = 1;
+    powerUp = 6;
+
 }
 
 Jugador::~Jugador()

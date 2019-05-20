@@ -3,13 +3,24 @@
 NPC::NPC(Node* nodoInicial, IA* intelig) : posAnterior(), posSiguiente(), debugLine(sf::Lines, 2) {
     nodoInicio = nodoInicial;
     //std::cout << nodoInicial->getCoorX() << " = " <<nodoInicio->getCoorX() <<std::endl;
-    std::string ruta("resources/audi.png");
-    TexturaContainer::instancia()->crearTextura(ruta, "Audi");
+    //std::string ruta("resources/audi.png");
+    //TexturaContainer::instancia()->crearTextura(ruta, "Audi");
 
-    sprite.setTextura(TexturaContainer::instancia()->getTextura("Audi"));
-    //sprite.setRectTextura(sf::IntRect(1*70 + 5, 1*145 - 12, 70, 117));
+    sprite.setTextura(TexturaContainer::instancia()->getTextura("Jugador"));
+    int tipo = rand() % 4;
+    switch(tipo){
+        case 0:  sprite.setRectTextura(sf::IntRect(0,0,119,66));
+            break;
+        case 1: sprite.setRectTextura(sf::IntRect(0,67,119,66));
+            break;
+        case 2: sprite.setRectTextura(sf::IntRect(0,134,101,45));
+            break;
+        case 3: sprite.setRectTextura(sf::IntRect(0,180,101,45));
+            break;
+    }
+
     sprite.setOrigin(sprite.getGlobalBounds()[0] / 2, sprite.getGlobalBounds()[1] / 2);
-    sprite.setScale(0.4, 0.4);
+    sprite.setScale(0.6f, 0.6f);
 
     rectFrenado.setSize(sf::Vector2f(50, sprite.getGlobalBounds()[1]));
     rectFrenado.setOrigin(sprite.getGlobalBounds()[0] * -0.70, sprite.getGlobalBounds()[1] / 2);

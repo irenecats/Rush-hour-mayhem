@@ -379,7 +379,7 @@ Mapa::Mapa()
             for(int x=0; x<_width; x++)
             {
             //cout<<_tilemap[z][y][x]<<endl;
-                if(_tilemap[z][y][x]>20)
+                if(_tilemap[z][y][x]>0)
                 {
 
                     dibujar[z][y][x]=new Sprite(TexturaContainer::instancia()->getTexturaMapa()[textureinfo[_tilemap[z][y][x]-1]],*_tilemapSprite[_tilemap[z][y][x]-1]);
