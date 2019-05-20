@@ -62,7 +62,7 @@ class StateEnJuego : public State
         void cambiarCancion(std::string nombreCancion, sf::Music musica);
         void encuentraCMC();
         void dibujaGuia();
-
+        sf::RectangleShape colisionGenerarNPC;
 };
 
 #endif // STATEENJUEGO_H

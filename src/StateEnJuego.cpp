@@ -114,6 +114,7 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
 
     Mapa::Instance()->renderMapaAbajo(window);
     ruta->RenderPuntos(window);
+    //window.draw(colisionGenerarNPC);
     if(Jugador::instancia()->muestroGuia()){
         window.draw(guia);
     }
@@ -134,7 +135,7 @@ void StateEnJuego::render(Window &window, const float updateTickTime)
 
 }
 
-StateEnJuego::StateEnJuego()
+StateEnJuego::StateEnJuego() : colisionGenerarNPC(sf::Vector2f(200, 200))
 {
     id = ID_State::enJuego;
     nodos = Mapa::Instance()->getGrafo();
@@ -143,6 +144,7 @@ StateEnJuego::StateEnJuego()
     //printf("busco los nodos cercanos y genero coches ahi\n");
     buscaCercanos();
     generaCoches(1);
+    colisionGenerarNPC.setOrigin(colisionGenerarNPC.getSize().x / 2, colisionGenerarNPC.getSize().y / 2);
 }
 
 void StateEnJuego::nuevaPartida()
@@ -231,21 +233,32 @@ StateEnJuego::~StateEnJuego()
 
 void StateEnJuego::generaCoches(int tot)
 {
-    //printf("Genero %i coches",tot);
-    int num = 0, i=0,mx = cercanos.size();
-    // std::vector<Node*>   usados;
+    std::vector<Node*> posibles(cercanos);
+    int num = 0;
+    int generados = 0;
+    while (posibles.size() > 0 && generados < tot) {
+        num = (0 + (rand() % (int)(posibles.size())));
+        colisionGenerarNPC.setPosition(posibles[num]->getCoorX(), posibles[num]->getCoorY());
 
-    bool contr = false;
-    //printf("Tamanyo antes de generar %i\n",npcs.size());
-    while(i<tot && cercanos.size()>1)
-    {
-        num = (0 + (rand() % (int)(mx)));
-        contr = false;
-        npcs.push_back(NPC(cercanos[num], &iaCirc));
-        npcs.back().setPosicionesIniciales();
-        i++;
+        bool libre;
+        int k = 0;
+        if (npcs.size() == 0) {
+            libre = true;
+        } else {
+            do {
+                libre = !Collision::BoundingBoxSpriteRectTest(npcs[k].Getsprite().getSprite(), colisionGenerarNPC);
+                k++;
+            } while (libre && k < npcs.size());
+        }
+
+        if (libre) {
+            npcs.push_back(NPC(posibles[num], &iaCirc));
+            npcs.back().setPosicionesIniciales();
+            generados++;
+        } else {
+            posibles.erase(posibles.begin() + num);
+        }
     }
-    //printf("Tamanyo tras generar %i\n",npcs.size());
 }
 
 int StateEnJuego::compruebaNPC()
