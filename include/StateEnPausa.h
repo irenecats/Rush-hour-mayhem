@@ -39,6 +39,7 @@ class StateEnPausa : public State
         int seleccion = 0;
 
         bool    fin;
+        bool salirPartida = false;
 };
 
 #endif // STATEENPAUSA_H

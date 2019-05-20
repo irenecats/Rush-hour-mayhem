@@ -38,8 +38,8 @@ ID_State StateEnPausa::input(int teclaPulsada)
             switch(seleccion)
             {
                 case 0 : next_state = ID_State::enJuego; break;
-            //    case 1 : guardar(); break;
-              //  case 2 : salir(); break;
+                case 1 : guardar(); break;
+                case 2 : salirPartida = true; break;
                 default : break;
             }
             if(seleccion == 0)
@@ -74,6 +74,14 @@ void StateEnPausa::render(Window &window, const float updateTickTime)
 
     for(sf::Text* &opcion : *opciones)
         window.draw(*opcion);
+
+    if(salirPartida)
+        window.close();
+}
+
+void StateEnPausa::guardar()
+{
+
 }
 
 StateEnPausa::StateEnPausa()

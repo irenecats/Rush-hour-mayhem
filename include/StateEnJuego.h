@@ -50,6 +50,8 @@ class StateEnJuego : public State
         IACircular           iaCirc;
         sf::VertexArray      guia;
 
+        float* posInicialJugador = nullptr;
+
         StateEnJuego();
         void buscaCercanos();
         void generaCoches(int tot);

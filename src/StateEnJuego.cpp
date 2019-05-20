@@ -152,6 +152,10 @@ void StateEnJuego::nuevaPartida()
     destino = ruta->getDestino();
     std::cout<<"Estado ruta: "<<ruta->getActiva()<<std::endl;
 
+    if(!posInicialJugador)
+        posInicialJugador = Jugador::instancia()->getJugador().getPosition();
+
+    Jugador::instancia()->getJugador().setPosition(posInicialJugador[0], posInicialJugador[1]);
 
     fuente = sf::Font();
     if (!fuente.loadFromFile("resources/Ticketing.ttf"))
@@ -201,6 +205,10 @@ void StateEnJuego::cargarPartida()
     destino = ruta->getDestino();
     std::cout<<"Estado ruta: "<<ruta->getActiva()<<std::endl;
 
+    if(!posInicialJugador)
+        posInicialJugador = Jugador::instancia()->getJugador().getPosition();
+
+    Jugador::instancia()->getJugador().setPosition(posInicialJugador[0], posInicialJugador[1]);
 
     fuente = sf::Font();
     if (!fuente.loadFromFile("resources/Ticketing.ttf"))
