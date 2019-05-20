@@ -95,7 +95,8 @@ void StateInicio::render(Window &window, const float updateTickTime)
             window.draw(*opcion);
     }
     else{
-        window.draw(textoinstrucciones);
+        for(unsigned int i = 0; i < textoInstrucciones.size(); ++i)
+            window.draw(*textoInstrucciones.at(i));
     }
 
     window.draw(logo);
@@ -153,11 +154,23 @@ void StateInicio::inicializar()
     logo.setPosition(400,110);
     logo.setScale(0.5,0.5);
 
-    textoinstrucciones.setFont(*fuente);
-    textoinstrucciones.setScale(0.7,0.7);
-    textoinstrucciones.setString("Hola estas son las instrucciones. Actualmente en desarrollo.");
-    textoinstrucciones.setPosition(100,190);
-;}
+    flechas = new sf::Text(sf::String("Usa las flechas para mover el taxi"),*fuente);
+    pw = new sf::Text(sf::String("Usa la Q para utilizar el power-up"),*fuente);
+    dialogos = new sf::Text(sf::String("Usa la barra espaciadora para pasar los dialogos"),*fuente);
+    pausa = new sf::Text(sf::String("Usa Escape para pausar el juego"),*fuente);
+
+    textoInstrucciones.push_back(flechas);
+    textoInstrucciones.push_back(pw);
+    textoInstrucciones.push_back(dialogos);
+    textoInstrucciones.push_back(pausa);
+
+    for(int i = 0; i < (int) textoInstrucciones.size(); ++i)
+    {
+        textoInstrucciones.at(i)->setCharacterSize(28);
+        textoInstrucciones.at(i)->setOrigin(textoInstrucciones.at(i)->getGlobalBounds().width / 2.f, 0);
+        textoInstrucciones.at(i)->setPosition(contenedorMenu->getPosition().x, 104.f + (90.f * (i+1)));
+    }
+}
 
 void StateInicio::limpiar()
 {

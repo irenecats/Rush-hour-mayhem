@@ -34,7 +34,13 @@ class StateInicio : public State
         sf::Text* cargarPartida = nullptr;
         sf::Text* instrucciones = nullptr;
         Sprite logo;
-        sf::Text textoinstrucciones;
+
+        sf::Text* flechas = nullptr;
+        sf::Text* pw = nullptr;
+        sf::Text* dialogos = nullptr;
+        sf::Text* pausa = nullptr;
+
+        std::vector<sf::Text*> textoInstrucciones;
 
         std::vector<sf::Text*>* opciones = nullptr;
         int seleccion = 0;
