@@ -24,6 +24,8 @@ class StateEnJuego : public State
         void render(Window&, const float);
 
         void inicializar();
+        void nuevaPartida();
+        void cargarPartida();
         void limpiar();
         bool getRuta();
 

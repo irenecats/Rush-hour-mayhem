@@ -1,5 +1,7 @@
 #include "Ruta.h"
 
+bool Ruta::crearPersonajesDialogo = true;
+
 Ruta::Ruta() {}
 
 Ruta::~Ruta()
@@ -20,6 +22,8 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     origen      = new sf::RectangleShape(tam);
     destino     = new sf::RectangleShape(tam);
 
+    std::cout << "Valores de la ruta " << id << " inicializados" << std::endl;
+
     //Ponemos el origen el en centro y posicionamos el inicio y el fin de la ruta
     origen->setOrigin(origen->getSize().x/2,origen->getSize().y/2);
     origen->setPosition(inicio);
@@ -31,10 +35,13 @@ Ruta::Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int diner
     destino->setFillColor(sf::Color(0,35,91,125));
     destino->rotate(45);
 
+    std::cout << "Origen y destino posicionados" << std::endl;
+
     //Solo carga el spritesheet de los personajes cuando se crea la primera ruta
-    if(idRuta == 1) {
+    if(crearPersonajesDialogo) {
         std::string urlIntro = "resources/personajesDialogo.png";
         TexturaContainer::instancia()->crearTextura(urlIntro, "SpritesDialogos");
+        crearPersonajesDialogo = false;
     }
 
     cliente.setTextura(TexturaContainer::instancia()->getTextura("SpritesDialogos"));

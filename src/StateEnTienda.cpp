@@ -114,12 +114,10 @@ StateEnTienda::StateEnTienda()
     inicializar();
 }
 
-
 void StateEnTienda::configurarPowerUps(PowerUp*& pu, float n1, float n2) {
     pu->getSpritePU()->setOrigin(pu->getSpritePU()->getGlobalBounds()[0]/2, pu->getSpritePU()->getGlobalBounds()[1]/2);
     pu->getSpritePU()->setPosition(tamanyoX*n1 - 10, tamanyoY-tamanyoY*n2);
 }
-
 
 void StateEnTienda::configurarPrecios(sf::Text*& precio, int num, int numPowerUp) {
 
@@ -132,13 +130,11 @@ void StateEnTienda::configurarPrecios(sf::Text*& precio, int num, int numPowerUp
     precios.push_back(precio);
 }
 
-
 void StateEnTienda::configurarInfo(sf::Text*& tex, int tamanyo, float x, float y) {
     tex = new sf::Text(" ", *fuente, tamanyo);
     tex->setColor(sf::Color::White);
     tex->setPosition(x, y);
 }
-
 
 int StateEnTienda::numRandom(std::string tipoPowerUp) {
     int numero = 0;
@@ -153,7 +149,6 @@ int StateEnTienda::numRandom(std::string tipoPowerUp) {
 
     return numero;
 }
-
 
 StateEnTienda::~StateEnTienda()
 {

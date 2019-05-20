@@ -17,6 +17,8 @@ class StateEnPausa : public State
         void inicializar();
         void limpiar();
 
+        void guardar();
+
         ~StateEnPausa();
 
     private:
