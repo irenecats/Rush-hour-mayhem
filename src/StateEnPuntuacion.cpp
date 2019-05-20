@@ -20,8 +20,6 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
 
         if(StateEnJuego::instance()->getRuta() && !finjuego)
         {
-            Jugador::instancia()->setNumColisiones(0);
-
             printf("Pantalla Final\n");
             finjuego = true;
 
@@ -36,17 +34,21 @@ ID_State StateEnPuntuacion::input(int teclaPulsada)
                           std::to_string(hour)+":"+std::to_string(minute);
             muestraFinal();
 
+            Jugador::instancia()->setNumColisiones(0);
+            StateEnTienda::instance()->setDineroJugador();
         }
         else if(StateEnJuego::instance()->getRuta() && finjuego)
         {
-            Jugador::instancia()->setNumColisiones(0);
             next_state = ID_State::inicio;
+            Jugador::instancia()->setNumColisiones(0);
+            StateEnTienda::instance()->setDineroJugador();
         }
         else
         {
-            Jugador::instancia()->setNumColisiones(0);
             limpiar();
             next_state = ID_State::enTienda;
+            Jugador::instancia()->setNumColisiones(0);
+            StateEnTienda::instance()->setDineroJugador();
         }
     }
 
@@ -277,8 +279,6 @@ void StateEnPuntuacion::calcularPuntuacion ()
 
     //Actualizamos las variables de dinero del jugador
     Jugador::instancia()->setDinero(dinero);
-
-    std::cout << dinero/dineroPerf << std::endl;
 }
 
 

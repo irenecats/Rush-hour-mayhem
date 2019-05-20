@@ -8,6 +8,7 @@
 #include "Sprite.h"
 #include "TexturaContainer.h"
 #include "StateEnJuego.h"
+#include "StateEnTienda.h"
 
 class StateEnPuntuacion : public State
 {

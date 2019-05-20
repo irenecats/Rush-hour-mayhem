@@ -25,6 +25,7 @@ class StateEnTienda : public State
 
         void inicializar();
         void limpiar();
+        void setDineroJugador();
 
         ~StateEnTienda();
 
@@ -38,7 +39,7 @@ class StateEnTienda : public State
         FactoryPowerUp* fpu = nullptr;
 
         int seleccionado = 0;
-        int dineroAhorrado = 200; //sacar esta info desde jugador
+        int dineroAhorrado = 0; //sacar esta info desde jugador
 
         sf::Font* fuente = nullptr;
         sf::Text* titulo = nullptr;

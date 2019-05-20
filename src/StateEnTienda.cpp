@@ -308,7 +308,7 @@ void StateEnTienda::inicializar()
     if(dineroJugador)
         delete dineroJugador;
 
-    dineroJugador = new sf::Text("Dinero total: " + std::to_string(Jugador::instancia()->getDinero()), *fuente, 30);
+    dineroJugador = new sf::Text("Dinero total: " + std::to_string(dineroAhorrado), *fuente, 30);
     dineroJugador->setColor(sf::Color::White);
     dineroJugador->setPosition(tamanyoX - dineroJugador->getGlobalBounds().width - kMargen, kMargen);
 
@@ -325,6 +325,12 @@ void StateEnTienda::inicializar()
 void StateEnTienda::limpiar()
 {
     seleccionado = 0;
-    dineroAhorrado = 200;
+    dineroAhorrado = 0;
     reiniciarTienda = true;
+}
+
+void StateEnTienda::setDineroJugador() {
+    dineroAhorrado = Jugador::instancia()->getDinero();
+    dineroJugador->setString("Dinero total: " + std::to_string(dineroAhorrado));
+    dineroJugador->setPosition(dineroJugador->getPosition().x - 20, dineroJugador->getPosition().y);
 }

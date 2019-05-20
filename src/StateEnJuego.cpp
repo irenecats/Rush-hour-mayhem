@@ -495,6 +495,8 @@ bool StateEnJuego::getRuta()
 void StateEnJuego::inicializar()
 {
     ruta = factoriaRuta.creaRuta(ruta->getID()+1);
+    origen = ruta->getOrigen();
+    destino = ruta->getDestino();
     mTiempoLibre.play();
     cancionCambiada = false;
     textcronom.setString("0 s");

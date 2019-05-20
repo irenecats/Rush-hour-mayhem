@@ -29,11 +29,6 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
 
     switch(numRuta){
         case 1:
-            //inicio.x = 405*32;
-            //inicio.y = 288*32;
-            //fin.x = 226*32;
-            //fin.y = 349*32;
-
             inicio.x = 226*32;
             inicio.y = 349*32;
             fin.x = 235*32;
@@ -52,16 +47,6 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 2:
-            //inicio.x = 7000.0;
-            //inicio.y = 10000.0;
-            //fin.x = 240*32;
-            //fin.y = 360*32;
-            inicio.x = 250*32;
-            inicio.y = 360*32;
-            //fin.x = 226*32;
-            //fin.y = 349*32;
-            fin.x = 240*32;
-            fin.y = 360*32;
             inicio.x = 7000.0;
             inicio.y = 9500.0;
             fin.x = 7232.0;
