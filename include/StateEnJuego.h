@@ -2,6 +2,7 @@
 #define STATEENJUEGO_H
 
 #include "State.h"
+#include "StateEnPuntuacion.h"
 #include "Collision.h"
 #include <Sprite.h>
 #include <iostream>

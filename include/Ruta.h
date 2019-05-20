@@ -15,7 +15,7 @@ class Ruta
 {
     public:
         Ruta();
-        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, const char* titulo, std::string name, sf::IntRect areaRecorte,std::vector<sf::Vector2f>);
+        Ruta(int id, sf::Vector2f inicio, sf::Vector2f fin, bool client, int dinero, int tiempo, const char* titulo, std::string name, sf::IntRect areaRecorte,std::vector<sf::Vector2f>);
         virtual         ~Ruta();
 
         void            haTerminado();
@@ -29,6 +29,8 @@ class Ruta
         bool            getTerminada();
         int             getDiagActual();
         void            setDiagActual(int tipo);
+        int             getTiempoMax() { return tiempoMax; }
+        int             getDineroMax() { return dineroMax; }
 
         sf::RectangleShape*   getOrigen();
         sf::RectangleShape*   getDestino();
@@ -42,6 +44,7 @@ class Ruta
         sf::RectangleShape*  origen;
         sf::RectangleShape*  destino;
         int                  dineroMax;
+        int                  tiempoMax;
         bool                 activa;
         bool                 terminada;
         bool                espacioPulsado = false;

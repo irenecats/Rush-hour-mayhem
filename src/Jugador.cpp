@@ -349,3 +349,15 @@ bool Jugador::getZoom(){
 float Jugador::getVel(){
     return vel;
 }
+
+int Jugador::getNumColisiones() {
+    return numColisiones;
+}
+
+void Jugador::setNumColisiones(int numero) {
+    if(numero > 0)
+        numColisiones += numero;
+
+    else
+        numColisiones = 0;
+}

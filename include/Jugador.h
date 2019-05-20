@@ -60,12 +60,15 @@ class Jugador
         bool getPowerUpActivado();
         bool getZoom();
         float getVel();
+        int getNumColisiones();
+        void setNumColisiones(int numero);
 
     private:
         static Jugador* claseJugador;
 
         int dinero = 0;
         int dineroTotal = 0;
+        int numColisiones = 0;
 
         float vel = 0;
 
