@@ -39,6 +39,7 @@ class Jugador
 
         bool disparando();
         Bala* getBala();
+        void borraBala();
 
         void updateBrujula(float targetX, float targetY);
         void renderBrujula(Window&, float ptick);
@@ -56,6 +57,10 @@ class Jugador
 
         Clock turbo;
 
+        bool getPowerUpActivado();
+        bool getZoom();
+        float getVel();
+
     private:
         static Jugador* claseJugador;
 
@@ -70,6 +75,7 @@ class Jugador
 
         int powerUp;
         bool powerUpActivado = false;
+        bool zoom = false;
 
         bool chocando = false;
 

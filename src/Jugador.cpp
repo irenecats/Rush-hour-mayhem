@@ -123,11 +123,13 @@ float dirx, diry, mv, kr;
             if(turbo.getElapsedTime()<3000){
                 if(space){
                     if(mv<kMaxSpeed*2) mv=mv*2;
-                //if(abs(vel)>0.1 && view.getSize().x<640) view.zoom(1.001f);
-                //if(abs(vel)<0.1 && view.getSize().x>512)view.zoom(0.999f);
-                } //else if(view.getSize().x>512) view.zoom(0.999f);
-            }else if(turbo.getElapsedTime()>7000){
-                powerUpActivado=false;
+                    zoom=true;
+                }
+            }else{
+                zoom = false;
+                if(turbo.getElapsedTime()>7000){
+                    powerUpActivado=false;
+                }
             }
         }
 
@@ -268,6 +270,8 @@ int Jugador::getDineroTotal() {
 }
 
 void Jugador::frenar(float colx, float coly){
+int retr=10;
+if(powerUp==4) retr=5;
 
     jugador.setPosition(lastState.Getx(), lastState.Gety());
     newState.Setx(jugador.getPosition()[0]);
@@ -281,10 +285,10 @@ void Jugador::frenar(float colx, float coly){
 
     if(angulo2<0) angulo2 = 360 + angulo2;
 
-    if(angulo2>=45&&angulo2<135) jugador.mover(0, 5);
-    if(angulo2>=135&&angulo2<225) jugador.mover(-5, 0);
-    if(angulo2>=225&&angulo2<315) jugador.mover(0, -5);
-    if(angulo2>=315||angulo2<45) jugador.mover(5, 0);
+    if(angulo2>=45&&angulo2<135) jugador.mover(0, retr);
+    if(angulo2>=135&&angulo2<225) jugador.mover(-1*retr, 0);
+    if(angulo2>=225&&angulo2<315) jugador.mover(0, -1*retr);
+    if(angulo2>=315||angulo2<45) jugador.mover(retr, 0);
 
     newState.Setx(jugador.getPosition()[0]);
     newState.Sety(jugador.getPosition()[1]);
@@ -325,4 +329,23 @@ int Jugador::getColisiones(){
 
 void Jugador::borrarColisiones(){
     colisiones=0;
+}
+
+void Jugador::borraBala(){
+     if(bala!=nullptr){
+        delete bala;
+        bala = nullptr;
+    }
+}
+
+bool Jugador::getPowerUpActivado(){
+    return powerUpActivado;
+}
+
+bool Jugador::getZoom(){
+    return zoom;
+}
+
+float Jugador::getVel(){
+    return vel;
 }
