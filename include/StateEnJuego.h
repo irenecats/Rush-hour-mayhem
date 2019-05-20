@@ -57,6 +57,7 @@ class StateEnJuego : public State
         void generaCoches(int tot);
         int  compruebaNPC();
         void detectColisionRuta();
+        void detectColisionNPC();
         void detectColisionMapa();
         void recalculaRango();
         void cambiarCancion(std::string nombreCancion, sf::Music musica);

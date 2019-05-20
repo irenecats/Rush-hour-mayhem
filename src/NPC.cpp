@@ -66,7 +66,7 @@ bool NPC::mePasoMRU(sf::Vector2f posFinalFrame) {
     sf::Vector2f inicioGiro = damePuntoInicioGiro(*nodoDestino);
 
     return ((ceroNegativo(std::sin(orientacion)) && ((posFinalFrame.x - inicioGiro.x) * std::cos(orientacion) >= 0))
-           || (ceroNegativo(std::cos(orientacion)) && ((posFinalFrame.y - inicioGiro.y) * std::sin(orientacion) <= 0)));
+            || (ceroNegativo(std::cos(orientacion)) && ((posFinalFrame.y - inicioGiro.y) * std::sin(orientacion) <= 0)));
 }
 
 int NPC::calculaTiempoRecto() {
@@ -92,74 +92,79 @@ sf::Vector2f NPC::damePuntoFinGiro(Node &nodo) {
 }
 
 void NPC::update(int time) {
-    int tiempoRecto, tiempoGiro;
-    tiempoRecto = tiempoGiro = 0;
     posAnterior.Setx(posSiguiente.Getx());
     posAnterior.Sety(posSiguiente.Gety());
 
-    if (estoyRecto()) {
-        if (mePasoMRU(posMRU(time))) {
-            nodoInicio = nodoDestino;
-            nodoDestino = inteligencia->getNextNode(*nodoInicio);
-            //setDebugLine(nodoInicio, nodoDestino);
-            anguloNuevo = anguloCalle(nodoInicio, nodoDestino);
+    if (choque) {
+        desvanecerse();
+    } else {    // Update normal
+        int tiempoRecto, tiempoGiro;
+        tiempoRecto = tiempoGiro = 0;
 
-            if (a(sprite.getRotation()) != anguloNuevo) {
-                sentidoGiro = calculaSentidoGiro();
-                centroGiro = calculaPuntoImaginario(nodoInicio);
-                anguloBarrido = calculaAngBarridoInicial();
+        if (estoyRecto()) {
+            if (mePasoMRU(posMRU(time))) {
+                nodoInicio = nodoDestino;
+                nodoDestino = inteligencia->getNextNode(*nodoInicio);
+                //setDebugLine(nodoInicio, nodoDestino);
+                anguloNuevo = anguloCalle(nodoInicio, nodoDestino);
 
-                tiempoGiro = time - calculaTiempoRecto();
+                if (a(sprite.getRotation()) != anguloNuevo) {
+                    sentidoGiro = calculaSentidoGiro();
+                    centroGiro = calculaPuntoImaginario(nodoInicio);
+                    anguloBarrido = calculaAngBarridoInicial();
 
-                sf::Vector2f inicGiro = damePuntoInicioGiro(*nodoInicio);
-                sprite.setPosition(inicGiro.x, inicGiro.y);
+                    tiempoGiro = time - calculaTiempoRecto();
+
+                    sf::Vector2f inicGiro = damePuntoInicioGiro(*nodoInicio);
+                    sprite.setPosition(inicGiro.x, inicGiro.y);
+                } else {
+                    tiempoRecto = time;
+                }
             } else {
                 tiempoRecto = time;
             }
         } else {
-            tiempoRecto = time;
-        }
-    } else {
-        tiempoGiro = time;
-        float anguloIncremento = sentidoGiro * (tiempoGiro/1000.f) * velocidad / RADIO_GIRO;
-        float anguloBarridoFinal = anguloNuevo - 90 * sentidoGiro;
-        if (anguloBarridoFinal >= 360) anguloBarridoFinal = 0;
-        else if (anguloBarridoFinal <= 0) anguloBarridoFinal = 360;
-        anguloBarridoFinal *= M_PI/180.0;
+            tiempoGiro = time;
+            float anguloIncremento = sentidoGiro * (tiempoGiro/1000.f) * velocidad / RADIO_GIRO;
+            float anguloBarridoFinal = anguloNuevo - 90 * sentidoGiro;
+            if (anguloBarridoFinal >= 360) anguloBarridoFinal = 0;
+            else if (anguloBarridoFinal <= 0) anguloBarridoFinal = 360;
+            anguloBarridoFinal *= M_PI/180.0;
 
-        if (sentidoGiro > 0) {
-            if (anguloBarrido + anguloIncremento > anguloBarridoFinal) {
-                tiempoRecto = time - (anguloBarridoFinal - anguloBarrido) * RADIO_GIRO / velocidad * 1000;
-                tiempoGiro = 0;
-                sprite.setRotation(a(anguloNuevo));
-                sf::Vector2f finGiro = damePuntoFinGiro(*nodoInicio);
-                sprite.setPosition(finGiro.x, finGiro.y);
-            }
-        } else {
-            if (anguloBarrido + anguloIncremento < anguloBarridoFinal) {
-                tiempoRecto = time - (anguloBarrido - anguloBarridoFinal) * RADIO_GIRO / velocidad * 1000;
-                tiempoGiro = 0;
-                sprite.setRotation(a(anguloNuevo));
-                sf::Vector2f finGiro = damePuntoFinGiro(*nodoInicio);
-                sprite.setPosition(finGiro.x, finGiro.y);
+            if (sentidoGiro > 0) {
+                if (anguloBarrido + anguloIncremento > anguloBarridoFinal) {
+                    tiempoRecto = time - (anguloBarridoFinal - anguloBarrido) * RADIO_GIRO / velocidad * 1000;
+                    tiempoGiro = 0;
+                    sprite.setRotation(a(anguloNuevo));
+                    sf::Vector2f finGiro = damePuntoFinGiro(*nodoInicio);
+                    sprite.setPosition(finGiro.x, finGiro.y);
+                }
+            } else {
+                if (anguloBarrido + anguloIncremento < anguloBarridoFinal) {
+                    tiempoRecto = time - (anguloBarrido - anguloBarridoFinal) * RADIO_GIRO / velocidad * 1000;
+                    tiempoGiro = 0;
+                    sprite.setRotation(a(anguloNuevo));
+                    sf::Vector2f finGiro = damePuntoFinGiro(*nodoInicio);
+                    sprite.setPosition(finGiro.x, finGiro.y);
+                }
             }
         }
-    }
 
-    sf::Vector2f posAuxiliar;
-    if (tiempoGiro > 0) {
-        anguloBarrido += sentidoGiro * (tiempoGiro/1000.f) * velocidad / RADIO_GIRO;
-        posAuxiliar.x = centroGiro.x + RADIO_GIRO * std::cos(anguloBarrido);
-        posAuxiliar.y = centroGiro.y - RADIO_GIRO * std::sin(anguloBarrido);
-        sprite.setPosition(posAuxiliar.x, posAuxiliar.y);
-        sprite.setRotation(a((anguloBarrido * 180.0/M_PI) + 90 * sentidoGiro));
+        sf::Vector2f posAuxiliar;
+        if (tiempoGiro > 0) {
+            anguloBarrido += sentidoGiro * (tiempoGiro/1000.f) * velocidad / RADIO_GIRO;
+            posAuxiliar.x = centroGiro.x + RADIO_GIRO * std::cos(anguloBarrido);
+            posAuxiliar.y = centroGiro.y - RADIO_GIRO * std::sin(anguloBarrido);
+            sprite.setPosition(posAuxiliar.x, posAuxiliar.y);
+            sprite.setRotation(a((anguloBarrido * 180.0/M_PI) + 90 * sentidoGiro));
+        }
+        if (tiempoRecto > 0) {
+            posAuxiliar = posMRU(tiempoRecto);
+            sprite.setPosition(posAuxiliar.x, posAuxiliar.y);
+        }
+        posSiguiente.Setx(sprite.getPosition()[0]);
+        posSiguiente.Sety(sprite.getPosition()[1]);
     }
-    if (tiempoRecto > 0) {
-        posAuxiliar = posMRU(tiempoRecto);
-        sprite.setPosition(posAuxiliar.x, posAuxiliar.y);
-    }
-    posSiguiente.Setx(sprite.getPosition()[0]);
-    posSiguiente.Sety(sprite.getPosition()[1]);
 };
 
 void NPC::setDebugLine(Node *nodo1, Node *nodo2) {
@@ -322,3 +327,12 @@ float NPC::a(float angulo) {
     if (r >= 360) r -= 360;
     return r;
 };
+
+void NPC::desvanecerse() {
+    int alfa = sprite.getColor().a;
+    if (alfa > 0) {
+        sprite.setColor(sf::Color(255, 255, 255, alfa - 85));
+    } else {
+        borrame = true;
+    }
+}

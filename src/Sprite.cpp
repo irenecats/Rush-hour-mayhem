@@ -92,6 +92,10 @@ void Sprite::setTextura(sf::Texture* textura) {
 void Sprite::setColor(sf::Color c){
     s.setColor(c);
 }
+
+sf::Color Sprite::getColor() {
+    return s.getColor();
+}
 /*
 void Sprite::draw(sf::RenderTarget& target, sf::RenderStates states) const{
     states.transform *= getTransform();

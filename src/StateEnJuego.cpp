@@ -66,6 +66,7 @@ void StateEnJuego::update(int tiempo)
     ruta->Update(reloj);
     Jugador::instancia()->update(tiempo);
     detectColisionMapa();
+    detectColisionNPC();
     detectColisionRuta();
     if(Jugador::instancia()->disparando()) Jugador::instancia()->getBala()->update(tiempo);
     if(ruta->getActiva())
@@ -277,7 +278,7 @@ int StateEnJuego::compruebaNPC()
         distancia +=abs(npcs[i].Getsprite().getPosition()[1] - Jugador::instancia()->getJugador().getPosition()[1]);
         //Distancia discreta en geometria del taxista (distancia Manhattan)
         //printf("Creado en %i - %i\n",npcs[i].Getsprite().getPosition()[0],npcs[i].Getsprite().getPosition()[1]);
-        if(distancia>1500)
+        if(distancia>1500 || npcs[i].Getborrame())
         {
             /*printf("!!%i\n",i);
             printf("Eimino\n");
@@ -393,6 +394,22 @@ void StateEnJuego::detectColisionMapa()
 
     if(cont>0) Jugador::instancia()->frenar(xx, yy);
     else Jugador::instancia()->nofrenar();
+}
+
+void StateEnJuego::detectColisionNPC() {
+    for (NPC &coche : npcs) {
+        if (!coche.Getchoque()) {
+            if (Jugador::instancia()->disparando() && Collision::BoundingBoxTest(Jugador::instancia()->getBala()->getBala().getSprite(), coche.Getsprite().getSprite())) {
+                //<Destruir bala>
+                coche.Setchoque(true);
+                coche.Getchoque();
+            } else if (Collision::BoundingBoxTest(Jugador::instancia()->getJugador().getSprite(), coche.Getsprite().getSprite())) {
+                //<Frenar jugador>
+                coche.Setchoque(true);
+                coche.Getchoque();
+            }
+        }
+    }
 }
 
 void StateEnJuego::recalculaRango()

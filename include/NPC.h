@@ -25,6 +25,15 @@ public:
     Sprite Getsprite() {
         return sprite;
     }
+    bool Getborrame() {
+        return borrame;
+    }
+    bool Getchoque() {
+        return choque;
+    }
+    void Setchoque(bool val) {
+        choque = val;
+    }
     sf::RectangleShape GetRectFrenado() {
         return rectFrenado;
     }
@@ -51,7 +60,7 @@ private:
     sf::Vector2i puntoImaginario;
     sf::Vector2i centroGiro;
 
-    float MAX_VEL = 400;
+    float MAX_VEL = 32;
     float velocidad = MAX_VEL; // pixeles por segundo
     int sentidoGiro;
     int anguloNuevo;
@@ -73,6 +82,10 @@ private:
     float a(float angulo);
     sf::VertexArray debugLine;
     void setDebugLine(Node *nodo1, Node *nodo2);
+
+    bool choque = false;
+    bool borrame = false;
+    void desvanecerse();
 };
 
 #endif // NPC_H

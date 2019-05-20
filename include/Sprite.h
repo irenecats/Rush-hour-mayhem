@@ -17,6 +17,7 @@ class Sprite //: public sf::Drawable, public sf::Transformable
         float* getScale();
         float* getOrigin();
         float* getGlobalBounds();
+        sf::Color getColor();
 
         void setPosition(float x, float y);
         void setRotation(float r);
