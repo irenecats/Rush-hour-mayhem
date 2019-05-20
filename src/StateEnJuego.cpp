@@ -430,7 +430,7 @@ void StateEnJuego::detectColisionNPC() {
                 //<Destruir bala>
                 coche.Setchoque(true);
                 coche.Getchoque();
-            } else if (Collision::BoundingBoxTest(Jugador::instancia()->getJugador().getSprite(), coche.Getsprite().getSprite())) {
+            } else if (Collision::PixelPerfectTest(Jugador::instancia()->getJugador().getSprite(), coche.Getsprite().getSprite())) {
                 //<Frenar jugador>
                 coche.Setchoque(true);
                 coche.Getchoque();

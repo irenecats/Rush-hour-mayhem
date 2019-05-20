@@ -60,7 +60,7 @@ private:
     sf::Vector2i puntoImaginario;
     sf::Vector2i centroGiro;
 
-    float MAX_VEL = 32;
+    float MAX_VEL = 400;
     float velocidad = MAX_VEL; // pixeles por segundo
     int sentidoGiro;
     int anguloNuevo;
