@@ -9,6 +9,7 @@ class Clock
         virtual ~Clock();
         int getElapsedTime();
         int restart();
+        int getElapsedTimeSeconds();
 
     protected:
 
