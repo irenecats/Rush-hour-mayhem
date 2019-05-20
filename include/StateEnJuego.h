@@ -51,6 +51,10 @@ class StateEnJuego : public State
         sf::VertexArray      linea;
         IACircular           iaCirc;
         sf::VertexArray      guia;
+        //cronometro
+        Clock                cronometro;
+        int                  delta;
+        sf::Text             textcronom;
 
         float* posInicialJugador = nullptr;
 
