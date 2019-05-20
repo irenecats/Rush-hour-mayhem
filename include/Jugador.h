@@ -62,7 +62,6 @@ class Jugador
 
         int powerUp;
         bool powerUpActivado = false;
-
         bool chocando = false;
 
         Sprite jugador;
@@ -74,7 +73,6 @@ class Jugador
         Interpolacion newStateB;
 
         Bala* bala = nullptr;
-
 };
 
 #endif // JUGADOR_H

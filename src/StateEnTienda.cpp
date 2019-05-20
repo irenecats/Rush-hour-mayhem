@@ -47,6 +47,8 @@ ID_State StateEnTienda::input(int teclaPulsada)
         StateEnJuego::instance()->inicializar();
         next_state = ID_State::enJuego;
         StateEnJuego::instance()->inicializar();
+        mTienda.stop();
+        cancionCambiada = false;
     }
 
     if(teclaPulsada == sf::Keyboard::Right) {

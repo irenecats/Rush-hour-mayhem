@@ -375,6 +375,16 @@ void StateEnPuntuacion::leeFichero()
         rango.push_back(usuario);
         currentPos = rango.size();
     }
+
+    fichero.close();
+    std::ofstream mifichero;
+    mifichero.open("resources/ranking.txt");
+
+    for(unsigned int i=0; i<rango.size(); i++)
+    {
+        mifichero << rango[i][0]+"#"+rango[i][1]+"\n";
+    }
+    mifichero.close();
 }
 
 void StateEnPuntuacion::muestraFinal()

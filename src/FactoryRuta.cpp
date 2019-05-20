@@ -94,8 +94,8 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             inicio.y = 10000.0;
             fin.x = 7232.0;
             fin.y = 11072.0;
-            //fichero = "resources/embarazada.txt";
-            personaje   = "Travis";
+            fichero = "resources/uber.txt";
+            personaje = "Travis";
             areaRecorte = sf::IntRect(512,0,127,128);
             break;
     }

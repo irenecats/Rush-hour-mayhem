@@ -75,7 +75,12 @@ void StateEnJuego::update(int tiempo)
 
         if(!cancionCambiada && !ruta->getTerminada()) {
             mTiempoLibre.stop();
-            mMision.play();
+
+            if(Jugador::instancia()->getPW() == 3)
+                mRadio.play();
+            else
+                mMision.play();
+
             cancionCambiada = true;
         }
     }
@@ -338,7 +343,11 @@ void StateEnJuego::detectColisionRuta()
             guia = sf::VertexArray(sf::TrianglesStrip);
             //Cuando coche choque con ruta->getDestino,
             // delete ruta; rura = nullptr;
-            mMision.stop();
+            if(Jugador::instancia()->getPW() == 3)
+                mRadio.stop();
+            else
+                mMision.stop();
+
             mVictoria.play();
             printf("FIN DE LA RUTA\n");
         }

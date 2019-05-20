@@ -11,6 +11,7 @@ Jugador* Jugador::instancia() {
 
 //Al inicializar el jugador se carga la textura, se le asigna al Sprite y se posiciona en el juego
 Jugador::Jugador(){
+
     std::string url ("resources/spritesheet_vehicles.png");
     TexturaContainer::instancia()->crearTextura(url, "Jugador");
 
@@ -145,6 +146,8 @@ float dirx, diry, mv, kr;
         else if(powerUp == 7 && !powerUpActivado){
             jugador.setColor(sf::Color(255,255,255,255));
         }
+
+
 }
 
 //Render con interpolacion
