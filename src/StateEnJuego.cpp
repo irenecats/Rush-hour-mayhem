@@ -91,9 +91,9 @@ void StateEnJuego::update(int tiempo)
     }
 
     // Update de los npcs
-    for(int i = 0; i<npcs.size(); i++) {
+    for(unsigned int i = 0; i<npcs.size(); i++) {
         bool tocaFrenar = false;
-        for(int j = 0; !tocaFrenar && j<npcs.size(); j++) {
+        for(unsigned int j = 0; !tocaFrenar && j<npcs.size(); j++) {
             if (i == j) {
                 if (Collision::BoundingBoxSpriteRectTest(Jugador::instancia()->getJugador().getSprite(), npcs[i].GetRectFrenado())) {
                     tocaFrenar = true;
@@ -246,7 +246,7 @@ void StateEnJuego::generaCoches(int tot)
         colisionGenerarNPC.setPosition(posibles[num]->getCoorX(), posibles[num]->getCoorY());
 
         bool libre;
-        int k = 0;
+        unsigned int k = 0;
         if (npcs.size() == 0) {
             libre = true;
         } else {
@@ -647,7 +647,7 @@ for(unsigned int i=1;i<lineaRuta.size();i++){
 
 }
 
-/*
+
 void StateEnJuego::encuentraCMC()
 {
     printf("Busco CMC\n");

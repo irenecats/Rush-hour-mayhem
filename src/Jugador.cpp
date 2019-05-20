@@ -60,7 +60,7 @@ Jugador::Jugador(const Jugador& other)
 //Update con interpolacion que gestiona el movimiento del coche
 void Jugador::update(int tiempo){
 
-bool left=false, right=false, delante = false, atras = false, space = false, clocktwo=false, tope=false;
+bool left=false, right=false, delante = false, atras = false, space = false/*, clocktwo=false, tope=false*/;
 float dirx, diry, mv, kr;
 
     lastState.Setx(newState.Getx());
