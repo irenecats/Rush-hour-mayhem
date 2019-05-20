@@ -11,7 +11,6 @@ Jugador* Jugador::instancia() {
 
 //Al inicializar el jugador se carga la textura, se le asigna al Sprite y se posiciona en el juego
 Jugador::Jugador(){
-
     std::string url ("resources/spritesheet_vehicles.png");
     TexturaContainer::instancia()->crearTextura(url, "Jugador");
 
@@ -45,7 +44,7 @@ Jugador::Jugador(){
     newStateB.Setx(brujula.getPosition()[0]);
     newStateB.Sety(brujula.getPosition()[1]);
 
-    powerUp = 5;
+    powerUp = 1;
 }
 
 Jugador::~Jugador()
@@ -72,7 +71,14 @@ float dirx, diry, mv, kr;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) atras = true;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) right = true;
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) left = true;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)) space = true;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Q)){
+            space = true;
+            if(!powerUpActivado && powerUp==1){
+                powerUpActivado=true;
+                turbo.restart();
+                std::cout << "Activo el powerup" << std::endl;
+            }
+        }
     }
 
     //Controlar aqui tambien si se activa el powerup
@@ -98,7 +104,7 @@ float dirx, diry, mv, kr;
 
         kr=kRot;
 
-        if(powerUp==2 && space) kr = 1;
+        if(powerUp==2 && space) kr = 0.5;
 
         if(vel!=0){
             //ajustar frenada
@@ -113,19 +119,23 @@ float dirx, diry, mv, kr;
 
         mv = vel;
 
-        if(powerUp==1 && space){
-            if(mv<kMaxSpeed*2) mv=mv*2;
-        //if(abs(vel)>0.1 && view.getSize().x<640) view.zoom(1.001f);
-        //if(abs(vel)<0.1 && view.getSize().x>512)view.zoom(0.999f);
-        } //else if(view.getSize().x>512) view.zoom(0.999f);
-
+        if(powerUp==1 && powerUpActivado){
+            if(turbo.getElapsedTime()<3000){
+                if(space){
+                    if(mv<kMaxSpeed*2) mv=mv*2;
+                //if(abs(vel)>0.1 && view.getSize().x<640) view.zoom(1.001f);
+                //if(abs(vel)<0.1 && view.getSize().x>512)view.zoom(0.999f);
+                } //else if(view.getSize().x>512) view.zoom(0.999f);
+            }else if(turbo.getElapsedTime()>7000){
+                powerUpActivado=false;
+            }
+        }
 
         dirx = sin(jugador.getRotation()*rad);
         diry = -cos(jugador.getRotation()*rad);
 
-        if(!chocando)
-            jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
-        //if(!chocando)jugador.mover(dirx*mv, diry*mv);
+        //if(!chocando)jugador.mover(dirx*mv*tiempo*0.01, diry*mv*tiempo*0.01);
+        if(!chocando)jugador.mover(dirx*mv, diry*mv);
 
         newState.Setx(jugador.getPosition()[0]);
         newState.Sety(jugador.getPosition()[1]);
@@ -146,8 +156,6 @@ float dirx, diry, mv, kr;
         else if(powerUp == 7 && !powerUpActivado){
             jugador.setColor(sf::Color(255,255,255,255));
         }
-
-
 }
 
 //Render con interpolacion
@@ -282,8 +290,39 @@ void Jugador::frenar(float colx, float coly){
     newState.Sety(jugador.getPosition()[1]);
 
     vel=0;
+
+    if(powerUp!=3)colisiones++;
 }
 
 void Jugador::nofrenar(){
     chocando = false;
+}
+
+void Jugador::frenacoche(){
+
+    jugador.setPosition(lastState.Getx(), lastState.Gety());
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
+
+    chocando = true;
+
+    float dirx = sin(jugador.getRotation()*rad);
+    float diry = -cos(jugador.getRotation()*rad);
+
+    jugador.mover(dirx*10, diry*10);
+
+    newState.Setx(jugador.getPosition()[0]);
+    newState.Sety(jugador.getPosition()[1]);
+
+    vel=0;
+
+    if(powerUp!=3)colisiones++;
+}
+
+int Jugador::getColisiones(){
+    return colisiones;
+}
+
+void Jugador::borrarColisiones(){
+    colisiones=0;
 }

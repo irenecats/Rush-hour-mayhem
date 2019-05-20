@@ -49,6 +49,12 @@ class Jugador
 
         void frenar(float colx, float coly);
         void nofrenar();
+        void frenacoche();
+
+        int getColisiones();
+        void borrarColisiones();
+
+        Clock turbo;
 
     private:
         static Jugador* claseJugador;
@@ -60,8 +66,11 @@ class Jugador
 
         float _dirx, _diry;
 
+        int colisiones = 0;
+
         int powerUp;
         bool powerUpActivado = false;
+
         bool chocando = false;
 
         Sprite jugador;
@@ -73,6 +82,7 @@ class Jugador
         Interpolacion newStateB;
 
         Bala* bala = nullptr;
+
 };
 
 #endif // JUGADOR_H
