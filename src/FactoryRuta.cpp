@@ -28,6 +28,11 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
 
     switch(numRuta){
         case 1:
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             //inicio.x = 405*32;
             //inicio.y = 288*32;
 
@@ -37,6 +42,37 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             //fin.y = 349*32;
             fin.x = 240*32;
             fin.y = 360*32;
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+
+            //inicio.x = 405*32;
+            //inicio.y = 288*32;
+
+            inicio.x = 226*32;
+            inicio.y = 349*32;
+            fin.x = 226*32;
+            fin.y = 349*32;
+
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             dinero = 300;
             fichero = "resources/pija.txt";
             personaje   = "Brittany";  //o tiffany, se aceptan propuestas
@@ -48,6 +84,11 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             break;
 
         case 2:
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
             //inicio.x = 7000.0;
             //inicio.y = 10000.0;
             //fin.x = 240*32;
@@ -58,6 +99,32 @@ Ruta* FactoryRuta::creaRuta(int numRuta){
             //fin.y = 349*32;
             fin.x = 240*32;
             fin.y = 360*32;
+=======
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+            inicio.x = 7000.0;
+            inicio.y = 10000.0;
+            fin.x = 7232.0;
+            fin.y = 11072.0;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
             fichero = "resources/embarazada.txt";
             personaje   = "Embarazada";
             areaRecorte = sf::IntRect(128,0,124,128);

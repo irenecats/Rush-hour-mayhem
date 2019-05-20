@@ -39,3 +39,4 @@ obj/
 *.save
 
 resources/ranking.txt
+resources/partidaGuardada.txt

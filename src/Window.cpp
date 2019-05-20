@@ -70,9 +70,6 @@ void Window::draw(Sprite &sprite) {
     window.draw(sprite.getSprite());
 }
 
-void Window::draw(sf::VertexArray &varray) {
-    window.draw(varray);
-}
 sf::Vector2u Window::getSize() {
     return window.getSize();
 }
@@ -88,9 +85,9 @@ void Window::draw(sf::Text &text){
 void Window::setView(sf::View view){
     window.setView(view);
 }
-/*void Window::draw(sf::VertexArray &vertex){
+void Window::draw(sf::VertexArray &vertex){
     window.draw(vertex);
-}*/
+}
 /*
 app.pollEvent(event)
 app.close()

@@ -17,6 +17,8 @@ public:
 
     ID_State input(int);
     void update(int tiempo);
+    void update();
+   
     void render(Window&, const float);
 
     void inicializar();
@@ -28,7 +30,6 @@ private:
 
     static StateEnPuntuacion* instancia;
     StateEnPuntuacion();
-
     bool cancionCambiada = false;
 
     float porcentaje = 0.f;

@@ -40,6 +40,8 @@ class StateEnPausa : public State
 
         bool    fin;
         bool salirPartida = false;
+
+
 };
 
 #endif // STATEENPAUSA_H
